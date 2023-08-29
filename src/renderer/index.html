@@ -12,21 +12,21 @@
 <body>
 
 <!-- Menu -->
-<nav class="menu" id="menu"><br>
-  <a onclick="menu_close()" class="menu-button menu-close-button"><</a>
+<nav id="menu" class="menu"><br>
+  <a onclick="closeMenu()" class="menu-button menu-close-button"><</a>
   <h3 class="menu-title">WIMUMO</h3>
-  <a href="#instructions" onclick="body_exchange('instructions')" class="menu-button">Instrucciones</a> 
-  <a href="#connection" onclick="body_exchange('connection')" class="menu-button">Conexión</a> 
-  <a href="#graph" onclick="body_exchange('graph')" class="menu-button">Señales</a>
-  <a href="#calibration" onclick="body_exchange('calibration')" class="menu-button">Calibración</a>
-  <a href="#music" onclick="body_exchange('music')" class="menu-button">Música</a>
-  <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Ruteo OSC</a>
+  <a href="#instructions" onclick="exchangeBody('instructions')" class="menu-button">Instrucciones</a> 
+  <a href="#connection" onclick="exchangeBody('connection')" class="menu-button">Conexión</a> 
+  <a href="#graph" onclick="exchangeBody('graph')" class="menu-button">Señales</a>
+  <a href="#calibration" onclick="exchangeBody('calibration')" class="menu-button">Calibración</a>
+  <a href="#music" onclick="exchangeBody('music')" class="menu-button">Música</a>
+  <a href="#rerouter" onclick="exchangeBody('rerouter')" class="menu-button">Ruteo OSC</a>
 </nav>
 
 <!-- Barra de navegación [pantalla pequeña] -->
 <header class="menu-top-bar">
   <span class="menu-top-title">WIMUMO</span>
-  <a class="menu-button menu-top-button" onclick="menu_open()">☰</a>
+  <a onclick="openMenu()" class="menu-button menu-top-button">☰</a>
 </header>
 
 <!-- Efecto overlay [pantalla pequeña] -->
@@ -201,6 +201,7 @@
   
   <div id="graph" hiden>
     <h3>Señales</h3>
+
     <div id="graphButtons">
       <button onclick="addGraph()">Agregar</button>
       <button onclick="removeGraph()">Eliminar</button>
@@ -212,8 +213,48 @@
   </div>
 
   <div id="calibration" hiden>
-    <h3>Calibración</h3>
-    <p id="estado"></p>
+    <h3>Calibración de umbrales</h3>
+    <div id="calibrationButtons">
+      <button onclick="">Calibrar</button>
+    </div>
+    <div id="calibrationResults">
+    <h4>Resultados</h4>
+    <table>
+      <tr>
+        <th>
+          <p>Canales</p>
+        </th>
+        <th>
+          <p>Umbral Superior</p>
+        </th>
+        <th>
+          <p>Umbral Inferior</p>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <p>CH1</p>
+        </th>
+        <th>
+          <p></p>
+        </th>
+        <th>
+          <p></p>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <p>CH2</p>
+        </th>
+        <th>
+          <p></p>
+        </th>
+        <th>
+          <p></p>
+        </th>
+      </tr>
+    </table>
+    </div>
   </div>
 
   <div id="music" hiden>

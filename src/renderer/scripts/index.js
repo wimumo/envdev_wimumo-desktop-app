@@ -1,28 +1,28 @@
 /* Manu principal */
 
-function menu_open() {
+function openMenu() {
     document.getElementById('menu').setAttribute('shown','');
     document.getElementById("overlay").setAttribute('shown','');
   }
   
-function menu_close() {
+function closeMenu() {
     document.getElementById('menu').removeAttribute('shown');
     document.getElementById('overlay').removeAttribute('shown');
 }
 
 /* Pestañas */
 
-categories = ['instructions', 'connection', 'graph', 'calibration', 'music', 'rerouter'];
-category_active = categories[0];
+categoryList = ['instructions', 'connection', 'graph', 'calibration', 'music', 'rerouter'];
+category = categoryList[0];
 
-function body_exchange (category_selected) {
+function exchangeBody (categorySelected) {
 
-  document.getElementById(category_active).setAttribute('hiden','');
-  document.getElementById(category_selected).removeAttribute('hiden');
+  document.getElementById(category).setAttribute('hiden','');
+  document.getElementById(categorySelected).removeAttribute('hiden');
 
-  category_active = category_selected;
+  category = categorySelected;
 
-  menu_close();
+  closeMenu();
 }
 
 /* Datos */
@@ -49,54 +49,55 @@ class MovAvg {
 }
 
 
-var info_received = false;
-var info_reported = false;
-var base_route = "/wimumo020";
+var infoReceived = false;
+var infoReported = false;
+var baseRoute = "/wimumo020";
+var channelList = [];
 var channels = [];
-var channels_active = [];
-var numch = 0;
-var batery_filter = new MovAvg(15);
+var nChannels = 0;
+var batteryFilter = new MovAvg(15);
 
 window.api.receive('osc', (data) => {
 
   if (data == 'undefined') return;
 
-  if (info_received == false && data[0].substring(11, 15) == "info") {
-    info_received = true;
-    base_route = data[0].substring(0, 10);
+  if (infoReceived == false && data[0].substring(11, 15) == "info") {
+    infoReceived = true;
+    console.log(data);
+    baseRoute = data[0].substring(0, 10);
     for (let i = 0; i < parseInt(data[6]); i++) {
       channels.push(data[7 + i].substring(10));
     }
-    enableChannels(channels);
+    listGraphChannels(channels);
   }
 
   /* Graficador */
-  if(info_received == true && category_active == categories[2]) {
+  if(infoReceived == true && category == categoryList[2]) {
     /* Acá se hace el filtado para graficar */
-    for (let i = 0; i < channels_active.length; i++){
-      if (data[0] == (base_route + channels_active[i].channel)) {
+    for (let i = 0; i < channels.length; i++){
+      if (data[0] == (baseRoute + channels[i].channel)) {
         var sample = [];
         for (let i = 1; i < data.length; i++) {
           sample.push(parseInt(data[i]));
         }
-        plot(channels_active[i].channel, sample);
+        plot(channels[i].channel, sample);
       }
     } 
   }
-  /* Musica */
-  else if (info_received == true && category_active == categories[3]) {
-    if (data[0] == base_route + "/env/ch1" && audioEnabled == true) {
+  /* Música */
+  else if (infoReceived == true && category == categoryList[3]) {
+    if (data[0] == baseRoute + "/env/ch1" && audioEnabled == true) {
       actualizarValor(1, parseInt(data[1]));
     }
-    if (data[0] == base_route + "/env/ch2" && audioEnabled == true) {
+    if (data[0] == baseRoute + "/env/ch2" && audioEnabled == true) {
       actualizarValor(2, parseInt(data[1]));
     }
   }
-  /* Configuración */
-  else if (info_received == true && category_active == categories[1]) {
+  /* Conexión */
+  else if (infoReceived == true && category == categoryList[1]) {
   
-    if (info_reported == false && data[0] == base_route + "/info") {
-      info_reported = true;
+    if (infoReported == false && data[0] == baseRoute + "/info") {
+      infoReported = true;
       var string = "";
       string += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> en IP ";
       string += data[1];
@@ -107,17 +108,15 @@ window.api.receive('osc', (data) => {
         string += '<br> Enviando datos a: ';
         string += data[3] + ":" + data[4];
       }
-      string += '<br> Nivel de batería aproximado: <span id="batery_level"></span>';
+      string += '<br> Nivel de batería aproximado: <span id="batteryLevel"></span>';
       document.getElementById("status").innerHTML = string;
     }
-    if (info_reported == true && data[0] == base_route + "/info" && typeof batery_filter !== 'undefined') {
-      var batery_level = data[5];
-      batery_level = batery_filter.nuevoDato(batery_level);
-      if(batery_level<0) batery_level = 0;
-      if(batery_level>100) batery_level = 100;
-      var nivel_batt_pc = "";
-      nivel_batt_pc += parseInt(batery_level) + "%";
-      document.getElementById("batery_level").innerHTML = nivel_batt_pc;
+    if (infoReported == true && data[0] == baseRoute + "/info" && typeof batteryFilter !== 'undefined') {
+      var batteryLevel = data[5];
+      batteryLevel = batteryFilter.nuevoDato(batteryLevel);
+      if(batteryLevel<0) batteryLevel = 0;
+      if(batteryLevel>100) batteryLevel = 100;
+      document.getElementById("batteryLevel").innerHTML = parseInt(batteryLevel) + "%";
     }
   }
 

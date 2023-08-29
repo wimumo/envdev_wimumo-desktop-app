@@ -12,19 +12,19 @@ var recording = false;
 class Graph {
   /* Características */
   fsps;
-  fspsArr = [];  // Arreglo para promedio de Fps dinámico
+  fspsList = [];  // Arreglo para promedio de Fps dinámico
   samples = []; // Buffer para almacenar las muestras que deben graficarse
   nSamples;
   tGraphMS; // Período de graficación en milisegundos
   samplesPerGraph;
 
-  t_tick;
-  t_width;
+  tTick;
+  tWidth;
   dx;
   x;
-  x_prev;
+  xPrev;
   e;
-  e_prev;
+  ePrev;
   /* Límites graficos */
   width;
   height;
@@ -62,13 +62,13 @@ class Graph {
     this.tGraphMS = 50;
     this.samplesPerGraph = Math.ceil(this.fsps / (1000 / this.tGraphMS));
 
-    this.t_tick = this.tGraphMS / 1000;
-    this.t_width = 5;
-    this.dx = this.t_tick / this.t_width * this.width;
+    this.tTick = this.tGraphMS / 1000;
+    this.tWidth = 5;
+    this.dx = this.tTick / this.tWidth * this.width;
     this.x = 0;
-    this.x_prev = 0;
+    this.xPrev = 0;
     this.s = 0;
-    this.s_prev = 0;
+    this.sPrev = 0;
 
     // Estado
     this.channel = "null";
@@ -95,12 +95,12 @@ class Graph {
   }
 
   updateFsps() {
-    this.fspsArr.push(this.nSamples);
-    this.fspsArr.shift();
-    let Nd = this.fspsArr.length;
-    this.fsps = this.fspsArr[0];
+    this.fspsList.push(this.nSamples);
+    this.fspsList.shift();
+    let Nd = this.fspsList.length;
+    this.fsps = this.fspsList[0];
     for (let di = 1; di < Nd; di++) {
-      this.fsps += this.fspsArr[di];
+      this.fsps += this.fspsList[di];
     }
     this.fsps /= Nd;
     this.nSamples = 0;
@@ -137,12 +137,12 @@ class Graph {
       if (this.x > this.width) {
         this.ctx.stroke();
         this.ctx.clearRect(0, 0, this.width, this.height);
-        this.cursor.refrescar();
+        this.cursor.refresh();
         this.ctx.beginPath();
         this.ctx.strokeStyle = this.color;
         this.x = 0;
-        this.x_prev = 0;
-        this.ctx.moveTo(0, this.s_prev);
+        this.xPrev = 0;
+        this.ctx.moveTo(0, this.sPrev);
       }
     }
     this.x_prev = this.x;
@@ -156,7 +156,7 @@ class Graph {
     let rect = this.canvas.getBoundingClientRect();
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
-    this.cursor.pedirMovimiento(y);
+    this.cursor.setNewPosition(y);
     this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1);
   }
 
@@ -172,7 +172,7 @@ class Cursor {
   ctx;
   width;
   pos;
-  pos_new;
+  newPos;
   color;
 
   constructor(canvas, color) {
@@ -180,11 +180,11 @@ class Cursor {
     this.width = canvas.width;
     this.pos = 0;
     this.color = color;
-    this.pos_new = 0;
+    this.newPos = 0;
 
   }
 
-  refrescar() {
+  refresh() {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.color;
     this.ctx.moveTo(0, this.pos);
@@ -192,28 +192,28 @@ class Cursor {
     this.ctx.stroke();
   }
 
-  borrar() {
+  delete() {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(0, this.pos - 1, this.width, 2);
   }
 
   updatePosition() {
-    if (this.pos_new != this.pos) {
+    if (this.newPos != this.pos) {
       this.ctx.save();
       this.ctx.globalCompositeOperation = "destination-out";
-      this.borrar();
+      this.delete();
       this.ctx.restore();
-      this.pos = this.pos_new;
-      this.refrescar();
+      this.pos = this.newPos;
+      this.refresh();
     }
   }
 
-  pedirMovimiento(pos_new) {
-    this.pos_new = pos_new;
+  setNewPosition(newPos) {
+    this.newPos = newPos;
   }
 }
 
-function enableChannels(chs) {
+function listGraphChannels(chs) {
   for (let i = 0; i < graphs.length; i++) {
     if (graphs[i].ready == false && channels.length != 0){
       graphs[i].ready = true;
@@ -260,10 +260,10 @@ function addGraph(){
   let title = document.createElement('select');
   title.for = "canvas" + n;
   title.id = "titleCanvas" + n;
-  let chan = document.createElement("option");
-  chan.innerHTML = "Seleccione canal";
-  chan.value = "null";
-  title.appendChild(chan);
+  let nullC = document.createElement("option");
+  nullC.innerHTML = "Seleccione canal";
+  nullC.value = "null";
+  title.appendChild(nullC);
   div.appendChild(title);
 
   let buttonZOut = document.createElement('button');
@@ -298,18 +298,18 @@ function addGraph(){
     /* Previous channel */
     if (graphs[n-1].channel == "null") this.removeChild(this.options[0]);
     else {
-      indexC = channels_active.findIndex(channel_active => channel_active.channel == graphs[n-1].channel);
-      if (indexC > -1 && channels_active[indexC].n == 1) channels_active.splice(indexC, 1);
-      else if(indexC > -1) channels_active[indexC].n--;
+      indexC = channels.findIndex(channel => channel.channel == graphs[n-1].channel);
+      if (indexC > -1 && channels[indexC].n == 1) channels.splice(indexC, 1);
+      else if(indexC > -1) channels[indexC].n--;
     }
     /* New channel */
     graphs[n-1].channel = this.value;
-    indexC = channels_active.findIndex(channel_active => channel_active.channel == this.value);
-    if (indexC > -1) channels_active[indexC].n++;
-    else channels_active.push({'channel': this.value, 'n': 1});
+    indexC = channels.findIndex(channel => channel.channel == this.value);
+    if (indexC > -1) channels[indexC].n++;
+    else channels.push({'channel': this.value, 'n': 1});
   };
 
-  enableChannels(channels);
+  listGraphChannels(channels);
 }
 
 function removeGraph(){
