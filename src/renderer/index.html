@@ -15,10 +15,11 @@
 <nav class="menu" id="menu"><br>
   <a onclick="menu_close()" class="menu-button menu-close-button"><</a>
   <h3 class="menu-title">WIMUMO</h3>
-  <a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a> 
-  <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Configuración</a> 
-  <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
-  <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
+  <a href="#instructions" onclick="body_exchange('instructions')" class="menu-button">Instrucciones</a> 
+  <a href="#connection" onclick="body_exchange('connection')" class="menu-button">Conexión</a> 
+  <a href="#graph" onclick="body_exchange('graph')" class="menu-button">Señales</a>
+  <a href="#calibration" onclick="body_exchange('calibration')" class="menu-button">Calibración</a>
+  <a href="#music" onclick="body_exchange('music')" class="menu-button">Música</a>
   <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Ruteo OSC</a>
 </nav>
 
@@ -34,7 +35,7 @@
 <!-- Paneles -->
 <div class="main">
 
-  <div id="instrucciones" hiden>
+  <div id="instructions" hiden>
     <h3>Instrucciones</h3>
 
     <p> 
@@ -138,7 +139,7 @@
         Ingrese a "Configurar OSC" e ingrese la IP de la computadora donde desea
         enviar las señales OSC y el puerto, luego presione "Enviar Datos". Si desea
         usar WIMUMO desde esta aplicación, la dirección IP deberá ser la de esta
-        computadora <span id="instrucciones_iplocal"> </span> y en "puerto" debe
+        computadora <span id="instructions_iplocal"> </span> y en "puerto" debe
         ingresar <mark> 4560 </mark>. 
       </li>
       <li>
@@ -193,12 +194,12 @@
     </footer>
   </div>
 
-  <div id="configuracion" hiden>
-    <h3>Estado de WIMUMO</h3>
-    <p id="estado"></p>
+  <div id="connection" hiden>
+    <h3>Estado de conexión</h3>
+    <p id="status"></p>
   </div>
   
-  <div id="graficador" hiden>
+  <div id="graph" hiden>
     <h3>Señales</h3>
     <div id="graphButtons">
       <button onclick="addGraph()">Agregar</button>
@@ -210,14 +211,19 @@
     </div>
   </div>
 
-  <div id="musica" hiden>
+  <div id="calibration" hiden>
+    <h3>Calibración</h3>
+    <p id="estado"></p>
+  </div>
+
+  <div id="music" hiden>
     <h3>Música</h3>
     <p>
-      <button class="vumetro" id="ch1">1</button>
+      <button class="vumeter" id="ch1">1</button>
       <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch1">
     </p>
     <p>
-      <button class="vumetro" id="ch2">2</button>
+      <button class="vumeter" id="ch2">2</button>
       <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch2">
     </p>
 
@@ -244,6 +250,7 @@
 <script src="scripts/index.js"></script>
 <script src="scripts/instructions.js"></script>
 <script src="scripts/graph.js"></script>
+<script src="scripts/calibration.js"></script>
 <script src="scripts/music.js"></script>
 <script src="scripts/rerouter.js"></script>
 

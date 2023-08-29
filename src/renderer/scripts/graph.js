@@ -286,7 +286,7 @@ function addGraph(){
   info.innerHTML = "Información:"
   div.appendChild(info);
 
-  document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtons'));
+  document.getElementById('graph').insertBefore(div, document.getElementById('graphButtons'));
 
   graphs.push(new Graph(document.getElementById("canvas"+n), document.getElementById("titleCanvas"+n), document.getElementById("infoCanvas"+n)));
 
@@ -313,7 +313,7 @@ function addGraph(){
 }
 
 function removeGraph(){
-  document.getElementById('graficador').removeChild(document.getElementById("graph" + graphs.length));
+  document.getElementById('graph').removeChild(document.getElementById("graph" + graphs.length));
   graphs.pop();
 }
 

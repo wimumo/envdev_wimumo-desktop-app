@@ -12,7 +12,7 @@ function menu_close() {
 
 /* Pestañas */
 
-categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter'];
+categories = ['instructions', 'connection', 'graph', 'calibration', 'music', 'rerouter'];
 category_active = categories[0];
 
 function body_exchange (category_selected) {
@@ -27,7 +27,7 @@ function body_exchange (category_selected) {
 
 /* Datos */
 
-class Movprom {
+class MovAvg {
   constructor(n) {
     this.arr = [];
     this.N = n;
@@ -55,7 +55,7 @@ var base_route = "/wimumo020";
 var channels = [];
 var channels_active = [];
 var numch = 0;
-var filt_batt = new Movprom(15);
+var batery_filter = new MovAvg(15);
 
 window.api.receive('osc', (data) => {
 
@@ -97,27 +97,27 @@ window.api.receive('osc', (data) => {
   
     if (info_reported == false && data[0] == base_route + "/info") {
       info_reported = true;
-      var cad = "";
-      cad += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> en IP ";
-      cad += data[1];
+      var string = "";
+      string += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> en IP ";
+      string += data[1];
       if (data[2] == "false") {
-        cad += '<br> NO está enviando datos (configure manualmente o presione "autoconfigurar")';
+        string += '<br> NO está enviando datos (configure manualmente o presione "autoconfigurar")';
       }
       else {
-        cad += '<br> Enviando datos a: ';
-        cad += data[3] + ":" + data[4];
+        string += '<br> Enviando datos a: ';
+        string += data[3] + ":" + data[4];
       }
-      cad += '<br> Nivel de batería aproximado: <span id="nivel_batt"></span>';
-      document.getElementById("estado").innerHTML = cad;
+      string += '<br> Nivel de batería aproximado: <span id="batery_level"></span>';
+      document.getElementById("status").innerHTML = string;
     }
-    if (info_reported == true && data[0] == base_route + "/info" && typeof filt_batt !== 'undefined') {
-      var nivel_batt = data[5];
-      nivel_batt = filt_batt.nuevoDato(nivel_batt);
-      if(nivel_batt<0) nivel_batt = 0;
-      if(nivel_batt>100) nivel_batt = 100;
+    if (info_reported == true && data[0] == base_route + "/info" && typeof batery_filter !== 'undefined') {
+      var batery_level = data[5];
+      batery_level = batery_filter.nuevoDato(batery_level);
+      if(batery_level<0) batery_level = 0;
+      if(batery_level>100) batery_level = 100;
       var nivel_batt_pc = "";
-      nivel_batt_pc += parseInt(nivel_batt) + "%";
-      document.getElementById("nivel_batt").innerHTML = nivel_batt_pc;
+      nivel_batt_pc += parseInt(batery_level) + "%";
+      document.getElementById("batery_level").innerHTML = nivel_batt_pc;
     }
   }
 
