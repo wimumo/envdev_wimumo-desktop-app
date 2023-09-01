@@ -333,7 +333,7 @@ function button_toggleRecord() {
     recording = true;
     content = [];
     document.getElementById("rec").style.backgroundColor = "red";
-    document.getElementById("rec").innerText = "recording";
+    document.getElementById("rec").innerText = "Detener";
   }
   else if (recording == true) {
     recording = false;
@@ -351,7 +351,8 @@ function button_download() {
     type: "text/plain;charset=utf-8"
   });
 
-  saveAs(blob, filename);
+  console.log(content);
+  //saveAs(blob, filename);
 }
 
 

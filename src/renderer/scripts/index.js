@@ -63,7 +63,6 @@ window.api.receive('osc', (data) => {
 
   if (infoReceived == false && data[0].substring(11, 15) == "info") {
     infoReceived = true;
-    console.log(data);
     baseRoute = data[0].substring(0, 10);
     for (let i = 0; i < parseInt(data[6]); i++) {
       channels.push(data[7 + i].substring(10));
@@ -85,7 +84,7 @@ window.api.receive('osc', (data) => {
     } 
   }
   /* Música */
-  else if (infoReceived == true && category == categoryList[3]) {
+  else if (infoReceived == true && category == categoryList[4]) {
     if (data[0] == baseRoute + "/env/ch1" && audioEnabled == true) {
       actualizarValor(1, parseInt(data[1]));
     }
