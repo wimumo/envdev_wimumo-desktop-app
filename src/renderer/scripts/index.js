@@ -64,7 +64,8 @@ window.api.receive('osc', (data) => {
   if (infoReceived == false && data[0].substring(11, 15) == "info") {
     infoReceived = true;
     baseRoute = data[0].substring(0, 10);
-    for (let i = 0; i < parseInt(data[6]); i++) {
+    nChannels = parseInt(data[6]);
+    for (let i = 0; i < nChannels; i++) {
       channels.push(data[7 + i].substring(10));
     }
     listGraphChannels(channels);
@@ -81,8 +82,15 @@ window.api.receive('osc', (data) => {
         }
         plot(channels[i].channel, sample);
       }
+    }
+    if (data[0] == baseRoute + "/env/ch1" && calibrating == true) {
+      content[0].push(parseInt(data[1]));
+    }
+    if (data[0] == baseRoute + "/env/ch2" && calibrating == true) {
+      content[1].push(parseInt(data[1]));
     } 
   }
+  
   /* Música */
   else if (infoReceived == true && category == categoryList[4]) {
     if (data[0] == baseRoute + "/env/ch1" && audioEnabled == true) {
