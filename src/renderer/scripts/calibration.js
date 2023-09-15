@@ -19,42 +19,43 @@ function calibrate (){
 function calculateThresholds () {
    
     console.log(contenido);
+    
     fsps = 20;                 // Samples per second
     
-    initBase = 0 * fsps;
-    endBase = 10 * fsps;
+    initBase = 25*fsps-1;
+    endBase = contenido.length;
     nBase = endBase - initBase;
     
-    initTop = endBase;
-    endTop = contenido.length;
+    initTop = 2*fsps-1;
+    endTop = initBase;
     nTop = endTop - initTop;
 
-    kSmoothBase = 50*(10^-3)/100;
-    kRoughBase = 50*(10^-3)/150*(10^-3);
-
-    kDesviationBase = 6;
-    kThresholdBase = 1.5;
-    kThresholdTop = 0.4;
-
-
-    thresholdBase = 0; 
-    thresholdTop = 0;
 
     /* Base threshold (Deactivativation) */
-    yBase = [];
     
-    xBase = contenido.slice(initBase, nBase);
-    console.log(xBase);
+    // Constants filter
+    kSmoothBase = (50*(10**(-3)))/100;
+    kRoughBase = (50*(10**(-3)))/(150*(10**(-3)));
+    console.log(kSmoothBase);
+    console.log(kRoughBase);
 
+    // Constants threshold
+    kDesviationBase = 6;
+    kThresholdBase = 1.5;
+    
+    xBase = contenido.slice(initBase, endBase);
+
+    yBase = [];
     yBase[0] = xBase[0];
     for (let j = 1; j < nBase; j++) {
         if (xBase[1] < yBase[j-1])
             yBase[j] = (1-kRoughBase)*yBase[j-1]+kRoughBase*xBase[j];
         else 
             yBase[j] = (1-kSmoothBase)*yBase[j-1]+kSmoothBase*xBase[j];
-
     } 
+    console.log(yBase);
 
+    // Base value
     base = mean(yBase);
     
     // Threshold 
@@ -62,15 +63,19 @@ function calculateThresholds () {
 
     /* Top threshold (Activativation) */
 
-    xTop = contenido.slice(initTop, nTop);
+    // Constants threshold
+    kThresholdTop = 0.4;
 
+    xTop = contenido.slice(initTop, endTop);
+    
     yTop = [];
-    for (let j = 0; j < endTop; j++) {
+    for (let j = initTop; j < endTop; j++) {
         if (xTop[j] > thresholdBase){
             yTop.push(xTop[j]);
         }
     }
 
+    console.log(yTop);
     top = mean(yTop);
 
     delta = top - base;
