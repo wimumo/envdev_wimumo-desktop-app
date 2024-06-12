@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld(
     "api", {
         send: (channel, data) => {
             // whitelist channels
-            let validChannels = ['get-iplocal'];
+            let validChannels = ['get-iplocal', 'toggle-reruteo'];
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
             }

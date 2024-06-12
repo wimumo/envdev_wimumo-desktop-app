@@ -296,6 +296,18 @@ footer {
 }
 
 
+
+/* New Styles */
+
+.inputError {
+  color: red;
+  font-size: smaller;
+  display: none; /* Hide by default */
+}
+
+
+
+
 /* Google Fonts: 'Raleway'*/
 /* https://fonts.googleapis.com/css?family=Raleway */
 

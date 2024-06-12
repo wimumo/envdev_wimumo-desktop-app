@@ -233,11 +233,26 @@
 
   <div id="rerouter" hiden>
     <h3>Re-ruteo de paquetes OSC</h3>
-    <div class="msg info">
-      <p>
-        Si se encuentra utilizando el programa Processing en modo Java, cierre esta aplicación antes de continuar.
+    <div id="rerouter_dialog" class="msg info" >
+      <p id="rerouter_dialog_p">
+        Si se encuentra utilizando el programa Processing en va, cierre esta aplicación antes de continuar...........
       </p>
     </div>
+    <div>
+      <br><br>
+
+      <label for="ip">IP:</label>
+      <input type="text" id="reroute_ip" name="ip" placeholder="Ingresar dirección IP">
+      <span id="ip_error" class="inputError">Dirección IP invalida</span><br><br>
+  
+      <label for="port">Port:</label>
+      <input type="text" id="reroute_port" name="port" placeholder="Ingresar numero de puerto">
+      <span id="port_error" class="inputError">Numero de puerto invalido</span><br><br>
+
+
+      <button id="rerouteEN" onclick="habilitarReruteo()">Reroute ON</button>
+    </div>
+
   </div> 
 </div>
 

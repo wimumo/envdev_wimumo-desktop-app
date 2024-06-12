@@ -5,13 +5,28 @@ const WebSocketServer = require('websocket').server;
 const osc = require('node-osc');
 const path = require('path');
 
+// Puerto que escucha
+const listeningPort = 4560; //4560;
+
+// Puerto de redireccion
+var targetPort = 0; // 4559 ELIMINAR DESPUES
+var targetAddress = '127.0.0.1'; // ELIMINAR DESPUES
+var redirectOSC = false; // ELIMINAR DESPUES
+
+// Cliente para redireccion
+var oscClient = null; //new osc.Client(targetAddress, targetPort);
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-/* Ventana Electron */
+
+/*
+*    Ventana Electron 
+*/
+
 var mainWindow;
 
 const createWindow = () => {
@@ -38,14 +53,19 @@ app.whenReady().then(() => {
     }
   });
 
-
   app.on('window-all-closed', () => {
       oscServer.close();
+      if (oscClient) oscClient.close(); // NEW. Elimina el cliente que redirecciona los mensajes OSC si fue usado.
       if (process.platform !== 'darwin') {
         app.quit();
       }
     }
   );
+
+
+  /*
+  *   IPC messages 
+  */
 
   ipcMain.on('get-iplocal', (event, arg) => {
     /* Notificación de IP local a página */
@@ -63,16 +83,56 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
+  ipcMain.on('toggle-reruteo', (event, data) => {
+    /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
+
+    const { activate, ip, port} = data;
+
+    if (activate === true) {
+
+      console.log(`Toggle reruteo ON. Direccion objetivo: ${ip}:${port}.`);
+
+      targetAddress = ip;
+      targetPort = port;
+
+      if ( oscClient === null ) {
+        oscClient = new osc.Client(targetAddress, targetPort);
+      }
+
+      redirectOSC = true;
+      console.log('OSC redirection started.');
+
+    } else {
+
+      console.log(`Toggle reruteo OFF.`);
+
+      redirectOSC = false;
+      console.log('OSC redirection stopped.');
+
+    }
+
+  });
+
+
   /*
   *   OSC 
   */
+
   var nClients = 0;
 
-  const oscServer = new osc.Server(4560, '0.0.0.0', () => {
+  const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
   });
 
   oscServer.on('bundle', function (bundle) {
+
+    //------------------------------------------------------------------- Redireccion Bundles
+    if (redirectOSC) {
+      //console.log('Received OSC bundle:', bundle);
+      forwardMessage(bundle);
+    }
+    //-------------------------------------------------------------------
+
 
     bundle.elements.forEach((element, i) => {
       mainWindow.webContents.send('osc', element);
@@ -92,13 +152,54 @@ app.whenReady().then(() => {
           nClients++
         }
       }
+
+      
+
     });
 
   });
 
   oscServer.on('message', function (msg) {
+
+    //------------------------------------------------------------------- Redireccion Mensajes
+    if ( redirectOSC ) {
+      /*console.log('Received OSC message:'); // , msg
+      for (let i = 0; i < msg.length; i++) {
+        console.log(`Index: ${i}, Value: ${msg[i]}`);
+      }*/
+      forwardMessage(msg);
+    }
+    //------------------------------------------------------------------- 
+
     mainWindow.webContents.send('osc', msg);
   });
+
+  function forwardMessage(message) {
+    /* Funcion que rerutea los mensajes y bundles. Solo deberia ser llamada cuando la redireccion esta activada. */
+
+    if (message.oscType === 'bundle') { // Los mensajes tienen "osctype = undefined"
+
+      var bundle = new osc.Bundle(message.timetag);
+  
+      message.elements.forEach(element => {
+        bundle.append(element);
+      });
+  
+      oscClient.send(bundle);
+      //console.log('Forwarded OSC bundle:', message);
+  
+    } else {
+      
+      // El mensaje incluye la direccion a la que se dirigia. Se intercambia por la nueva.
+      message[3] = targetAddress; 
+      message[4] = targetPort;  
+
+      console.log('Forwarded OSC message:', message);
+      oscClient.send(message); // message no tiene address o args. Es un array de strgings.
+      
+    }
+  }
+
 
   /*
   *   Websockets 
@@ -109,6 +210,7 @@ app.whenReady().then(() => {
     response.writeHead(404);
     response.end();
   });
+
   server.listen(80, function () {
     console.log((new Date()) + ' Server is listening on port 80');
   });
@@ -123,8 +225,10 @@ app.whenReady().then(() => {
   }
 
   wsServer.on('request', function (request) {
+    /* Maneja todos los mensajes que van desde el main server hasta el web server. */
+
     if (!originIsAllowed(request.origin)) {
-      // Make sure we only accept requests from an allowed origin
+      // Nos aseguramos de solo aceptar conexiones de origenes permitidos.
       request.reject();
       console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
       return;
@@ -133,6 +237,7 @@ app.whenReady().then(() => {
     let connection = request.accept(request.requestedProtocols[0], request.origin);
     
     console.log((new Date()) + ' Connection accepted.');
+    
     connection.on('message', function (message) {
       if (message.type === 'utf8') {
         //console.log('Received Message: ' + message.utf8Data);
@@ -143,9 +248,11 @@ app.whenReady().then(() => {
         connection.sendBytes(message.binaryData);
       }
     });
+
     connection.on('close', function (reasonCode, description) {
       console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
+
   });
 
 });

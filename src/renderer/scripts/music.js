@@ -98,7 +98,7 @@ function habilitarAudio() {
     else if (audioEnabled == true) {
         audioEnabled = false;
         volumeMaster.disconnect();
-        document.getElementById("audioEN").style.backgroundColor = "darkred";
+        document.getElementById("audioEN").style.backgroundColor = "";//"darkred"; // Ahora vuelve a su color original
         document.getElementById("audioEN").innerText = "Audio OFF";
         return;
     }
@@ -145,6 +145,9 @@ function habilitarAudio() {
     audioEnabled = true;
 
     setInterval(reportarValores, 1000);
+
+    console.log("HABLITAR AUDIO");
+    console.log((new Date()) + ' Server is listening on port 80');
 }
 
 function reportarValores() {
