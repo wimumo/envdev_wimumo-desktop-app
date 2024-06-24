@@ -101,6 +101,10 @@ a:active, a:hover {
 button {
   font: inherit;
 }
+button:focus { /* new focus */
+  background-color: var(--color-light-grey);
+  border: 2px solid var(--color-dark-grey);
+}
 input[type="radio"]{
   accent-color: var(--color-dark-grey);
 }
@@ -156,11 +160,18 @@ div {
   cursor: pointer;
   user-select: none;
   white-space: normal;
+  margin-bottom: 2px;
 }
 
 .menu-button:hover {
   color: var(--color-black);
   background-color: var(--hover-color-grey);
+}
+
+/* new menus focus*/
+.menu-button:focus {
+  color: var(--color-black);
+  box-shadow: 0 0 0 2px var(--hover-color-grey); 
 }
 
 .menu-close-button {
@@ -241,6 +252,11 @@ div {
   border: none;
   font: inherit;
 }
+.graph select:focus{
+  background-color: var(--color-light-grey);
+  /*border: 2px solid var(--color-dark-grey);*/
+  box-shadow: 0 0 0 2px var(--color-dark-grey);
+}
 .graph canvas {
   display: block;
   background-color: var(--color-light-grey);
@@ -258,8 +274,14 @@ button.zoomIn{
   background-image: url('../assets/images/zoomin.png');
   margin-right: 8px;
 }
+button.zoomIn:focus{
+  background-color: var(--color-dark-grey);
+}
 button.zoomOut{
   background-image: url('../assets/images/zoomout.png');
+}
+button.zoomOut:focus{
+  background-color: var(--color-dark-grey);
 }
 .graph > p {
   margin: 0px;
@@ -274,6 +296,17 @@ button.zoomOut{
   padding: 2px 8px;
   color: var(--color-white);
   background-color: var(--color-black);
+}
+
+#graphButtons > button:focus {
+  border: 2px solid var(--color-white);
+}
+
+#graphButtons > button:hover {
+  padding: 2px 8px;
+  color: var(--color-white);
+  background-color: var(--color-grey);
+  /*border: 2px solid var(--color-white);*/
 }
 
 
@@ -304,6 +337,26 @@ footer {
   font-size: smaller;
   display: none; /* Hide by default */
 }
+
+.inputLabel {
+  padding-left: 20px; /* Adjust this value as needed for desired indentation */
+}
+
+.separator {
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.right-button {
+  position: absolute;
+  right: 10px;
+  bottom: 1px; /* Adjust this value to position the button vertically */
+}
+
+.container_reroute {
+  position: relative;
+}
+
 
 
 

@@ -257,24 +257,31 @@ function addGraph(){
   div.id = "graph" + n;
   div.classList.add('graph');
 
+  // Create Select
   let title = document.createElement('select');
   title.for = "canvas" + n;
   title.id = "titleCanvas" + n;
+  title.className = "focusable";
+
   let chan = document.createElement("option");
   chan.innerHTML = "Seleccione canal";
   chan.value = "null";
+  chan.className = "focusable";
   title.appendChild(chan);
   div.appendChild(title);
 
+  // ZOOM IN, ZOOM OUT
   let buttonZOut = document.createElement('button');
   buttonZOut.id = "zOutButton" + n;
   buttonZOut.classList.add('zoomOut');
   div.appendChild(buttonZOut);
+
   let buttonZIn = document.createElement('button');
   buttonZIn.id = "zInButton" + n;
   buttonZIn.classList.add('zoomIn');
   div.appendChild(buttonZIn);
 
+  // Canvas
   let canvas = document.createElement('canvas');
   canvas.id = "canvas" + n;
   canvas.width = width;

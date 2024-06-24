@@ -13,7 +13,7 @@
 
 <!-- Menu -->
 <nav class="menu" id="menu"><br>
-  <a onclick="menu_close()" class="menu-button menu-close-button"><</a>
+  <a onclick="menu_close()" class="menu-button menu-close-button"></a>
   <h3 class="menu-title">WIMUMO</h3>
   <a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a> 
   <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Configuración</a> 
@@ -201,7 +201,7 @@
   <div id="graficador" hiden>
     <h3>Señales</h3>
     <div id="graphButtons">
-      <button onclick="addGraph()">Agregar</button>
+      <button class="button_señales" onclick="addGraph()">Agregar</button>
       <button onclick="removeGraph()">Eliminar</button>
     </div>
     <div id="graphRec" hiden>
@@ -239,18 +239,40 @@
       </p>
     </div>
     <div>
+      <div class="container_reroute">
+
       <br><br>
+      
+      <label for="cant_direcciones">Cantidad de direcciones objetivo:</label>
+      <input type="number" id="cant_direcciones" name="cant_d" value="1" min="1" max="10" onchange="updateFields()">
+      <span id="cant_direcciones_error" class="inputError">Minimo 1, maximo 10.</span>
+      
+      <button id="rerouteEN" class="right-button" onclick="habilitarReruteo()">Reroute ON</button><br>
 
-      <label for="ip">IP:</label>
-      <input type="text" id="reroute_ip" name="ip" placeholder="Ingresar dirección IP">
-      <span id="ip_error" class="inputError">Dirección IP invalida</span><br><br>
-  
-      <label for="port">Port:</label>
-      <input type="text" id="reroute_port" name="port" placeholder="Ingresar numero de puerto">
-      <span id="port_error" class="inputError">Numero de puerto invalido</span><br><br>
+      </div>
 
+      <div id="ip_port_container">
+        <div id="ip_port_container_1">
+          <hr class="separator">
 
-      <button id="rerouteEN" onclick="habilitarReruteo()">Reroute ON</button>
+          <em>Direccion objetivo 1</em><br><br>
+
+          <label for="reroute_ip_1" class="inputLabel">IP:</label>
+          <input type="text" id="reroute_ip_1" name="ip" placeholder="Ingresar dirección IP">
+          <span id="ip_error_1" class="inputError">Dirección IP invalida.</span><br><br>
+      
+          <label for="reroute_port_1" class="inputLabel">Port:</label>
+          <input type="text" id="reroute_port_1" name="port" placeholder="Ingresar numero de puerto">
+          <span id="port_error_1" class="inputError">Numero de puerto invalido.</span><br><br>
+
+          
+        </div>
+      </div>
+      
+      <hr class="separator">
+
+    </div>
+
     </div>
 
   </div> 

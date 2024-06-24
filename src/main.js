@@ -8,13 +8,16 @@ const path = require('path');
 // Puerto que escucha
 const listeningPort = 4560; //4560;
 
-// Puerto de redireccion
-var targetPort = 0; // 4559 ELIMINAR DESPUES
-var targetAddress = '127.0.0.1'; // ELIMINAR DESPUES
-var redirectOSC = false; // ELIMINAR DESPUES
+// Reroute
+//var targetPort = 0;                 // 4559 purrdata
+//var targetAddress = '127.0.0.1';    // 127.0.0.1 loopback
 
-// Cliente para redireccion
-var oscClient = null; //new osc.Client(targetAddress, targetPort);
+const rerouteAddresses = []; // ej = { ipAddress: '127.0.0.1', port: 4559 }
+var redirectOSC = false;
+
+// Clientes para redireccion
+//var oscClient = null; //new osc.Client(targetAddress, targetPort);
+var oscClients = [];
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -54,12 +57,15 @@ app.whenReady().then(() => {
   });
 
   app.on('window-all-closed', () => {
-      oscServer.close();
-      if (oscClient) oscClient.close(); // NEW. Elimina el cliente que redirecciona los mensajes OSC si fue usado.
-      if (process.platform !== 'darwin') {
-        app.quit();
-      }
+    oscServer.close();
+    //if (oscClient) oscClient.close(); // NEW. Elimina el cliente que redirecciona los mensajes OSC si fue usado.
+    oscClients.forEach(client => {
+      client.close();
+    })
+    if (process.platform !== 'darwin') {
+      app.quit();
     }
+  }
   );
 
 
@@ -85,18 +91,31 @@ app.whenReady().then(() => {
 
   ipcMain.on('toggle-reruteo', (event, data) => {
     /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
-
-    const { activate, ip, port} = data;
+    const { activate, ipPortPairs } = data;
 
     if (activate === true) {
+      
+      console.log(`Toggle reroute ON. Direcciones objetivo:`);
 
-      console.log(`Toggle reruteo ON. Direccion objetivo: ${ip}:${port}.`);
+      ipPortPairs.forEach(pair => {
+        console.log(` - ${pair.ip}:${pair.port}.`);
+        rerouteAddresses.push({ ipAddress: pair.ip, port: pair.port });
+      })
 
-      targetAddress = ip;
-      targetPort = port;
+      //rerouteAddresses.push({ ipAddress: '127.0.0.1', port: 4559 }); // DEBUG
+      //rerouteAddresses.push({ ipAddress: '190.191.123.55', port: 4559 }); // DEBUG
 
-      if ( oscClient === null ) {
-        oscClient = new osc.Client(targetAddress, targetPort);
+
+      //if ( oscClient === null ) {
+      //  oscClient = new osc.Client(targetAddress, targetPort);
+      //}
+      for (let i = 0; i < rerouteAddresses.length; i++) {
+
+        if (oscClients[i] == undefined) {
+          oscClients[i] = new osc.Client(rerouteAddresses[i].ipAddress, rerouteAddresses[i].port);
+          console.log('OscClient ' + i + ' created for ip:ports: ' + rerouteAddresses[i].ipAddress + ':' + rerouteAddresses[i].port);
+        }
+
       }
 
       redirectOSC = true;
@@ -104,7 +123,7 @@ app.whenReady().then(() => {
 
     } else {
 
-      console.log(`Toggle reruteo OFF.`);
+      console.log(`Toggle reroute OFF.`);
 
       redirectOSC = false;
       console.log('OSC redirection stopped.');
@@ -153,7 +172,7 @@ app.whenReady().then(() => {
         }
       }
 
-      
+
 
     });
 
@@ -162,7 +181,7 @@ app.whenReady().then(() => {
   oscServer.on('message', function (msg) {
 
     //------------------------------------------------------------------- Redireccion Mensajes
-    if ( redirectOSC ) {
+    if (redirectOSC) {
       /*console.log('Received OSC message:'); // , msg
       for (let i = 0; i < msg.length; i++) {
         console.log(`Index: ${i}, Value: ${msg[i]}`);
@@ -176,28 +195,63 @@ app.whenReady().then(() => {
 
   function forwardMessage(message) {
     /* Funcion que rerutea los mensajes y bundles. Solo deberia ser llamada cuando la redireccion esta activada. */
+    try {
 
-    if (message.oscType === 'bundle') { // Los mensajes tienen "osctype = undefined"
+      if (message.oscType === 'bundle') { // Los mensajes tienen "osctype = undefined"
 
-      var bundle = new osc.Bundle(message.timetag);
-  
-      message.elements.forEach(element => {
-        bundle.append(element);
-      });
-  
-      oscClient.send(bundle);
-      //console.log('Forwarded OSC bundle:', message);
-  
-    } else {
-      
-      // El mensaje incluye la direccion a la que se dirigia. Se intercambia por la nueva.
-      message[3] = targetAddress; 
-      message[4] = targetPort;  
+        try {
 
-      console.log('Forwarded OSC message:', message);
-      oscClient.send(message); // message no tiene address o args. Es un array de strgings.
-      
+          var bundle = new osc.Bundle(message.timetag);
+
+          message.elements.forEach(element => {
+            bundle.append(element);
+          });
+
+          rerouteAddresses.forEach((pair, index) => {
+            //console.log(`Index: ${index}, IP Address: ${pair.ipAddress}, Port: ${pair.port}`);
+
+            const bundleCopy = deepCopy(bundle); // Create a deep copy of the bundle
+            oscClients[index].send(bundleCopy);
+
+          });
+          
+          //console.log('Forwarded OSC bundle:', message);
+
+        } catch (error) {
+          console.error('Error Bundling:', error.message);
+        }
+
+      } else {
+
+        try {
+
+          rerouteAddresses.forEach((pair, index) => {
+            //console.log(`Index: ${index}, IP Address: ${pair.ipAddress}, Port: ${pair.port}`);
+
+            let modifiedMessage = [...message]; // Se modifica y manda una copia del mensaje original
+
+            modifiedMessage[3] = pair.ipAddress;
+            modifiedMessage[4] = pair.port;
+
+            oscClients[index].send(modifiedMessage); //el message no tiene address o args. Es un array de strgings.
+
+            //console.log('Forwarded OSC message:', message);
+          });
+
+        } catch (error) {
+          console.error('Error Messaging:', error.message);
+        }
+
+      }
+
+    } catch (error) {
+      console.error('Error forwarding message:', error.message);
     }
+  }
+
+  function deepCopy(obj) {
+    /* Se envia una copia del bundle a cada cliente, porque el cliente podria modificar la copia al enviarla. */
+    return JSON.parse(JSON.stringify(obj));
   }
 
 
@@ -235,9 +289,9 @@ app.whenReady().then(() => {
     }
 
     let connection = request.accept(request.requestedProtocols[0], request.origin);
-    
+
     console.log((new Date()) + ' Connection accepted.');
-    
+
     connection.on('message', function (message) {
       if (message.type === 'utf8') {
         //console.log('Received Message: ' + message.utf8Data);
