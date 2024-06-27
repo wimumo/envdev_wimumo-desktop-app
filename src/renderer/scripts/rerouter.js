@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* Filtros. */
 const filtros = [
-    { value: 'ninguno', text: 'Ninguno' },
-    { value: 'senales_originales', text: 'Señales originales' },
-    { value: 'envolventes', text: 'Envolventes' },
-    { value: 'canal_1', text: 'Solo canal 1' },
-    { value: 'canal_2', text: 'Solo canal 2' }
+    { value: 'none', text: 'Ninguno' },
+    { value: 'raw_signals_only', text: 'Señales crudas' },
+    { value: 'env_signals_only', text: 'Envolventes' },
+    { value: 'channel_1_only', text: 'Solo canal 1' },
+    { value: 'channel_2_only', text: 'Solo canal 2' }
 ];
 
 function initialiceFiltros() {
@@ -218,7 +218,7 @@ function isValidPort_ClientSide(port) {
 }
 
 function isValidFilter(filter) {
-    return filtros.some(filt => filt.value === filter) && filter === 'ninguno'; // DEBUG solo ninguno funciona ahora mismo
+    return filtros.some(filt => filt.value === filter); // DEBUG solo ninguno funciona ahora mismo
 }
 
 
@@ -247,13 +247,14 @@ function toggleInputAvailability(ipPortFilterInputs) {
 }
 
 // IPC
-function ipcSend_toggleReroute(ipPortPairsInputs) {
+function ipcSend_toggleReroute(ipPortFilterInputs) {
     const ipPortPairs = [];
-    ipPortPairsInputs.forEach(pair => {
+    ipPortFilterInputs.forEach(pair => {
         const ip = pair.ipInput.value;
         const port = pair.portInput.value;
-        ipPortPairs.push({ ip, port });
-    })
+        const filter = pair.filterInput.value;
+        ipPortPairs.push({ ip, port, filter });
+    });
 
     const data = {
         activate: reruteoEnabled,

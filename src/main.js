@@ -18,6 +18,11 @@ var redirectOSC = false;
 // Clientes para redireccion
 //var oscClient = null; //new osc.Client(targetAddress, targetPort);
 var oscClients = [];
+function closeOscClients() {
+  oscClients.forEach(client => {
+    client.close();
+  })
+}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -58,10 +63,7 @@ app.whenReady().then(() => {
 
   app.on('window-all-closed', () => {
     oscServer.close();
-    //if (oscClient) oscClient.close(); // NEW. Elimina el cliente que redirecciona los mensajes OSC si fue usado.
-    oscClients.forEach(client => {
-      client.close();
-    })
+    closeOscClients();
     if (process.platform !== 'darwin') {
       app.quit();
     }
@@ -98,19 +100,14 @@ app.whenReady().then(() => {
       console.log(`Toggle reroute ON. Direcciones objetivo:`);
 
       ipPortPairs.forEach(pair => {
-        console.log(` - ${pair.ip}:${pair.port}.`);
-        rerouteAddresses.push({ ipAddress: pair.ip, port: pair.port });
+        console.log(` - ${pair.ip}:${pair.port}. Filtro: ${pair.filter}`);
+        rerouteAddresses.push({ ipAddress: pair.ip, port: pair.port, filter: pair.filter });
       })
-
-      //rerouteAddresses.push({ ipAddress: '127.0.0.1', port: 4559 }); // DEBUG
-      //rerouteAddresses.push({ ipAddress: '190.191.123.55', port: 4559 }); // DEBUG
 
       for (let i = 0; i < rerouteAddresses.length; i++) {
 
-        if (oscClients[i] == undefined) {
-          oscClients[i] = new osc.Client(rerouteAddresses[i].ipAddress, rerouteAddresses[i].port);
-          console.log('OscClient ' + i + ' created for ip:ports: ' + rerouteAddresses[i].ipAddress + ':' + rerouteAddresses[i].port);
-        }
+        oscClients[i] = new osc.Client(rerouteAddresses[i].ipAddress, rerouteAddresses[i].port);
+        console.log('OscClient ' + i + ' created for ip:ports: ' + rerouteAddresses[i].ipAddress + ':' + rerouteAddresses[i].port);
 
       }
 
@@ -122,6 +119,14 @@ app.whenReady().then(() => {
       console.log(`Toggle reroute OFF.`);
 
       redirectOSC = false;
+
+      // Vaciar array de direcciones.
+      rerouteAddresses.length = 0;
+
+      // Cerrar clientes y eliminarlos del array.
+      closeOscClients();
+      oscClients.length = 0;
+
       console.log('OSC redirection stopped.');
 
     }
@@ -204,9 +209,15 @@ app.whenReady().then(() => {
           });
 
           rerouteAddresses.forEach((pair, index) => {
-            //console.log(`Index: ${index}, IP Address: ${pair.ipAddress}, Port: ${pair.port}`);
+            console.log(`Index: ${index}, IP Address: ${pair.ipAddress}, Port: ${pair.port}, Filter: ${pair.filter}`);
 
             const bundleCopy = deepCopy(bundle); // Create a deep copy of the bundle
+
+            
+            filterBundle(bundleCopy, pair.filter);
+            console.log(bundleCopy);
+            console.log('-----------');
+
             oscClients[index].send(bundleCopy);
 
           });
@@ -248,6 +259,28 @@ app.whenReady().then(() => {
   function deepCopy(obj) {
     /* Se envia una copia del bundle a cada cliente, porque el cliente podria modificar la copia al enviarla. */
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  function filterBundle(bundle, filter) {
+    //bundle.elements.forEach(element => console.log(String(element.address) + ' / type: ' + element.address.type))
+    switch (filter) {
+      case 'raw_signals_only':
+        bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/env/'));
+        break;
+
+      case 'env_signals_only':
+        bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/raw/'));
+        break;
+      
+      case 'channel_1_only':
+        bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/ch2'));
+        break;
+
+      case 'channel_2_only':
+        bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/ch1'));
+        break;
+
+    }
   }
 
 
