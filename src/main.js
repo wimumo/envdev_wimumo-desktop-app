@@ -105,10 +105,6 @@ app.whenReady().then(() => {
       //rerouteAddresses.push({ ipAddress: '127.0.0.1', port: 4559 }); // DEBUG
       //rerouteAddresses.push({ ipAddress: '190.191.123.55', port: 4559 }); // DEBUG
 
-
-      //if ( oscClient === null ) {
-      //  oscClient = new osc.Client(targetAddress, targetPort);
-      //}
       for (let i = 0; i < rerouteAddresses.length; i++) {
 
         if (oscClients[i] == undefined) {

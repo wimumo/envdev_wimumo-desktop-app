@@ -357,6 +357,10 @@ footer {
   position: relative;
 }
 
+.select:focus {
+  box-shadow: 0 0 0 1px var(--color-dark-grey);
+}
+
 
 
 

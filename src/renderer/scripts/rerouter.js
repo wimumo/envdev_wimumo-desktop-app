@@ -8,6 +8,58 @@ var cantidad_dir = 1;
 const cantInput = document.getElementById('cant_direcciones');
 const cantError = document.getElementById('cant_direcciones_error');
 
+/* Initialice everything */
+document.addEventListener("DOMContentLoaded", function() {
+    initialiceFiltros();
+    initialiceTextosDinamicos();
+});
+
+/* Filtros. */
+const filtros = [
+    { value: 'ninguno', text: 'Ninguno' },
+    { value: 'senales_originales', text: 'Señales originales' },
+    { value: 'envolventes', text: 'Envolventes' },
+    { value: 'canal_1', text: 'Solo canal 1' },
+    { value: 'canal_2', text: 'Solo canal 2' }
+];
+
+function initialiceFiltros() {
+    // Get the select element
+    const firstSelectElement = document.getElementById('filter_1');
+
+    // Add each option to the select element
+    filtros.forEach(function(option) {
+        var newOption = document.createElement('option');
+        newOption.value = option.value;
+        newOption.text = option.text;
+        firstSelectElement.appendChild(newOption);
+    });
+}
+
+/* Textos dinamicos */
+const errorTexts = [
+    { value: 'ipError', text: 'Dirección IP inválida. Debe consistir de 4 números separados por puntos, ejemplo: "x.x.x.x".' },
+    { value: 'portError', text: 'Número de puerto inválido. Debe ser un número entre 0 y 65535.' },
+    { value: 'filterError', text: 'Filtro no reconocido' }
+];
+
+function findText(value){
+    return errorTexts.find(error => error.value === value).text
+}
+
+function initialiceTextosDinamicos(){
+    const firstIpErrorSpan = document.getElementById("ip_error_1");
+    const firstPortErrorSpan = document.getElementById("port_error_1");
+    const firstFilterErrorSpan = document.getElementById("filter_error_1");
+
+    firstIpErrorSpan.textContent = findText('ipError');
+    firstPortErrorSpan.textContent = findText('portError');
+    firstFilterErrorSpan.textContent = findText('filterError');
+}
+
+
+
+/* Campos dinamicos. */
 function updateFields() {
     /* Se encarga de actuslizar la cantidad de campos para ingresar IP:Puerto. Se llama cada vez que cambia la cantidad. */
     const container = document.getElementById('ip_port_container');
@@ -64,10 +116,41 @@ function updateFields() {
             indexIpPortContainer.appendChild(document.createElement('br'));
             indexIpPortContainer.appendChild(document.createElement('br'));
 
+            // Select Filter Add
+            let label = document.createElement('label');
+            label.setAttribute('for', `filter_${i}`);
+            label.classList.add('inputLabel');
+            label.textContent = 'Filtro: ';
+
+            let select = document.createElement('select');
+            select.classList.add('select');
+            select.id = `filter_${i}`;
+            select.name = `filter ${i}`;
+
+            filtros.forEach(function (optionData) {
+                let option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                select.appendChild(option);
+            });
+
+            // Errpr filter span
+            const filterError = document.createElement('span');
+            filterError.id = `filter_error_${i}`//ip_error_1
+            filterError.className = 'inputError';
+            filterError.innerText = ' ' + findText('filterError');
+
+            indexIpPortContainer.appendChild(label);
+            indexIpPortContainer.appendChild(select);
+            indexIpPortContainer.appendChild(filterError);
+
+            indexIpPortContainer.appendChild(document.createElement('br'));
+            indexIpPortContainer.appendChild(document.createElement('br'));
+
             // IP label add
             const ipLabel = document.createElement('label');
             ipLabel.setAttribute('for', `reroute_ip_${i}`);
-            ipLabel.innerText = 'IP:';
+            ipLabel.innerText = 'IP: ';
             ipLabel.className = "inputLabel";
             indexIpPortContainer.appendChild(ipLabel);
 
@@ -81,7 +164,7 @@ function updateFields() {
             const ipError = document.createElement('span');
             ipError.id = `ip_error_${i}`//ip_error_1
             ipError.className = 'inputError';
-            ipError.innerText = 'Dirección IP invalida.';
+            ipError.innerText = ' ' + findText('ipError');
             indexIpPortContainer.appendChild(ipError);
 
             indexIpPortContainer.appendChild(document.createElement('br'));
@@ -90,7 +173,7 @@ function updateFields() {
             // Port label add
             const portLabel = document.createElement('label');
             portLabel.setAttribute('for', `reroute_port_${i}`);
-            portLabel.innerText = 'Port:';
+            portLabel.innerText = 'Port: ';
             portLabel.className = "inputLabel";
             indexIpPortContainer.appendChild(portLabel);
 
@@ -104,7 +187,7 @@ function updateFields() {
             const portError = document.createElement('span');
             portError.id = `port_error_${i}` //port_error_1
             portError.className = 'inputError';
-            portError.innerText = 'Numero de puerto invalido.';
+            portError.innerText = ' ' + findText('portError');;
             indexIpPortContainer.appendChild(portError);
 
             indexIpPortContainer.appendChild(document.createElement('br'));
@@ -116,7 +199,6 @@ function updateFields() {
 
         // Actualizar valor de la cantidad de direcciones
         cantidad_dir = count;
-
     }
 
 }
@@ -124,10 +206,7 @@ function updateFields() {
 /* --------------------------------------------------------------------*/
 // Funciones para habilitar reruteo 
 
-var reruteoEnabled = false;
-//var targetIP = '127.0.0.1';
-//var targetPort = 4559;
-
+// Valicdaciones
 function isValidIP_ClientSide(ip) {
     const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     return ipPattern.test(ip);
@@ -138,9 +217,15 @@ function isValidPort_ClientSide(port) {
     return Number.isInteger(portNumber) && portNumber >= 0 && portNumber <= 65535;
 }
 
+function isValidFilter(filter) {
+    return filtros.some(filt => filt.value === filter) && filter === 'ninguno'; // DEBUG solo ninguno funciona ahora mismo
+}
+
+
+// Funciones de html
 const reroute_button = document.getElementById("rerouteEN");
-function toggleButton(bool) {
-    if (bool) {
+function toggleButton() {
+    if (reruteoEnabled) {
         reroute_button.style.backgroundColor = "red";
         reroute_button.innerText = "Reroute OFF";
     } else {
@@ -150,16 +235,18 @@ function toggleButton(bool) {
 
 }
 
-function toggleInputAvailability(ipPortPairs, bool){
-    cantInput.disabled = bool;
+function toggleInputAvailability(ipPortFilterInputs) {
+    cantInput.disabled = reruteoEnabled;
 
-    ipPortPairs.forEach(pair => {
-        console.log(`IP: ${pair.ipInput}, Port: ${pair.portInput}`);
-        pair.ipInput.disabled = bool;
-        pair.portInput.disabled = bool;
+    ipPortFilterInputs.forEach(inputs => {
+        console.log(`IP: ${inputs.ipInput}, Port: ${inputs.portInput}`);
+        inputs.ipInput.disabled = reruteoEnabled;
+        inputs.portInput.disabled = reruteoEnabled;
+        inputs.filterInput.disabled = reruteoEnabled;
     });
 }
 
+// IPC
 function ipcSend_toggleReroute(ipPortPairsInputs) {
     const ipPortPairs = [];
     ipPortPairsInputs.forEach(pair => {
@@ -182,26 +269,23 @@ function ipcSend_toggleReroute(ipPortPairsInputs) {
 /* --------------------------------------------------------------------*/
 // Habilitar reruteo
 
-//Constantes de index.html
-//const ipInput = document.getElementById("reroute_ip");
-//const portInput = document.getElementById("reroute_port");
-
-//const ipError = document.getElementById('ip_error');
-//const portError = document.getElementById('port_error');
+var reruteoEnabled = false; // Purrdata same machine '127.0.0.1' 4559;
 
 function habilitarReruteo() {
+    /* Llamada por el boton de activar rerouting. Si esta activado lo detine, si no entonces lo activa con los parametros dados. */
 
-    // Get all IP:Port pairs
-    const ipPortPairsInputs = []; // [{ipInput, portInput, ipError, portError},{ipInput, portInput, ipError, portError}] comienza en 1!
+    // Primero consigue todos inputs actuales IP y Port
+    const ipPortFilterInputs = []; // [{ipInput, portInput, ipError, portError}] comienza en 1!
 
     for (let i = 1; i <= cantidad_dir; i++) {
         const ipInput = document.getElementById(`reroute_ip_${i}`);
         const portInput = document.getElementById(`reroute_port_${i}`);
         const ipError = document.getElementById(`ip_error_${i}`);
         const portError = document.getElementById(`port_error_${i}`);
-        ipPortPairsInputs.push({ ipInput, portInput, ipError, portError });
+        const filterInput = document.getElementById(`filter_${i}`);
+        const filterError = document.getElementById(`filter_error_${i}`);
+        ipPortFilterInputs.push({ ipInput, portInput, ipError, portError, filterInput, filterError });
     }
-
 
     // En caso de que el reroute ya este activado, entonces se desactiva
     if (reruteoEnabled) {
@@ -209,25 +293,19 @@ function habilitarReruteo() {
         reruteoEnabled = false;
         ipcSend_toggleReroute([]);
 
-        //ipInput.disabled = false;
-        //portInput.disabled = false;
-        toggleInputAvailability(ipPortPairsInputs, false)
-
-        toggleButton(reruteoEnabled);
+        toggleInputAvailability(ipPortFilterInputs)
+        toggleButton();
 
         document.getElementById("rerouter_dialog_p").textContent = "Reroute OFF"
         return;
     }
 
-    //De otra manera se decide si activar el reroute
+    // De otra manera se pasa a las validaciones
     var message = "";
     var valid = true;
 
-    //var ip = ipInput.value;
-    //var port = portInput.value;
-
-    //validaciones
-    ipPortPairsInputs.forEach(pair => {
+    // validaciones
+    ipPortFilterInputs.forEach(pair => {
 
         if (isValidIP_ClientSide(pair.ipInput.value)) {
             message += "IP valida. "
@@ -247,43 +325,30 @@ function habilitarReruteo() {
             pair.portError.style.display = 'inline'; // Mesaje de error Puerto
         }
 
+        if (isValidFilter(pair.filterInput.value)) {
+            message += "Filtro valido. "
+            pair.filterError.style.display = 'none';
+        } else {
+            message += "Filtro no reconocido. "
+            valid = false;
+            pair.filterError.style.display = 'inline'; // Mesaje de error Puerto
+        }
+
 
     });
-
-    /*if (isValidIP_ClientSide(ip)) {
-        message += "IP valida. "
-        ipError.style.display = 'none';
-    } else {
-        message += "IP Invalida. "
-        valid = false;
-        ipError.style.display = 'inline'; // Mesaje de error IP
-    }*/
-
-    /*if (isValidPort_ClientSide(port)) {
-        message += "Puerto valido. "
-        portError.style.display = 'none';
-    } else {
-        message += "Puerto Invalido. "
-        valid = false;
-        portError.style.display = 'inline'; // Mesaje de error Puerto
-    }*/
 
     if (valid) {
 
         reruteoEnabled = true;
+        ipcSend_toggleReroute(ipPortFilterInputs);
 
-        //ipcSend_toggleReroute(ip, port);
-        ipcSend_toggleReroute(ipPortPairsInputs);
-
-        //ipInput.disabled = true;
-        //portInput.disabled = true;
-        toggleInputAvailability(ipPortPairsInputs, true)
-
-        toggleButton(reruteoEnabled)
+        toggleInputAvailability(ipPortFilterInputs)
+        toggleButton()
 
         message += "Reroute: " + reruteoEnabled;
 
     }
+
 
     document.getElementById("rerouter_dialog_p").textContent = message // Para DEBUG, Eliminar despues
 }
