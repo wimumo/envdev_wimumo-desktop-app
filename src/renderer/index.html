@@ -39,7 +39,7 @@
 
     <p> 
       Aquí se explica cómo configurar WIMUMO y su uso básico. 
-      Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank">https://gibic.ing.unlp.edu.ar/wimumo</a>
+      Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
     </p>
 
     <hr>
@@ -177,7 +177,7 @@
       es muy utilizado en programas de generación de multimedia. Con esta aplicación
       podrá ver las señales y controlar tonos musicales, pero sacará mayor provecho a WIMUMO
       creando lo que desee con aplicaciones tales como puredata y la muy conocida
-      <a href="https://processing.org/" target="_blank">Processing (https://processing.org/)</a>. En la <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank">página del proyecto</a> encontrará algunos
+      <a href="https://processing.org/" target="_blank" class="href-focus">Processing (https://processing.org/)</a>. En la <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank" class="href-focus">página del proyecto</a> encontrará algunos
       ejemplos de Processing para comenzar a usar WIMUMO.
     </p>
     <p>
@@ -187,7 +187,7 @@
       debe retirarse la batería del quipo y recargarla.
     </p>
     <footer>
-      <a href="http://gibic.ar/" target="_blank">GIBIC</a>, 2022.
+      <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
       <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
       <br>Instituto LEICI (UNLP-CONICET-CIC).
     </footer>
@@ -195,7 +195,13 @@
 
   <div id="configuracion" hiden>
     <h3>Estado de WIMUMO</h3>
-    <p id="estado"></p>
+    <p id="estado"> - No hay ningún dispositivo no conectado actualmente.</p>
+    <br><br>
+
+    <h4>Redirección de señales</h4>
+    <p id="estado_redireccion"> - No hay ninguna redirección configurada actualmente.</p>
+    <p id="redireccion_activada" class="hidden_p"></p>
+
   </div>
   
   <div id="graficador" hiden>
@@ -257,7 +263,7 @@
 
           <em>Direccion objetivo 1</em><br><br>
 
-          <label for="filter_1" class="inputLabel">Filtro: (no funcional) </label>
+          <label for="filter_1" class="inputLabel">Filtro:</label>
           <select id="filter_1" name="filter" class="select">
           </select>
           <span id="filter_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br><br>

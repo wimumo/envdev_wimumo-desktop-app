@@ -109,6 +109,7 @@ window.api.receive('osc', (data) => {
       }
       cad += '<br> Nivel de batería aproximado: <span id="nivel_batt"></span>';
       document.getElementById("estado").innerHTML = cad;
+      document.getElementById("redireccion_activada").style.display = 'inline'; // NEWWW PARA LA REDIRECCION
     }
     if (info_reported == true && data[0] == base_route + "/info" && typeof filt_batt !== 'undefined') {
       var nivel_batt = data[5];

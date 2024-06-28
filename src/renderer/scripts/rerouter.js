@@ -246,6 +246,32 @@ function toggleInputAvailability(ipPortFilterInputs) {
     });
 }
 
+function updateStateMessage(ipPortFilterInputs) {
+    var state = "";
+    var confirmation_message = "";
+
+    if ( reruteoEnabled ) {
+        state = "Redirección configurada <br>"
+
+        ipPortFilterInputs.forEach((pair, index) => {
+            const ip = pair.ipInput.value;
+            const port = pair.portInput.value;
+            const filter = pair.filterInput.options[pair.filterInput.selectedIndex].text;
+            
+            state += `- Dirección objetivo ${index+1}: <mark>${ip}:${port}</mark> | Filtro: <mark>${filter}</mark> <br>`
+        });
+
+        confirmation_message = "Redireccion activada."
+
+    } else {
+        state = "- No hay Redireccion configurada actualmente.<br>"
+    }
+
+
+    document.getElementById("estado_redireccion").innerHTML = state;
+    document.getElementById("redireccion_activada").innerHTML = confirmation_message;
+}
+
 // IPC
 function ipcSend_toggleReroute(ipPortFilterInputs) {
     const ipPortPairs = [];
@@ -297,6 +323,7 @@ function habilitarReruteo() {
         toggleInputAvailability(ipPortFilterInputs)
         toggleButton();
 
+        updateStateMessage(ipPortFilterInputs);
         document.getElementById("rerouter_dialog_p").textContent = "Reroute OFF"
         return;
     }
@@ -346,6 +373,7 @@ function habilitarReruteo() {
         toggleInputAvailability(ipPortFilterInputs)
         toggleButton()
 
+        updateStateMessage(ipPortFilterInputs);
         message += "Reroute: " + reruteoEnabled;
 
     }

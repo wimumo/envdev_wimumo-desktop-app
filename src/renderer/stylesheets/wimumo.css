@@ -361,6 +361,22 @@ footer {
   box-shadow: 0 0 0 1px var(--color-dark-grey);
 }
 
+.href-focus:focus {
+  background-color: var(--color-blue);
+  color: var(--color-black);
+  outline: none; /* Removes the default outline */
+}
+
+.slider:focus {
+  color: var(--color-black);
+  box-shadow: 0 0 0 2px var(--hover-color-grey); 
+}
+
+.hidden_p {
+  color: var(--color-blue);
+  font-size: smaller;
+  display: none; /* Hide by default */
+}
 
 
 
