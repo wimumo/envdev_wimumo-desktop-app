@@ -9,6 +9,11 @@ var height = 300;
 
 var recording = false;
 
+// New, Channel vars
+var channels = [];  // CHAAAAAAAAAAAAAAAAAAAAAAAAANGE
+var channels_active = [];
+// -----------------
+
 class Graph {
   /* Características */
   fsps;
@@ -215,8 +220,19 @@ class Cursor {
   }
 }
 
+function addChannels(data){
+  /* Parsea los datos que se recive del WIMUMO y crea los canales apropiados*/
+  for (let i = 0; i < parseInt(data[6]); i++) {
 
-function enableChannels(chs) {
+    channels.push(data[7 + i].substring(10)); 
+
+  }
+}
+
+function enableChannels() {
+  /* Agrega las opciones correctas al selector de los graficos, es decir, los canales que se recivieron */
+  var chs = channels; // Se removio el parametro ya que la forma correcta de llamarlo siempre es con la variable channels
+
   for (let i = 0; i < graphs.length; i++) {
     if (graphs[i].ready == false && channels.length != 0){
       graphs[i].ready = true;
@@ -252,6 +268,19 @@ function plot(channel, samples) {
   }
 
 
+}
+
+function filterAndGraph(data) {
+  /* Acá se hace el filtado para graficar */
+    for (let i = 0; i < channels_active.length; i++){ 
+      if (data[0] == (base_route + channels_active[i].channel)) {
+        var sample = [];
+        for (let i = 1; i < data.length; i++) {
+          sample.push(parseInt(data[i]));
+        }
+        plot(channels_active[i].channel, sample);
+      }
+    } 
 }
 
 // NEW ----------------------
@@ -345,7 +374,7 @@ function addGraph(){
     else channels_active.push({'channel': this.value, 'n': 1});
   };
 
-  enableChannels(channels);
+  enableChannels();
 }
 
 function removeGraph(){

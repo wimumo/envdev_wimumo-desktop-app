@@ -52,8 +52,8 @@ class Movprom {
 var info_received = false;
 
 var base_route = "/wimumo020";
-var channels = [];  // CHAAAAAAAAAAAAAAAAAAAAAAAAANGE
-var channels_active = [];
+//var channels = [];  // Esta variable deberia estar en graph.js
+//var channels_active = [];
 var numch = 0;
 var filt_batt = new Movprom(15);
 
@@ -73,16 +73,23 @@ window.api.receive('osc', (data) => {
   if (info_received == false && data[0].substring(11, 15) == "info") {
     info_received = true;
     base_route = data[0].substring(0, 10);
-    for (let i = 0; i < parseInt(data[6]); i++) {
-      channels.push(data[7 + i].substring(10));
-    }
-    enableChannels(channels);
+
+    addChannels(data)
+
+    /*for (let i = 0; i < parseInt(data[6]); i++) {
+
+      channels.push(data[7 + i].substring(10)); // Esto deberia ser una funcion de graph.js // REMOVE
+
+    }*/
+
+    enableChannels();
   }
 
   /* Graficador */
   if(info_received == true && category_active == categories[2]) {
+
     /* Acá se hace el filtado para graficar */
-    for (let i = 0; i < channels_active.length; i++){
+    /*for (let i = 0; i < channels_active.length; i++){ // Esto deberia estar en graph.js
       if (data[0] == (base_route + channels_active[i].channel)) {
         var sample = [];
         for (let i = 1; i < data.length; i++) {
@@ -90,7 +97,10 @@ window.api.receive('osc', (data) => {
         }
         plot(channels_active[i].channel, sample);
       }
-    } 
+    } */
+
+    filterAndGraph(data);
+
   }
 
   /* Musica */
