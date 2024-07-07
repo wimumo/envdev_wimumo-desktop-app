@@ -50,9 +50,9 @@ class Movprom {
 
 
 var info_received = false;
-var info_reported = false;
+
 var base_route = "/wimumo020";
-var channels = [];
+var channels = [];  // CHAAAAAAAAAAAAAAAAAAAAAAAAANGE
 var channels_active = [];
 var numch = 0;
 var filt_batt = new Movprom(15);
@@ -61,6 +61,15 @@ window.api.receive('osc', (data) => {
 
   if (data == 'undefined') return;
 
+  // Si la conexion se pierde, se actualizan los datos
+  if (data == 'CONNECTION LOST') {
+    onConnectionLost(); // config
+    emptySamples(); // Clear graphs
+    //disableChannels(); // Clear graphs
+    return;
+  }
+
+  // Crea los canales del graficador
   if (info_received == false && data[0].substring(11, 15) == "info") {
     info_received = true;
     base_route = data[0].substring(0, 10);
@@ -83,6 +92,7 @@ window.api.receive('osc', (data) => {
       }
     } 
   }
+
   /* Musica */
   else if (info_received == true && category_active == categories[3]) {
     if (data[0] == base_route + "/env/ch1" && audioEnabled == true) {
@@ -92,35 +102,15 @@ window.api.receive('osc', (data) => {
       actualizarValor(2, parseInt(data[1]));
     }
   }
+
   /* Configuración */
   else if (info_received == true && category_active == categories[1]) {
-  
-    if (info_reported == false && data[0] == base_route + "/info") {
-      info_reported = true;
-      var cad = "";
-      cad += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> en IP ";
-      cad += data[1];
-      if (data[2] == "false") {
-        cad += '<br> NO está enviando datos (configure manualmente o presione "autoconfigurar")';
-      }
-      else {
-        cad += '<br> Enviando datos a: ';
-        cad += data[3] + ":" + data[4];
-      }
-      cad += '<br> Nivel de batería aproximado: <span id="nivel_batt"></span>';
-      document.getElementById("estado").innerHTML = cad;
-      document.getElementById("redireccion_activada").style.display = 'inline'; // NEWWW PARA LA REDIRECCION
-    }
-    if (info_reported == true && data[0] == base_route + "/info" && typeof filt_batt !== 'undefined') {
-      var nivel_batt = data[5];
-      nivel_batt = filt_batt.nuevoDato(nivel_batt);
-      if(nivel_batt<0) nivel_batt = 0;
-      if(nivel_batt>100) nivel_batt = 100;
-      var nivel_batt_pc = "";
-      nivel_batt_pc += parseInt(nivel_batt) + "%";
-      document.getElementById("nivel_batt").innerHTML = nivel_batt_pc;
-    }
+
+    reportInfo(data);
+
   }
 
 });
+
+
 

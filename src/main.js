@@ -8,6 +8,50 @@ const path = require('path');
 // Puerto que escucha
 const listeningPort = 4560; //4560;
 
+// Detectar cuando se detiene una conexion
+// Variables para detener el proceso cuando se dejan de recibir mensajes
+let lastReceivedTime = null;
+const TIMEOUT_THRESHOLD = 5000; // 5 seconds
+let oscConnectionInProgress = false;
+let checkDataIntervalId = null;
+
+// Funcion que se llama cada vez que hay una conexion con el servidor
+
+function oscConnectionAlive () {
+  // Guarda el tiempo en que se recive
+  lastReceivedTime = Date.now();
+
+  // Si es el primer mensaje recivido entonces debe empezar el timer para terminr conexion
+  if (!oscConnectionInProgress) {
+    checkDataIntervalId = setInterval(checkForStoppedData, 1000); // Checkea si se dejo de recivir mensajes cada segundo
+    oscConnectionInProgress = true;
+  } 
+}
+
+// Funcion que checkea si se han dejado de recibir mensajes
+function checkForStoppedData() {
+  const currentTime = Date.now();
+
+  if (lastReceivedTime === null) {
+      console.log("No se han recivido datos todavia.");
+  } else {
+      const timeSinceLastMessage = currentTime - lastReceivedTime;
+
+      if (timeSinceLastMessage >= TIMEOUT_THRESHOLD) {
+
+        oscConnectionInProgress = false
+        console.log("Se ha dejado de recivir datos de la conexion OSC.");
+        clearInterval(checkDataIntervalId); // detiene la funcion de ser llamada mas veces
+
+        mainWindow.webContents.send('osc', 'CONNECTION LOST');
+
+      } else {
+        console.log(`Last message received ${timeSinceLastMessage / 1000} seconds ago.`);
+      }
+
+  }
+}
+
 // Reroute
 //var targetPort = 0;                 // 4559 purrdata
 //var targetAddress = '127.0.0.1';    // 127.0.0.1 loopback
@@ -146,6 +190,8 @@ app.whenReady().then(() => {
 
   oscServer.on('bundle', function (bundle) {
 
+    oscConnectionAlive();
+
     //------------------------------------------------------------------- Redireccion Bundles
     if (redirectOSC) {
       //console.log('Received OSC bundle:', bundle);
@@ -180,6 +226,8 @@ app.whenReady().then(() => {
   });
 
   oscServer.on('message', function (msg) {
+
+    oscConnectionAlive();
 
     //------------------------------------------------------------------- Redireccion Mensajes
     if (redirectOSC) {
@@ -262,7 +310,8 @@ app.whenReady().then(() => {
   }
 
   function filterBundle(bundle, filter) {
-    //bundle.elements.forEach(element => console.log(String(element.address) + ' / type: ' + element.address.type))
+    // Estos filtros ser deberian cambiar si es que lo que manda el WIMUMO cambis en algun monmento
+    // Raw simplemente elimina los mensajes env. Y ch1 solo elimina los mensajes ch2.
     switch (filter) {
       case 'raw_signals_only':
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/env/'));

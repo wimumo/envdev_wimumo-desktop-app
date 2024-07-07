@@ -168,6 +168,8 @@ class Graph {
     this.scale = this.scale / 2;
   }
 }
+
+
 class Cursor {
   ctx;
   width;
@@ -213,12 +215,14 @@ class Cursor {
   }
 }
 
+
 function enableChannels(chs) {
   for (let i = 0; i < graphs.length; i++) {
     if (graphs[i].ready == false && channels.length != 0){
       graphs[i].ready = true;
       for (let k = 0; k < chs.length; k++) {
         let c = document.createElement("option");
+        c.id = `channel_option_${i}_${k}`;
         c.innerHTML = chs[k];
         c.value = chs[k];
         graphs[i].title.appendChild(c);
@@ -250,6 +254,30 @@ function plot(channel, samples) {
 
 }
 
+// NEW ----------------------
+function emptySamples(){
+  let n = graphs.length;
+  for (let i = 0; i < n; i++) {
+    removeGraph();
+  }
+  for (let i = 0; i < n; i++) {
+    addGraph();
+  }
+
+  for (let i = 0; i < graphs.length; i++) {
+    if (graphs[i].ready == true){
+      graphs[i].ready = false;
+
+      //graphs[i].title.removeChild(document.getElementById(`channel_option_${i}_1`));
+      while (graphs[i].title.firstChild) {
+        graphs[i].title.removeChild(graphs[i].title.firstChild);
+      }
+    }
+  }
+
+}
+// ------------------------
+
 function addGraph(){
   let n = graphs.length + 1;
 
@@ -257,7 +285,7 @@ function addGraph(){
   div.id = "graph" + n;
   div.classList.add('graph');
 
-  // Create Select
+  // Create Select // Not a title...
   let title = document.createElement('select');
   title.for = "canvas" + n;
   title.id = "titleCanvas" + n;
@@ -300,10 +328,11 @@ function addGraph(){
   document.getElementById("zInButton" + n).onclick = () => graphs[n-1].scaleUp();
   document.getElementById("zOutButton" + n).onclick = () => graphs[n-1].scaleDown();
 
+  // Funcion que se ejecuta cuando se elije otro valor en el selector. El selector se llama titleCanvas.
   document.getElementById("titleCanvas" + n).onchange = function () {
     let indexC;
     /* Previous channel */
-    if (graphs[n-1].channel == "null") this.removeChild(this.options[0]);
+    if (graphs[n-1].channel == "null") this.removeChild(this.options[0]); // Se encarga de eliminar el valor por defecto
     else {
       indexC = channels_active.findIndex(channel_active => channel_active.channel == graphs[n-1].channel);
       if (indexC > -1 && channels_active[indexC].n == 1) channels_active.splice(indexC, 1);

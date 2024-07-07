@@ -1,7 +1,7 @@
 /* Funciones de reroute */
 
 /* Cantidad de direcciones objetico dinamicas. */
-const maxCount = 10;
+const maxCount = 5;
 const minCount = 1;
 var cantidad_dir = 1;
 
@@ -208,6 +208,7 @@ function updateFields() {
 
 // Valicdaciones
 function isValidIP_ClientSide(ip) {
+    // 
     const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     return ipPattern.test(ip);
 }
@@ -218,7 +219,7 @@ function isValidPort_ClientSide(port) {
 }
 
 function isValidFilter(filter) {
-    return filtros.some(filt => filt.value === filter); // DEBUG solo ninguno funciona ahora mismo
+    return filtros.some(filt => filt.value === filter); 
 }
 
 
