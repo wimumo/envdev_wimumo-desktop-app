@@ -63,9 +63,12 @@ window.api.receive('osc', (data) => {
 
   // Si la conexion se pierde, se actualizan los datos
   if (data == 'CONNECTION LOST') {
-    onConnectionLost(); // config
-    emptySamples(); // Clear graphs
-    //disableChannels(); // Clear graphs
+
+    onConnectionLostConfig(); // Reset config
+    onConnectionLostGraph(); // Clear graphs
+
+    info_received = false;
+
     return;
   }
 

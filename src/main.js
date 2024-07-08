@@ -11,7 +11,7 @@ const listeningPort = 4560; //4560;
 // Detectar cuando se detiene una conexion
 // Variables para detener el proceso cuando se dejan de recibir mensajes
 let lastReceivedTime = null;
-const TIMEOUT_THRESHOLD = 5000; // 5 seconds
+const TIMEOUT_THRESHOLD = 3000; // 3 segundos que espera entre mensajes antes de asumir que se desconecto
 let oscConnectionInProgress = false;
 let checkDataIntervalId = null;
 

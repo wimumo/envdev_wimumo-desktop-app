@@ -6,12 +6,10 @@
 
 const noneConnectedMessage = ' - No hay ningún dispositivo no conectado actualmente. ';
 
-function onConnectionLost(){
+function onConnectionLostConfig(){
     document.getElementById("estado").innerHTML = noneConnectedMessage;
     document.getElementById("redireccion_activada").style.display = 'none';
     info_reported = false;
-
-    // graph reset
     
 }
 

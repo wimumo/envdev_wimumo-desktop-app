@@ -10,7 +10,7 @@ var height = 300;
 var recording = false;
 
 // New, Channel vars
-var channels = [];  // CHAAAAAAAAAAAAAAAAAAAAAAAAANGE
+var channels = [];
 var channels_active = [];
 // -----------------
 
@@ -220,11 +220,11 @@ class Cursor {
   }
 }
 
-function addChannels(data){
+function addChannels(data) {
   /* Parsea los datos que se recive del WIMUMO y crea los canales apropiados*/
   for (let i = 0; i < parseInt(data[6]); i++) {
 
-    channels.push(data[7 + i].substring(10)); 
+    channels.push(data[7 + i].substring(10));
 
   }
 }
@@ -234,7 +234,7 @@ function enableChannels() {
   var chs = channels; // Se removio el parametro ya que la forma correcta de llamarlo siempre es con la variable channels
 
   for (let i = 0; i < graphs.length; i++) {
-    if (graphs[i].ready == false && channels.length != 0){
+    if (graphs[i].ready == false && channels.length != 0) {
       graphs[i].ready = true;
       for (let k = 0; k < chs.length; k++) {
         let c = document.createElement("option");
@@ -252,7 +252,7 @@ function enableChannels() {
 //
 function plot(channel, samples) {
   for (let i = 0; i < graphs.length; i++) {
-    if (graphs[i].channel == channel){
+    if (graphs[i].channel == channel) {
       // Para calculo de FPS dinámico 
       graphs[i].nSamples += samples.length;
 
@@ -272,42 +272,72 @@ function plot(channel, samples) {
 
 function filterAndGraph(data) {
   /* Acá se hace el filtado para graficar */
-    for (let i = 0; i < channels_active.length; i++){ 
-      if (data[0] == (base_route + channels_active[i].channel)) {
-        var sample = [];
-        for (let i = 1; i < data.length; i++) {
-          sample.push(parseInt(data[i]));
-        }
-        plot(channels_active[i].channel, sample);
+  for (let i = 0; i < channels_active.length; i++) {
+    if (data[0] == (base_route + channels_active[i].channel)) {
+      var sample = [];
+      for (let i = 1; i < data.length; i++) {
+        sample.push(parseInt(data[i]));
       }
-    } 
+      plot(channels_active[i].channel, sample);
+    }
+  }
 }
 
-// NEW ----------------------
-function emptySamples(){
-  let n = graphs.length;
-  for (let i = 0; i < n; i++) {
-    removeGraph();
-  }
-  for (let i = 0; i < n; i++) {
-    addGraph();
-  }
+//
+// NEW Funciones que se llaman cuando se dejan de recivir datos
+//
+function onConnectionLostGraph() {
+  emptyChannels();
+  emptyCurrentGraphs();
+}
 
+function emptyChannels() {
+  /* Reinicia las variables que guardan los canales recividos */
+  channels = [];
+  channels_active = [];
+}
+
+function emptyCurrentGraphs() {
+  /* Reinicia los canales que ya estan incluidos en los graficos creados */
+
+  /* // Esta seccion reiniciaria todo el grafico, pero esto se deshace de los datos que estan actualmente visibles
+    let n = graphs.length;
+    for (let i = 0; i < n; i++) {
+      removeGraph();
+    }
+    for (let i = 0; i < n; i++) {
+      addGraph();
+    }*/
+
+  // Elimina todos los canales actuales y los reemplaza con el canal por defecto sin tocar el grafico en si
   for (let i = 0; i < graphs.length; i++) {
-    if (graphs[i].ready == true){
-      graphs[i].ready = false;
+    if (graphs[i].ready == true) {
+      graphs[i].ready = false; 
 
-      //graphs[i].title.removeChild(document.getElementById(`channel_option_${i}_1`));
+      // Se eliminan todos los canales que ya estan incluidos en los graficos actuales
       while (graphs[i].title.firstChild) {
         graphs[i].title.removeChild(graphs[i].title.firstChild);
       }
+
+       // Se deja en su lugar el canal por defecto para no causar errores 
+      graphs[i].title.appendChild(opcionCanalPorDefecto());
+
     }
   }
 
 }
 // ------------------------
 
-function addGraph(){
+function opcionCanalPorDefecto() {
+  /* Crea y devuelve un canal por defecto. Como se usa mas de una vez en el codigo se puso en una funcion separada*/
+  let canalPorDefecto = document.createElement("option");
+  canalPorDefecto.innerHTML = "Seleccione canal";
+  canalPorDefecto.value = "null";
+  canalPorDefecto.className = "focusable";
+  return canalPorDefecto;
+}
+
+function addGraph() {
   let n = graphs.length + 1;
 
   let div = document.createElement('div');
@@ -320,11 +350,7 @@ function addGraph(){
   title.id = "titleCanvas" + n;
   title.className = "focusable";
 
-  let chan = document.createElement("option");
-  chan.innerHTML = "Seleccione canal";
-  chan.value = "null";
-  chan.className = "focusable";
-  title.appendChild(chan);
+  title.appendChild(opcionCanalPorDefecto()); // Agrega el canal por defecto
   div.appendChild(title);
 
   // ZOOM IN, ZOOM OUT
@@ -352,32 +378,32 @@ function addGraph(){
 
   document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtons'));
 
-  graphs.push(new Graph(document.getElementById("canvas"+n), document.getElementById("titleCanvas"+n), document.getElementById("infoCanvas"+n)));
+  graphs.push(new Graph(document.getElementById("canvas" + n), document.getElementById("titleCanvas" + n), document.getElementById("infoCanvas" + n)));
 
-  document.getElementById("zInButton" + n).onclick = () => graphs[n-1].scaleUp();
-  document.getElementById("zOutButton" + n).onclick = () => graphs[n-1].scaleDown();
+  document.getElementById("zInButton" + n).onclick = () => graphs[n - 1].scaleUp();
+  document.getElementById("zOutButton" + n).onclick = () => graphs[n - 1].scaleDown();
 
   // Funcion que se ejecuta cuando se elije otro valor en el selector. El selector se llama titleCanvas.
   document.getElementById("titleCanvas" + n).onchange = function () {
     let indexC;
     /* Previous channel */
-    if (graphs[n-1].channel == "null") this.removeChild(this.options[0]); // Se encarga de eliminar el valor por defecto
+    if (graphs[n - 1].channel == "null") this.removeChild(this.options[0]); // Se encarga de eliminar el valor por defecto
     else {
-      indexC = channels_active.findIndex(channel_active => channel_active.channel == graphs[n-1].channel);
+      indexC = channels_active.findIndex(channel_active => channel_active.channel == graphs[n - 1].channel);
       if (indexC > -1 && channels_active[indexC].n == 1) channels_active.splice(indexC, 1);
-      else if(indexC > -1) channels_active[indexC].n--;
+      else if (indexC > -1) channels_active[indexC].n--;
     }
     /* New channel */
-    graphs[n-1].channel = this.value;
+    graphs[n - 1].channel = this.value;
     indexC = channels_active.findIndex(channel_active => channel_active.channel == this.value);
     if (indexC > -1) channels_active[indexC].n++;
-    else channels_active.push({'channel': this.value, 'n': 1});
+    else channels_active.push({ 'channel': this.value, 'n': 1 });
   };
 
   enableChannels();
 }
 
-function removeGraph(){
+function removeGraph() {
   document.getElementById('graficador').removeChild(document.getElementById("graph" + graphs.length));
   graphs.pop();
 }
