@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { networkInterfaces } = require('os');
 const http = require('http');
 const WebSocketServer = require('websocket').server;
+const ping = require('ping');
 const osc = require('node-osc');
 const path = require('path');
 
@@ -133,6 +134,17 @@ app.whenReady().then(() => {
       }
     }
     mainWindow.webContents.send('iplocal', results);
+  });
+
+  ipcMain.on('ping-ip', async (event, ip) => {
+     /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
+    try {
+      const res = await ping.promise.probe(ip);
+      mainWindow.webContents.send('ping-result', res);
+    } catch (error) {
+      console.error('Ping error:', error);
+      mainWindow.webContents.send('ping-result', { error: 'Ping failed' });
+    }
   });
 
   ipcMain.on('toggle-reruteo', (event, data) => {

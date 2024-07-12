@@ -9,7 +9,7 @@ const cantInput = document.getElementById('cant_direcciones');
 const cantError = document.getElementById('cant_direcciones_error');
 
 /* Initialice everything */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     initialiceFiltros();
     initialiceTextosDinamicos();
 });
@@ -28,7 +28,7 @@ function initialiceFiltros() {
     const firstSelectElement = document.getElementById('filter_1');
 
     // Add each option to the select element
-    filtros.forEach(function(option) {
+    filtros.forEach(function (option) {
         var newOption = document.createElement('option');
         newOption.value = option.value;
         newOption.text = option.text;
@@ -43,11 +43,11 @@ const errorTexts = [
     { value: 'filterError', text: 'Filtro no reconocido' }
 ];
 
-function findText(value){
+function findText(value) {
     return errorTexts.find(error => error.value === value).text
 }
 
-function initialiceTextosDinamicos(){
+function initialiceTextosDinamicos() {
     const firstIpErrorSpan = document.getElementById("ip_error_1");
     const firstPortErrorSpan = document.getElementById("port_error_1");
     const firstFilterErrorSpan = document.getElementById("filter_error_1");
@@ -56,7 +56,6 @@ function initialiceTextosDinamicos(){
     firstPortErrorSpan.textContent = findText('portError');
     firstFilterErrorSpan.textContent = findText('filterError');
 }
-
 
 
 /* Campos dinamicos. */
@@ -219,7 +218,7 @@ function isValidPort_ClientSide(port) {
 }
 
 function isValidFilter(filter) {
-    return filtros.some(filt => filt.value === filter); 
+    return filtros.some(filt => filt.value === filter);
 }
 
 
@@ -251,15 +250,15 @@ function updateStateMessage(ipPortFilterInputs) {
     var state = "";
     var confirmation_message = "";
 
-    if ( reruteoEnabled ) {
+    if (reruteoEnabled) {
         state = "Redirección configurada <br>"
 
         ipPortFilterInputs.forEach((pair, index) => {
             const ip = pair.ipInput.value;
             const port = pair.portInput.value;
             const filter = pair.filterInput.options[pair.filterInput.selectedIndex].text;
-            
-            state += `- Dirección objetivo ${index+1}: <mark>${ip}:${port}</mark> | Filtro: <mark>${filter}</mark> <br>`
+
+            state += `- Dirección objetivo ${index + 1}: <mark>${ip}:${port}</mark> | Filtro: <mark>${filter}</mark> <br>`
         });
 
         confirmation_message = "Redireccion activada."
@@ -272,6 +271,35 @@ function updateStateMessage(ipPortFilterInputs) {
     document.getElementById("estado_redireccion").innerHTML = state;
     document.getElementById("redireccion_activada").innerHTML = confirmation_message;
 }
+
+// Ping check
+/*
+async function pingIp(ip) {
+    const response = await fetch('/ping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ip: ip })
+    });
+
+    const result = await response.json();
+    return result.alive;
+}
+
+async function checkIpAvailability(ip) {
+    const isAlive = await pingIp(ip);
+
+    if (isAlive) {
+        console.log(`IP ${ip} is alive. Sending OSC message...`);
+        return true;
+
+    } else {
+        console.log(`IP ${ip} is not reachable.`);
+        return false;
+    }
+}
+*/
 
 // IPC
 function ipcSend_toggleReroute(ipPortFilterInputs) {
@@ -294,12 +322,22 @@ function ipcSend_toggleReroute(ipPortFilterInputs) {
 
 }
 
+function ipcSend_pingIP(ip) {
+    /* Envia la señal a main para que haga un ping a la ip especificada. Despues de hacer el ping la funcion sigue en ipcRecieve_pingIP */
+    window.api.send('ping-ip', ip);
+}
+
+window.api.receive('ping-ip', (res) => {
+    /* Recive la señal del main y activa la redireccion si la ip que se ingreso esta habilitada. */
+})
+
+
 /* --------------------------------------------------------------------*/
 // Habilitar reruteo
 
 var reruteoEnabled = false; // Purrdata same machine '127.0.0.1' 4559;
 
-function habilitarReruteo() {
+async function habilitarReruteo() {
     /* Llamada por el boton de activar rerouting. Si esta activado lo detine, si no entonces lo activa con los parametros dados. */
 
     // Primero consigue todos inputs actuales IP y Port
@@ -360,13 +398,28 @@ function habilitarReruteo() {
         } else {
             message += "Filtro no reconocido. "
             valid = false;
-            pair.filterError.style.display = 'inline'; // Mesaje de error Puerto
+            pair.filterError.style.display = 'inline'; // Mesaje de error Filtro
         }
-
+        /*
+                // Check IP avalilability via PING
+                const isAvailable = await checkIpAvailability(pair.ipInput.value);
+        
+                if (isAvailable) {
+                    message += "IP habilitada. "
+                    pair.filterError.style.display = 'none';
+                } else {
+                    message += "IP NO ESTA HABILITADA. "
+                    valid = false;
+                    pair.filterError.style.display = 'inline'; // Mesaje de error CAMBIARRRRRRRRRR
+                }
+        */
 
     });
 
+
     if (valid) {
+
+
 
         reruteoEnabled = true;
         ipcSend_toggleReroute(ipPortFilterInputs);

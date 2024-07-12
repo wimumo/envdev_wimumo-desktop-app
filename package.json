@@ -50,7 +50,8 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "node-osc": "^8.1.0",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "ping": "^0.4.3" 
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.4.1",
