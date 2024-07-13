@@ -18,7 +18,7 @@ let checkDataIntervalId = null;
 
 // Funcion que se llama cada vez que hay una conexion con el servidor
 
-function oscConnectionAlive () {
+function oscConnectionAlive() {
   // Guarda el tiempo en que se recive
   lastReceivedTime = Date.now();
 
@@ -26,7 +26,7 @@ function oscConnectionAlive () {
   if (!oscConnectionInProgress) {
     checkDataIntervalId = setInterval(checkForStoppedData, 1000); // Checkea si se dejo de recivir mensajes cada segundo
     oscConnectionInProgress = true;
-  } 
+  }
 }
 
 // Funcion que checkea si se han dejado de recibir mensajes
@@ -34,21 +34,21 @@ function checkForStoppedData() {
   const currentTime = Date.now();
 
   if (lastReceivedTime === null) {
-      console.log("No se han recivido datos todavia.");
+    console.log("No se han recivido datos todavia.");
   } else {
-      const timeSinceLastMessage = currentTime - lastReceivedTime;
+    const timeSinceLastMessage = currentTime - lastReceivedTime;
 
-      if (timeSinceLastMessage >= TIMEOUT_THRESHOLD) {
+    if (timeSinceLastMessage >= TIMEOUT_THRESHOLD) {
 
-        oscConnectionInProgress = false
-        console.log("Se ha dejado de recivir datos de la conexion OSC.");
-        clearInterval(checkDataIntervalId); // detiene la funcion de ser llamada mas veces
+      oscConnectionInProgress = false
+      console.log("Se ha dejado de recivir datos de la conexion OSC.");
+      clearInterval(checkDataIntervalId); // detiene la funcion de ser llamada mas veces
 
-        mainWindow.webContents.send('osc', 'CONNECTION LOST');
+      mainWindow.webContents.send('osc', 'CONNECTION LOST');
 
-      } else {
-        console.log(`Last message received ${timeSinceLastMessage / 1000} seconds ago.`);
-      }
+    } else {
+      console.log(`Last message received ${timeSinceLastMessage / 1000} seconds ago.`);
+    }
 
   }
 }
@@ -65,7 +65,7 @@ var redirectOSC = false;
 var oscClients = [];
 function closeOscClients() {
   oscClients.forEach(client => {
-    client.close();
+    if(client) client.close();
   })
 }
 
@@ -136,23 +136,51 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
-  ipcMain.on('ping-ip', async (event, ip) => {
-     /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
+
+  ipcMain.on('ping-ip', async (event, data) => {
+    /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
+
+    console.log(`Ping ip ${data.ip} - Checkear si la ip esta disponible `);
+
     try {
-      const res = await ping.promise.probe(ip);
-      mainWindow.webContents.send('ping-result', res);
+
+      await ping.promise.probe(data.ip).then(function (res) {
+        const result = `Ping to ${res.host} [${res.alive ? 'Success' : 'Fail'}]
+        Time: ${res.time}ms
+        Packets: sent = ${res.packetLoss}, received = ${res.numericHost}, loss = ${res.packetLossPercentage}%`;
+
+        console.log(result);
+
+        const newData = {
+          resultado: res,
+          posicion: data.posicion
+        };
+
+        mainWindow.webContents.send('ping-result', newData);
+      })
+
+
     } catch (error) {
+
       console.error('Ping error:', error);
-      mainWindow.webContents.send('ping-result', { error: 'Ping failed' });
+
+      const data = {
+        resultado: 'Ping failed',
+        posicion: posicion
+      };
+
+      mainWindow.webContents.send('ping-result', data); // { error: 'Ping failed' }
+
     }
   });
+
 
   ipcMain.on('toggle-reruteo', (event, data) => {
     /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
     const { activate, ipPortPairs } = data;
 
     if (activate === true) {
-      
+
       console.log(`Toggle reroute ON. Direcciones objetivo:`);
 
       ipPortPairs.forEach(pair => {
@@ -185,6 +213,50 @@ app.whenReady().then(() => {
 
       console.log('OSC redirection stopped.');
 
+    }
+
+  });
+
+  ipcMain.on('Add-RerouteAddress', (event, data) => {
+    /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
+    const { posicion, ip, port, filter } = data;
+
+    if (!rerouteAddresses[posicion]) { // Se asegura de que no exista
+
+      console.log(`Agregar direccion objetivo:`);
+      console.log(` - ${ip}:${port}. Filtro: ${filter}`);
+
+      rerouteAddresses[posicion] = ({ ipAddress: ip, port: port, filter: filter });
+
+      oscClients[posicion] = new osc.Client(rerouteAddresses[posicion].ipAddress, rerouteAddresses[posicion].port);
+      console.log('OscClient ' + posicion + ' created for ip:ports: ' + rerouteAddresses[posicion].ipAddress + ':' + rerouteAddresses[posicion].port);
+
+      redirectOSC = true;
+      console.log('OSC redirection started.');
+
+    } else {
+      console.log(`La posicion de redireccion ya esta ocupada. Esto no deberia de poder ocurrir.`);
+    }
+
+  });
+
+  ipcMain.on('Remove-RerouteAddress', (event, data) => {
+    /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
+    const { posicion, ip, port, filter } = data;
+
+    console.log(`Remove direccion objetivo.`);
+    console.log(` - ${ip}:${port}. Filtro: ${filter}`);
+
+    if (rerouteAddresses[posicion].ipAddress == ip && rerouteAddresses[posicion].port == port && rerouteAddresses[posicion].filter == filter) {
+      rerouteAddresses[posicion] = null;
+      oscClients[posicion].close();
+      console.log('Direccion removida.');
+    } else console.log('Hubo un error para remover direccion de redireccion.');
+
+    const allNull = rerouteAddresses.every(item => !item);
+    if (allNull) {
+      redirectOSC = false;
+      console.log('OSC redirection stopped.');
     }
 
   });
@@ -273,7 +345,7 @@ app.whenReady().then(() => {
 
             const bundleCopy = deepCopy(bundle); // Create a deep copy of the bundle
 
-            
+
             filterBundle(bundleCopy, pair.filter);
             console.log(bundleCopy);
             console.log('-----------');
@@ -281,7 +353,7 @@ app.whenReady().then(() => {
             oscClients[index].send(bundleCopy);
 
           });
-          
+
           //console.log('Forwarded OSC bundle:', message);
 
         } catch (error) {
@@ -332,7 +404,7 @@ app.whenReady().then(() => {
       case 'env_signals_only':
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/raw/'));
         break;
-      
+
       case 'channel_1_only':
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/ch2'));
         break;

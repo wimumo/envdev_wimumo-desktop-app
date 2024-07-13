@@ -349,8 +349,13 @@ footer {
 
 .right-button {
   position: absolute;
+/*
+  left: 90%;
+  top: 5%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);*/
   right: 10px;
-  bottom: 1px; /* Adjust this value to position the button vertically */
+  bottom: 0px;
 }
 
 .container_reroute {

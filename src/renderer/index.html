@@ -252,16 +252,16 @@
       <label for="cant_direcciones">Cantidad de direcciones objetivo:</label>
       <input type="number" id="cant_direcciones" name="cant_d" value="1" min="1" max="10" onchange="updateFields()">
       <span id="cant_direcciones_error" class="inputError">Minimo 1, maximo 10.</span>
-      
-      <button id="rerouteEN" class="right-button" tabindex="99999" onclick="habilitarReruteo()">Reroute ON</button><br>
 
       </div>
 
       <div id="ip_port_container">
-        <div id="ip_port_container_1">
+        <div id="ip_port_container_1" class="container_reroute">
           <hr class="separator">
 
-          <em>Direccion objetivo 1</em><br><br>
+          <em>Direccion objetivo 1</em>
+
+          <br><br>
 
           <label for="filter_1" class="inputLabel">Filtro:</label>
           <select id="filter_1" name="filter" class="select">
@@ -274,9 +274,13 @@
       
           <label for="reroute_port_1" class="inputLabel">Port:</label>
           <input type="text" id="reroute_port_1" name="port" placeholder="Ingresar numero de puerto">
-          <span id="port_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br><br>
+          <span id="port_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span>
+
+          <button id="reroute_button_1" class="right-button">Reroute ON</button> 
+
           
         </div>
+
       </div>
       
       <hr class="separator">
