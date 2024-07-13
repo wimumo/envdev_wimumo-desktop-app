@@ -54,6 +54,7 @@ const textosDinamicos = [
     { value: 'ipError', text: 'Dirección IP inválida. Debe consistir de 4 números separados por puntos, ejemplo: "x.x.x.x".' },
     { value: 'portError', text: 'Número de puerto inválido. Debe ser un número entre 0 y 65535.' },
     { value: 'filterError', text: 'Filtro no reconocido' },
+    { value: 'pingError', text: 'La direccion ip especificada no se pudo alcanzar. Intentar en otro momento.'},
 
     // Botones
     { value: 'rerouteButtonON', text: 'Reroute ON' },
@@ -306,6 +307,17 @@ function enableCantInput() {
     if (allFalse) cantInput.disabled = false;
 }
 
+function showInputError(errorSpan, text){
+
+    errorSpan.textContent = text;
+    errorSpan.style.display = 'inline'; // Mesaje de error IP
+
+}
+
+function hideInputError(errorSpan){
+    errorSpan.style.display = 'none';
+}
+
 // Mensaje de estado de reruteo en pantalla de Configuracion
 function updateStateMessage() {
     /* Esta funcion actuaiza el estado de la seccion de redireccion en la pantalla de configuracion. */
@@ -365,7 +377,7 @@ function updateStateMessage() {
 
 
 function ipcSend_pingIP(ip, posicion) {
-    /* Envia la señal a main para que haga un ping a la ip especificada. Despues de hacer el ping la funcion sigue en ipcRecieve_pingIP */
+    /* Envia la señal a main para que haga un ping a la ip especificada. Despues de hacer el ping la funcion sigue en 'ping-result' */
     const data = {
         ip: ip,
         posicion: posicion
@@ -402,7 +414,12 @@ window.api.receive('ping-result', (data) => {
 
     } else {
         // Si el ping fallo
+        const ipError = document.getElementById(`ip_error_${data.posicion}`);
+
+        showInputError(ipError, findText('pingError'));
+
         document.getElementById("rerouter_dialog_p").textContent = "PING FAILEDDDDDDDDDDDDDDDD";
+
     }
 })
 
@@ -473,37 +490,31 @@ function habilitarReruteoPorPosicion(posicion) {
 
     // De otra manera se pasa a las validaciones
 
-    var message = "";
+    //var message = "";
     var valid = true;
 
 
     // validaciones
 
     if (isValidIP_ClientSide(ipInput.value)) {
-        message += "IP valida. "
-        ipError.style.display = 'none';
+        hideInputError(ipError)
     } else {
-        message += "IP Invalida. "
         valid = false;
-        ipError.style.display = 'inline'; // Mesaje de error IP
+        showInputError(ipError, findText('ipError')) // Mesaje de error IP
     }
 
     if (isValidPort_ClientSide(portInput.value)) {
-        message += "Puerto valido. "
-        portError.style.display = 'none';
+        hideInputError(portError)
     } else {
-        message += "Puerto Invalido. "
         valid = false;
-        portError.style.display = 'inline'; // Mesaje de error Puerto
+        showInputError(portError, findText('portError')) // Mesaje de error Puerto
     }
 
     if (isValidFilter(filterInput.value)) {
-        message += "Filtro valido. "
-        filterError.style.display = 'none';
+        hideInputError(filterError)
     } else {
-        message += "Filtro no reconocido. "
         valid = false;
-        filterError.style.display = 'inline'; // Mesaje de error Filtro
+        showInputError(filterError, findText('filterError')) // Mesaje de error Filtro
     }
 
 
@@ -511,6 +522,7 @@ function habilitarReruteoPorPosicion(posicion) {
 
     if (valid) {
 
+        // Si el resto de las validaciones son correctas, entonces hace un Ping a la ip objetivo para asegurarse de que esta disponible
         ipcSend_pingIP(ipInput.value, posicion)
 
     }
