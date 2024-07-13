@@ -63,10 +63,15 @@ var redirectOSC = false;
 // Clientes para redireccion
 //var oscClient = null; //new osc.Client(targetAddress, targetPort);
 var oscClients = [];
+
 function closeOscClients() {
+
   oscClients.forEach(client => {
-    if(client) client.close();
+    if( client ) {
+      client.close();
+    }
   })
+  
 }
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -248,8 +253,11 @@ app.whenReady().then(() => {
     console.log(` - ${ip}:${port}. Filtro: ${filter}`);
 
     if (rerouteAddresses[posicion].ipAddress == ip && rerouteAddresses[posicion].port == port && rerouteAddresses[posicion].filter == filter) {
+
       rerouteAddresses[posicion] = null;
       oscClients[posicion].close();
+      oscClients[posicion] = null;
+
       console.log('Direccion removida.');
     } else console.log('Hubo un error para remover direccion de redireccion.');
 
