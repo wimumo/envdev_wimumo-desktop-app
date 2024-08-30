@@ -9,13 +9,19 @@ contextBridge.exposeInMainWorld(
     "api", {
         send: (channel, data) => {
             // whitelist channels
-            let validChannels = ['get-iplocal', 'toggle-reruteo', 'ping-ip', 'Add-RerouteAddress', 'Remove-RerouteAddress'];
+            let validChannels = [
+                'get-iplocal', 'toggle-reruteo', 'ping-ip', 
+                'Add-RerouteAddress', 'Remove-RerouteAddress', 'save-config'
+            ];
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
             }
         },
         receive: (channel, func) => {
-            let validChannels = ['osc','iplocal', 'ping-result'];
+            let validChannels = [
+                'osc','iplocal', 
+                'ping-result', 'savedRedirectConfig'
+            ];
             if (validChannels.includes(channel)) {
                 // Deliberately strip event as it includes `sender` 
                 ipcRenderer.on(channel, (event, ...args) => func(...args));

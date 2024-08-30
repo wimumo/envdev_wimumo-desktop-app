@@ -4,7 +4,7 @@
 
 // Actualizar elementos cuando la conexion para
 
-const noneConnectedMessage = ' - No hay ningún dispositivo no conectado actualmente. ';
+const noneConnectedMessage = ' - No hay ningún dispositivo conectado actualmente. ';
 
 function onConnectionLostConfig(){
     document.getElementById("estado").innerHTML = noneConnectedMessage;

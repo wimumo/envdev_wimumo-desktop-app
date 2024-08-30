@@ -34,7 +34,7 @@
 <!-- Paneles -->
 <div class="main">
 
-  <div id="instrucciones" hiden>
+  <div id="instrucciones" hidden>
     <h3>Instrucciones</h3>
 
     <p> 
@@ -193,9 +193,9 @@
     </footer>
   </div>
 
-  <div id="configuracion" hiden>
+  <div id="configuracion" hidden>
     <h3>Estado de WIMUMO</h3>
-    <p id="estado"> - No hay ningún dispositivo no conectado actualmente.</p>
+    <p id="estado"> - No hay ningún dispositivo conectado actualmente.</p>
     <br><br>
 
     <h4>Redirección de señales</h4>
@@ -204,19 +204,19 @@
 
   </div>
   
-  <div id="graficador" hiden>
+  <div id="graficador" hidden>
     <h3>Señales</h3>
     <div id="graphButtons">
       <button class="button_señales" onclick="addGraph()">Agregar</button>
       <button onclick="removeGraph()">Eliminar</button>
     </div>
-    <div id="graphRec" hiden>
+    <div id="graphRec" hidden>
       <button id="rec" onclick="button_toggleRecord()">Grabar</button>
       <button onclick="button_download()">Guardar registro</button>
     </div>
   </div>
 
-  <div id="musica" hiden>
+  <div id="musica" hidden>
     <h3>Música</h3>
     <p>
       <button class="vumetro" id="ch1">1</button>
@@ -237,21 +237,22 @@
     </datalist>
   </div>
 
-  <div id="rerouter" hiden>
+  <div id="rerouter" hidden>
     <h3>Re-ruteo de paquetes OSC</h3>
-    <div id="rerouter_dialog" class="msg info" >
+    <div id="rerouter_dialog" class="msg info">
       <p id="rerouter_dialog_p">
         Si se encuentra utilizando el programa Processing en va, cierre esta aplicación antes de continuar...........
+        SACAR ESTA ESTIQUETA (y uno de los br) cuando no haya que debuggear
       </p>
     </div>
     <div>
       <div class="container_reroute">
 
-      <br><br>
+      <br>
       
       <label for="cant_direcciones">Cantidad de direcciones objetivo:</label>
       <input type="number" id="cant_direcciones" name="cant_d" value="1" min="1" max="10" onchange="updateFields()">
-      <span id="cant_direcciones_error" class="inputError">Minimo 1, maximo 10.</span>
+      <span id="cant_direcciones_error" class="inputError">Minimo 1, maximo 5.</span>
 
       </div>
 

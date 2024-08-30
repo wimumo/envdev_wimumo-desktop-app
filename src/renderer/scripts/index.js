@@ -17,8 +17,8 @@ category_active = categories[0];
 
 function body_exchange (category_selected) {
 
-  document.getElementById(category_active).setAttribute('hiden','');
-  document.getElementById(category_selected).removeAttribute('hiden');
+  document.getElementById(category_active).setAttribute('hidden','');
+  document.getElementById(category_selected).removeAttribute('hidden');
 
   category_active = category_selected;
 
@@ -52,8 +52,6 @@ class Movprom {
 var info_received = false;
 
 var base_route = "/wimumo020";
-//var channels = [];  // Esta variable deberia estar en graph.js
-//var channels_active = [];
 var numch = 0;
 var filt_batt = new Movprom(15);
 
@@ -124,6 +122,4 @@ window.api.receive('osc', (data) => {
   }
 
 });
-
-
 

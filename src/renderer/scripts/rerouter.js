@@ -5,7 +5,7 @@ var rerouteEnabledArray = []; // en caso de no existir se considera falso // Pur
 
 /* Cantidad de direcciones objetico dinamicas. */
 const maxCount = 5;
-const minCount = 1;
+const minCount = 1; // Cambiar de 1 no esta soportado
 var cantidad_dir = 1;
 
 const cantInput = document.getElementById('cant_direcciones');
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initialiceFiltros();
     initialiceTextosDinamicos();
     initialiceRerouteFunctionPosition1();
+    initialiceMaxMinCount();
 });
 
 /* Filtros. Esta variable determina los filtros que pueden usarse. Si se cambian se puede agregar una implementacion en "filterBundle", funcion de main.js */
@@ -47,6 +48,12 @@ function initialiceRerouteFunctionPosition1() {
     };
 }
 
+function initialiceMaxMinCount() {
+    const cant_direcciones = document.getElementById('cant_direcciones');
+    cant_direcciones.max = maxCount;
+    cant_direcciones.min = minCount;
+}
+
 /* Textos dinamicos. Strings que se usan en la pagina y que se cargan dinamicamente. Con cambiar esto se cambia todas sus apariciones. */
 const textosDinamicos = [
 
@@ -54,7 +61,7 @@ const textosDinamicos = [
     { value: 'ipError', text: 'Dirección IP inválida. Debe consistir de 4 números separados por puntos, ejemplo: "x.x.x.x".' },
     { value: 'portError', text: 'Número de puerto inválido. Debe ser un número entre 0 y 65535.' },
     { value: 'filterError', text: 'Filtro no reconocido' },
-    { value: 'pingError', text: 'La direccion ip especificada no se pudo alcanzar. Intentar en otro momento.'},
+    { value: 'pingError', text: 'La direccion ip especificada no se pudo alcanzar.' },
 
     // Botones
     { value: 'rerouteButtonON', text: 'Reroute ON' },
@@ -307,14 +314,14 @@ function enableCantInput() {
     if (allFalse) cantInput.disabled = false;
 }
 
-function showInputError(errorSpan, text){
+function showInputError(errorSpan, text) {
 
     errorSpan.textContent = text;
     errorSpan.style.display = 'inline'; // Mesaje de error IP
 
 }
 
-function hideInputError(errorSpan){
+function hideInputError(errorSpan) {
     errorSpan.style.display = 'none';
 }
 
@@ -392,7 +399,7 @@ window.api.receive('ping-result', (data) => {
 
     if (data.resultado.alive) {
         // Si el ping fue exitoso
-        document.getElementById("rerouter_dialog_p").textContent = "LES GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+        //document.getElementById("rerouter_dialog_p").textContent = "LES GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
 
         const ipInput = document.getElementById(`reroute_ip_${data.posicion}`);
         const portInput = document.getElementById(`reroute_port_${data.posicion}`);
@@ -449,6 +456,51 @@ function ipcSend_removeRoute(posicion, ip, port, filter) {
     window.api.send('Remove-RerouteAddress', data);
 
 }
+
+//Guardar datos de las redirecciones ip antes de cerrar la aplicacion
+function ipcSend_saveConfig() {
+    /* Esta funcion se encarga de guardar la configuracion de redirecciones ip en un archivo.  */
+    /* Esta funcion se deberia llamar antes de cerrar la pagina.  */
+
+    const ipPortArray = [];
+
+    ipPortArray.push({ cantidad_dir: cantidad_dir });
+
+    for (let posicion = minCount; posicion <= cantidad_dir; posicion++) {
+        const ipInputId = `reroute_ip_${posicion}`;
+        const portInputId = `reroute_port_${posicion}`;
+        const FilterInputId = `filter_${posicion}`;
+
+        // Se obtienen todos los inputs necesarios para guardar sus valores
+        const ipInput = document.getElementById(ipInputId);
+        const portInput = document.getElementById(portInputId);
+        const FilterInput = document.getElementById(FilterInputId);
+
+
+        if (ipInput.value && portInput.value && FilterInput.value) {
+            ipPortArray.push({
+                id: posicion,
+                ip: ipInput.value,
+                port: portInput.value,
+                filter: FilterInput.value
+            });
+
+            console.log(`Posicion "${posicion}" guardada. ${ipInput.value}:${portInput.value} filtro ${ipInput.value}`);
+        } /*else {
+            console.warn(`Element with ID "${posicion}" not found.`);
+        }*/
+    }
+
+    document.getElementById("rerouter_dialog_p").textContent = JSON.stringify(ipPortArray, null, 2);
+
+    const data = ipPortArray;
+    window.api.send('save-config', data);
+}
+
+window.addEventListener('beforeunload', (event) => {
+    /* Antes de cerrar la app se deberia nguardar las direcciones objetivo que se hayan escrito. */
+    ipcSend_saveConfig();
+})
 
 
 // Habilitar Reruteo
@@ -522,13 +574,93 @@ function habilitarReruteoPorPosicion(posicion) {
 
     if (valid) {
 
+        //ipcSend_saveConfig(); // Esto no deberia de ocurrir aca, deberia de ocurrir cuando se va a cerrar la app
         // Si el resto de las validaciones son correctas, entonces hace un Ping a la ip objetivo para asegurarse de que esta disponible
-        ipcSend_pingIP(ipInput.value, posicion)
+        ipcSend_pingIP(ipInput.value, posicion);
 
     }
 
 }
 
+window.api.receive('savedRedirectConfig', (data) => {
+    configData = JSON.stringify(data);
+
+    document.getElementById("rerouter_dialog_p").textContent = "FUNCIONO " + configData;
+
+    //const dataArray = JSON.parse(jsonString); // Forma [{cantidad_dir},{id,ip,port,filter},{id,ip,port,filter}...]
+    //cantInput.value = dataArray[0].cantidad_dir;
+
+    try {
+        // Parsea el JSON string a un JavaScript array
+        const dataArray = JSON.parse(configData);
+
+        // Accede al primer elemento del array para encontrar el valor previo de cantidad_dir
+        const cantidadDirValue = dataArray[0].cantidad_dir;
+        console.log('Value of cantidad_dir:', cantidadDirValue); // Output the value
+
+        // SEGURIDAD se asegura que el valor de cantidadDir sea uno posible, si no detiene la ejecucion.
+        if (cantidadDirValue > maxCount || cantidadDirValue < minCount) { return }
+
+        // Cambiar la cantidad de fields y actualiza antes de continuar
+        //cantidad_dir = dataArray[0].cantidad_dir;
+        cantInput.value = dataArray[0].cantidad_dir;
+        updateFields();
+
+        // For each element, por cada elemento que se guardo se itera para recuperar los datos
+        dataArray.forEach((element) => {
+            const pos = element.id;
+            const ip = element.ip
+            const port = element.port
+            const filter = element.filter
+
+            // En caso de que este filtro no sea correcto se sigue con la siguiente iteracion. No se detiene la ejecucion.
+            if (isValidFilter(filter)) {
+                const ipInputId = `reroute_ip_${pos}`;
+                const portInputId = `reroute_port_${pos}`;
+                const FilterInputId = `filter_${pos}`;
+
+                const ipInput = document.getElementById(ipInputId);
+                const portInput = document.getElementById(portInputId);
+                const FilterInput = document.getElementById(FilterInputId);
+
+                // Se asignan los valores guardados a cada input
+                ipInput.value = ip;
+                portInput.value = port;
+                FilterInput.value = filter;
+            };
 
 
-module.exports = { habilitarReruteoPorPosicion, updateFields }
+        });
+
+        /* for (let pos = 1; pos <= cantidad_dir; pos++) {
+            const ip = dataArray[pos].ip // pos siempre es un valor entre 1 y max
+            const port = dataArray[pos].port
+            const filter = dataArray[pos].filter
+
+            // En caso de que este filtro no sea correcto se sigue con la siguiente iteracion. No se detiene la ejecucion.
+            if (!isValidFilter(filter)) { continue };
+
+            const ipInputId = `reroute_ip_${pos}`;
+            const portInputId = `reroute_port_${pos}`;
+            const FilterInputId = `filter_${pos}`;
+
+            const ipInput = document.getElementById(ipInputId);
+            const portInput = document.getElementById(portInputId);
+            const FilterInput = document.getElementById(FilterInputId);
+
+            // Se asignan los valores guardados a cada input
+            ipInput.value = ip;
+            portInput.value = port;
+            FilterInput.value = filter;
+
+        }*/
+
+    } catch (parseErr) {
+        console.error('Error parsing JSON:', parseErr);
+    }
+
+});
+
+
+
+//module.exports = { habilitarReruteoPorPosicion, updateFields }

@@ -2,9 +2,14 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { networkInterfaces } = require('os');
 const http = require('http');
 const WebSocketServer = require('websocket').server;
+const fs = require('fs'); // file system
 const ping = require('ping');
 const osc = require('node-osc');
 const path = require('path');
+
+// Para guardar configuracion
+const userDataPath = app.getPath('userData');
+const configFilePath = userDataPath + "/configRedireccion.txt"
 
 // Puerto que escucha
 const listeningPort = 4560; //4560;
@@ -16,8 +21,10 @@ const TIMEOUT_THRESHOLD = 3000; // 3 segundos que espera entre mensajes antes de
 let oscConnectionInProgress = false;
 let checkDataIntervalId = null;
 
-// Funcion que se llama cada vez que hay una conexion con el servidor
+// Variable que guarda el estado de las direcciones de redireccion
+let dataRedirectConfig = [];
 
+// Funcion que se llama cada vez que hay una conexion con el servidor
 function oscConnectionAlive() {
   // Guarda el tiempo en que se recive
   lastReceivedTime = Date.now();
@@ -80,6 +87,53 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+/* 
+*   Leer archivos de configuracion en startup
+*/
+function readFileAtStartup() {
+
+  fs.readFile(configFilePath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('An error occurred while reading the file:', err);
+      return;
+    }
+
+    // Do something with the file data
+    console.log('File data:', data);
+    
+    // JSON file parseado
+    try {
+      const config = JSON.parse(data);
+      dataRedirectConfig = config; // Guardar datos parseados
+      console.log('Parsed config:', dataRedirectConfig);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+    }
+  });
+/*
+  return new Promise((resolve, reject) => {
+    fs.readFile(configFilePath, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('An error occurred while reading the file:', err);
+        reject(err);
+      } else {
+        console.log('File data:', data);
+
+        try {
+          const config = JSON.parse(data);
+          console.log('Parsed config:', dataRedirectConfig);
+          resolve(config);
+        } catch (parseErr) {
+          console.error('Error parsing JSON:', parseErr);
+        }
+
+        reject(data);
+      }
+    });
+  }); */
+
+}
+
 
 /*
 *    Ventana Electron 
@@ -98,12 +152,33 @@ const createWindow = () => {
 
   mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 
+  // Manda los datos por defecto 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('savedRedirectConfig', dataRedirectConfig);
+  });
+
   // DEBUG
   //mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
+  // Antes de compenzar la app lee los datos de configuracion guardados si hay
+  readFileAtStartup();
+
+  // Crea la pantalla principal
   createWindow();
+
+  /*
+  try {
+    const fileData = await readFileAtStartup(); // Read the file at startup
+    createWindow(fileData); // Create the window after the file has been read
+  } catch (err) {
+    console.error('Failed to read the file at startup:', err);
+    createWindow(); // Create the window even if the file read failed
+  }*/
+
+  // Añadir la configuracion por defecto de las direcciones ip a la mainWindow
+  //mainWindow.webContents.send('savedRedirectConfig', dataRedirectConfig);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -114,6 +189,11 @@ app.whenReady().then(() => {
   app.on('window-all-closed', () => {
     oscServer.close();
     closeOscClients();
+
+    // Guardar configuracion de redirecciones en disco
+    fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig)); 
+    // --------------------------------------
+
     if (process.platform !== 'darwin') {
       app.quit();
     }
@@ -141,9 +221,19 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
+  ipcMain.on('save-config', async(event, data) => {
+    /* Funcion que se encarga de guardar la configuracion del rerouter */ 
+    /* El parametro Data es un array de diccionarios [ {cantidad_dir}, { ip, port, filter }, { ip, port, filter } ... ] */
+    
+    dataRedirectConfig = data;
+    console.log(`Configuracion de redireccion guardada.`)
+
+  });
+
 
   ipcMain.on('ping-ip', async (event, data) => {
     /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
+    /* Parametro data se define como {ip: ip, posicion: posicion}; */
 
     console.log(`Ping ip ${data.ip} - Checkear si la ip esta disponible `);
 
@@ -323,10 +413,6 @@ app.whenReady().then(() => {
 
     //------------------------------------------------------------------- Redireccion Mensajes
     if (redirectOSC) {
-      /*console.log('Received OSC message:'); // , msg
-      for (let i = 0; i < msg.length; i++) {
-        console.log(`Index: ${i}, Value: ${msg[i]}`);
-      }*/
       forwardMessage(msg);
     }
     //------------------------------------------------------------------- 
