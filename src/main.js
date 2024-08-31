@@ -1,3 +1,9 @@
+/* Proceso Main de la aplicacion WIMUMO DESKTOP.
+
+Este proceso se encarga de crear la ventana de Electron y trata con la logica para cerrarla correctamente.
+Tambien se definen en este proceso todos los servidores y clientes OSC que reciven y mandan señales del 
+dispositivo WIMUMO, y se mantiene una comunicacion con la ventana de Electron para poder mostrar y tratar las señales. */
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { networkInterfaces } = require('os');
 const http = require('http');
@@ -7,22 +13,42 @@ const ping = require('ping');
 const osc = require('node-osc');
 const path = require('path');
 
-// Para guardar configuracion
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+// eslint-disable-next-line global-require
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
+
+// Path para guardar datos de configuracion en Disco
 const userDataPath = app.getPath('userData');
 const configFilePath = userDataPath + "/configRedireccion.txt"
 
-// Puerto que escucha
-const listeningPort = 4560; //4560;
+// Puerto en el que se esperan los daztos del dispositivo WIMUMO. Por defecto [ 4560 ]
+const listeningPort = 4560;
 
-// Detectar cuando se detiene una conexion
 // Variables para detener el proceso cuando se dejan de recibir mensajes
-let lastReceivedTime = null;
 const TIMEOUT_THRESHOLD = 3000; // 3 segundos que espera entre mensajes antes de asumir que se desconecto
+let lastReceivedTime = null;
 let oscConnectionInProgress = false;
 let checkDataIntervalId = null;
 
-// Variable que guarda el estado de las direcciones de redireccion
+// -- Redireccion
+// Variable que guarda el estado de las direccion de redireccion, para despues guardarlo en Disco.
 let dataRedirectConfig = [];
+
+// Reroute // Comunmente usadas [ 4559 purrdata ]  [ 127.0.0.1 loopback ]
+const rerouteAddresses = []; // ejemplo = [{ ipAddress: '127.0.0.1', port: 4559 }]
+var redirectOSC = false;
+
+// Array de clientes para redireccion. Se definen y usan segun sea necesario.
+var oscClients = [];
+
+
+
+
+/* 
+*   Mantenimiento de coneccion OSC
+*/
 
 // Funcion que se llama cada vez que hay una conexion con el servidor
 function oscConnectionAlive() {
@@ -60,17 +86,6 @@ function checkForStoppedData() {
   }
 }
 
-// Reroute
-//var targetPort = 0;                 // 4559 purrdata
-//var targetAddress = '127.0.0.1';    // 127.0.0.1 loopback
-
-const rerouteAddresses = []; // ej = { ipAddress: '127.0.0.1', port: 4559 }
-var redirectOSC = false;
-
-// Clientes para redireccion
-//var oscClient = null; //new osc.Client(targetAddress, targetPort);
-var oscClients = [];
-
 function closeOscClients() {
 
   oscClients.forEach(client => {
@@ -81,11 +96,8 @@ function closeOscClients() {
   
 }
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-// eslint-disable-next-line global-require
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+
+
 
 /* 
 *   Leer archivos de configuracion en startup
@@ -110,29 +122,10 @@ function readFileAtStartup() {
       console.error('Error parsing JSON:', parseErr);
     }
   });
-/*
-  return new Promise((resolve, reject) => {
-    fs.readFile(configFilePath, 'utf-8', (err, data) => {
-      if (err) {
-        console.error('An error occurred while reading the file:', err);
-        reject(err);
-      } else {
-        console.log('File data:', data);
-
-        try {
-          const config = JSON.parse(data);
-          console.log('Parsed config:', dataRedirectConfig);
-          resolve(config);
-        } catch (parseErr) {
-          console.error('Error parsing JSON:', parseErr);
-        }
-
-        reject(data);
-      }
-    });
-  }); */
 
 }
+
+
 
 
 /*
@@ -168,18 +161,6 @@ app.whenReady().then(() => {
   // Crea la pantalla principal
   createWindow();
 
-  /*
-  try {
-    const fileData = await readFileAtStartup(); // Read the file at startup
-    createWindow(fileData); // Create the window after the file has been read
-  } catch (err) {
-    console.error('Failed to read the file at startup:', err);
-    createWindow(); // Create the window even if the file read failed
-  }*/
-
-  // Añadir la configuracion por defecto de las direcciones ip a la mainWindow
-  //mainWindow.webContents.send('savedRedirectConfig', dataRedirectConfig);
-
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -200,6 +181,8 @@ app.whenReady().then(() => {
   }
   );
 
+
+  
 
   /*
   *   IPC messages 
@@ -360,11 +343,13 @@ app.whenReady().then(() => {
   });
 
 
+
+
   /*
   *   OSC 
   */
 
-  var nClients = 0;
+  var nClients = 0; // Cantidad de clientes de redireccion
 
   const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
@@ -509,6 +494,8 @@ app.whenReady().then(() => {
 
     }
   }
+
+
 
 
   /*
