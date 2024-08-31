@@ -6,7 +6,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; script-src-elem 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="stylesheets/wimumo.css">
+  
+  <!-- stylesheets -->
+  <link id="theme-style" rel="stylesheet" href="stylesheets/wimumoLight.css">
 </head>
 
 <body>
@@ -16,7 +18,8 @@
   <a onclick="menu_close()" class="menu-button menu-close-button"></a>
   <h3 class="menu-title">WIMUMO</h3>
   <a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a> 
-  <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Configuración</a> 
+  <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Información</a> 
+  <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a> 
   <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
   <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
   <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Ruteo OSC</a>
@@ -203,11 +206,22 @@
     <p id="redireccion_activada" class="hidden_p"></p>
 
   </div>
+
+  <div id="opciones" hidden>
+    <h3>Opciones</h3>
+    <br>
+
+    <h4> > Cambiar modo visual</h4>
+    <input type="checkbox" id="theme-toggle">
+    Dark Mode
+    <br><br>
+
+  </div>
   
   <div id="graficador" hidden>
     <h3>Señales</h3>
-    <div id="graphButtons">
-      <button class="button_señales" onclick="addGraph()">Agregar</button>
+    <div id="graphButtonsDiv">
+      <button onclick="addGraph()">Agregar</button>
       <button onclick="removeGraph()">Eliminar</button>
     </div>
     <div id="graphRec" hidden>
@@ -296,6 +310,7 @@
 <script src="scripts/index.js"></script>
 <script src="scripts/instructions.js"></script>
 <script src="scripts/config.js"></script>
+<script src="scripts/options.js"></script>
 <script src="scripts/graph.js"></script>
 <script src="scripts/music.js"></script>
 <script src="scripts/rerouter.js"></script>

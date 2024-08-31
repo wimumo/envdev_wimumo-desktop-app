@@ -376,7 +376,7 @@ function addGraph() {
   info.innerHTML = "Información:"
   div.appendChild(info);
 
-  document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtons'));
+  document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtonsDiv'));
 
   graphs.push(new Graph(document.getElementById("canvas" + n), document.getElementById("titleCanvas" + n), document.getElementById("infoCanvas" + n)));
 
