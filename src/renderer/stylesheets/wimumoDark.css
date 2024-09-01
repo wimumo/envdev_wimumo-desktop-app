@@ -44,42 +44,6 @@ body {
   background-color: var(--color-black);
 }
 
-h1 {
-  font-size:36px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0;
-}
-h2 { 
-  font-size:30px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0; 
-}
-h3 {
-  font-size:24px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0;
-}
-h4 {
-  font-size:20px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0;
-}
-h5 {
-  font-size:18px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0;
-}
-h6 {
-  font-size:16px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 400;
-  margin: 10px 0;
-}
 hr {
   border: 0px;
   border-top: 1px solid;
@@ -194,19 +158,6 @@ div {
   padding: 16px;
   font-size: 24px;
 }
-@media (max-width:992px){.menu-top-bar{display: block;}}
-@media (min-width:993px){.menu-top-bar{display: none;}}
-
-.menu-top-title {
-  float: left;
-  padding: 8px 16px;
-}
-
-.menu-top-button {
-  width: auto;
-  float: right;
-}
-
 .menu-overlay {
   height: 100%;
   width: 100%;
@@ -220,25 +171,6 @@ div {
   cursor: pointer;
   animation: opac 0.8s;
 }
-@media (max-width:992px){.menu-overlay{display: none;}.menu-overlay[shown]{display: block;}}
-@media (min-width:993px){.menu-overlay{display: none;}.menu-overlay[shown]{display: none;}}
-
-
-.main {
-  transition: margin-left .4s;
-}
-@media (max-width:992px){.main{margin-left: 0; margin-right: 0; margin-top: 83px;}}
-@media (min-width:993px){.main{margin-left: 300px;}}
-
-.main > div {
-  min-height: 100%;
-  padding: 32px;
-}
-
-#instrucciones {
-  text-align: justify;
-}
-
 
 .graph {
   display: inline-block;
@@ -246,12 +178,6 @@ div {
   padding: 16px;
   margin: 8px 16px 8px 0px;
   background-color: var(--color-dark-grey);
-}
-.graph select {
-  min-width: 200px;
-  padding: 8px;
-  border: none;
-  font: inherit;
 }
 .graph select:focus{
   background-color: var(--color-light-grey);
@@ -278,28 +204,6 @@ div {
   box-shadow: 0 0 0 1px var(--color-black);
 }
 
-button.zoomIn{
-  background-image: url('../assets/images/zoomin.png');
-  margin-right: 8px;
-}
-button.zoomOut{
-  background-image: url('../assets/images/zoomout.png');
-}
-.graph > p {
-  margin: 0px;
-}
-
-
-#graphButtonsDiv {
-  display: block;
-  margin-top: 8px;
-}
-
-
-
-.msg {
-  padding: 16px;
-}
 .msg.error {
   background-color: var(--color-light-red);
 }
@@ -325,29 +229,6 @@ footer {
   display: none; /* Hide by default */
 }
 
-.inputLabel {
-  padding-left: 20px; /* Adjust this value as needed for desired indentation */
-}
-
-.separator {
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
-
-.right-button {
-  position: absolute;
-/*
-  left: 90%;
-  top: 5%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);*/
-  right: 10px;
-  bottom: 0px;
-}
-
-.container_reroute {
-  position: relative;
-}
 
 .select:focus {
   box-shadow: 0 0 0 1px var(--color-dark-grey);
@@ -370,36 +251,12 @@ footer {
   display: none; /* Hide by default */
 }
 
-
-
-
-/* Google Fonts: 'Raleway'*/
-/* https://fonts.googleapis.com/css?family=Raleway */
-
-/* cyrillic-ext */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-/* vietnamese */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EF9,U+20AB;
-}
-/* latin-ext */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-/* latin */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+.ip-info {
+  font-weight: bold;
 }
 
-
+.guide-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

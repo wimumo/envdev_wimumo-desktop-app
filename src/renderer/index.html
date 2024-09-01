@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- stylesheets -->
+  <link id="theme-base" rel="stylesheet" href="stylesheets/wimumoOriginal.css">
   <link id="theme-style" rel="stylesheet" href="stylesheets/wimumoLight.css">
 </head>
 
@@ -16,8 +17,11 @@
 <!-- Menu -->
 <nav class="menu" id="menu"><br>
   <a onclick="menu_close()" class="menu-button menu-close-button"></a>
-  <h3 class="menu-title">WIMUMO</h3>
+  <h3 class="menu-title">
+    <a href="#HomePage" onclick="body_exchange('HomePage')" class="menu-title" >WIMUMO</a> 
+  </h3>
   <a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a> 
+  <a href="#instrucciones2" onclick="body_exchange('instrucciones2')" class="menu-button">Guias de uso</a> 
   <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Información</a> 
   <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a> 
   <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
@@ -36,6 +40,21 @@
 
 <!-- Paneles -->
 <div class="main">
+
+  <div id="HomePage" hidden> 
+    <div class="homeContainer parent-centered">
+      <div class="child-centered">
+        <h1>Bienvenido/a a la plataforma WIMUMO</h1>
+        <br>
+
+        <p>Para utilizar las funciones de esta aplicación conecte el dispositivo WIMUMO.</p>
+        <p><span class="ip-info">IP:</span> Leer IP de la máquina</p>
+        <p><span class="ip-info">Puerto:</span> 4560</p>
+        <p>Si es la primera vez que va a conectar el dispositivo, entre a <span class="guide-link">Guía de configuración…</span></p>
+      </div>
+  </div>
+  </div>
+
 
   <div id="instrucciones" hidden>
     <h3>Instrucciones</h3>
@@ -189,6 +208,51 @@
       intentan utilizar. Cuando la batería está baja, la luz indicadora titilará en rojo y
       debe retirarse la batería del quipo y recargarla.
     </p>
+    <footer>
+      <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
+      <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
+      <br>Instituto LEICI (UNLP-CONICET-CIC).
+    </footer>
+  </div>
+
+  <div id="instrucciones2" hidden>
+    <h3>Guias de uso</h3>
+
+    <p> 
+      Aquí se explica cómo configurar el dispositivo WIMUMO y su uso básico.
+    </p>
+
+    <hr>
+    <h4>Configurar el dispositivo</h4>
+
+    <p>
+      <button id="configGuide" onclick="">Ver guia paso a paso</button>
+    </p>
+    <p>
+      <button id="configManual" onclick="">Manual de uso</button>
+    </p>
+
+    <hr>
+    <h4>Usar el dispositivo</h4>
+
+    <p>
+      <button id="infoUse" onclick="">Sujeto a cambios</button>
+    </p>
+
+    <hr>
+    <h4>Funciones de esta aplicación</h4>
+
+    <p>
+      <button id="infoGraph" onclick="">Graficar señales</button>
+      <button id="infoAudio" onclick="">Crear musica</button>
+      <button id="infoReroute" onclick="">Rerutear señales a otras aplicaciones</button>
+    </p>
+
+    <hr>
+    <p> 
+      Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
+    </p>
+
     <footer>
       <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
       <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
