@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- stylesheets -->
-  <link id="theme-base" rel="stylesheet" href="stylesheets/wimumoOriginal.css">
+  <link id="theme-base" rel="stylesheet" href="stylesheets/wimumoBase.css">
   <link id="theme-style" rel="stylesheet" href="stylesheets/wimumoLight.css">
 </head>
 
@@ -47,10 +47,11 @@
         <h1>Bienvenido/a a la plataforma WIMUMO</h1>
         <br>
 
-        <p>Para utilizar las funciones de esta aplicación conecte el dispositivo WIMUMO.</p>
-        <p><span class="ip-info">IP:</span> Leer IP de la máquina</p>
+        <p>Para utilizar las funciones de esta aplicación conecte un dispositivo WIMUMO.</p>
+        <p><span class="ip-info">IP local: </span><span id="instrucciones_iplocal"> Leer IP de la máquina</span></p>
         <p><span class="ip-info">Puerto:</span> 4560</p>
-        <p>Si es la primera vez que va a conectar el dispositivo, entre a <span class="guide-link">Guía de configuración…</span></p>
+        <br>
+        <p >Si es la primera vez que va a conectar el dispositivo, entre a <span class="guide-link">Guía de configuración…</span></p>
       </div>
   </div>
   </div>
@@ -276,8 +277,11 @@
     <br>
 
     <h4> > Cambiar modo visual</h4>
-    <input type="checkbox" id="theme-toggle">
-    Dark Mode
+    <label for="theme-toggle" class="checkboxLabel">
+      <input type="checkbox" id="theme-toggle">
+      Dark Mode
+    </label>
+
     <br><br>
 
   </div>

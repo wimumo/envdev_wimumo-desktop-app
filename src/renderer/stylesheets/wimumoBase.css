@@ -1,36 +1,7 @@
 /* Elementos obtenidos de: W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 /* https://www.w3schools.com/w3css/4/w3.css */
 
-:root {
-  --color-white: #fff;
-  --color-black: #000;
-  --color-tra-black: rgba(0,0,0,0.5); /* transparent black */
-  --color-grey: #9e9e9e;
-  --color-light-grey: #f1f1f1;
-  --color-light-grey2: #ccc;
-  --color-dark-grey: #616161;
-  --color-blue: #87CEEB;
-  --color-red: red;
-  --color-light-blue: #ddffff;
-  --color-light-red: #ffdddd;
-  --hover-color-grey: #ccc;
-  --hover-color-dark-grey: #757575;
-  --text-color-grey: #757575;
-  --text-color-dark-grey: #3a3a3a;
-  --text-color-white: #fff;
-  --overlay-color-black: rgba(0,0,0,0.5);
-  --overlay-color-grey: #3a3a3a;
-
-  /* Agregar aca abajo los colores principales para despues cambiar con Light y Dark*/
-  --text-color: var(--color-black);
-  --background-color1: var(--color-white);
-  --background-color2: var(--color-grey);
-  --hover-color: var(--hover-color-grey);
-  --overlay-color: var(--color-tr-black);
-
-  --info-color: var(--color-blue);
-  --error-color: var(--color-red);
-}
+/* WimumoLight.css y WimumoDark.css agregan las deficiniciones a todos los colores */
 
 html {
   display: flex;
@@ -39,7 +10,7 @@ html {
   min-height: 100%;
   -ms-text-size-adjust:100%;
   -webkit-text-size-adjust:100%;
-  background-color: var(--color-grey);
+  background-color: var(--background-color2);
 }
 * , *:before, *:after {
   box-sizing: inherit;
@@ -53,8 +24,8 @@ body {
   line-height: 1.5;
   max-width: 1600px;
   margin: 0 auto 0 auto;
-  color: var(--color-black);
-  background-color: var(--color-light-grey);
+  color: var(--text-color);
+  background-color: var(--background-color1);
 }
 
 h1 {
@@ -104,7 +75,7 @@ b, strong {
   font-weight: bolder;
 }
 mark {
-  background-color: var(--color-light-blue);
+  background-color: var(--mark-color);
   border-radius: 5px;
 }
 a {
@@ -117,13 +88,31 @@ a:active, a:hover {
 button {
   font: inherit;
 }
-button:focus { /* new focus */
-  background-color: var(--color-light-grey);
-  border: 2px solid var(--color-dark-grey);
+button:active { /* new focus */
+  background-color: var(--button-color-active);
+  border: 2px solid var(--button-color-border);
 }
+
+/* input types*/
 input[type="radio"]{
-  accent-color: var(--color-dark-grey);
+  accent-color: var(--radio-color-accent);
 }
+input[type="checkbox"] {
+  width: 2em;
+  height: 2rem;
+  accent-color: var(--checkbox-color-accent)
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:hover {
+  color: var(--color-black);
+}
+.checkboxLabel {
+  font-size: 2rem; /* Match the font size to the checkbox height */
+}
+
+
 div {
   display: block;
 }
@@ -146,8 +135,8 @@ div {
   overflow: auto;
   text-align: center;
   font-weight: bold;
-  color: var(--text-color-grey);
-  background-color: var(--color-white);
+  color: var(--text-menu-color);
+  background-color: var(--background-menu-color);
   animation: animateleft 0.4s;
 }
 @media (max-width:992px){.menu{display: none;}.menu[shown]{display: block;}}
@@ -185,14 +174,13 @@ div {
 }
 
 .menu-button:hover {
-  color: var(--color-black);
-  background-color: var(--hover-color-grey);
+  color: var(--menu-button-hover-color);
+  background-color: var(--menu-button-hover-background-color);
 }
 
 /* new menus focus*/
-.menu-button:focus {
-  color: var(--color-black);
-  box-shadow: 0 0 0 2px var(--hover-color-grey); 
+.menu-button:active {
+  box-shadow: 0 0 0 2px var(--menu-button-active-boxshadow); 
 }
 
 .menu-close-button {
@@ -211,8 +199,8 @@ div {
   top: 0;
   padding: 16px;
   font-size: 24px;
-  color : var(--color-black);
-  background-color: var(--color-white);
+  color : var(--text-menu-color);
+  background-color: var(--background-menu-color);
 }
 @media (max-width:992px){.menu-top-bar{display: block;}}
 @media (min-width:993px){.menu-top-bar{display: none;}}
@@ -255,6 +243,16 @@ div {
   padding: 32px;
 }
 
+.bottom-paragraph {
+  position: fixed;
+  bottom: 30px;
+  /*background-color: white; /* Optional: background color to ensure readability */
+  /*padding: 10px; /* Optional: padding for spacing */
+  /*text-align: center; /* Optional: center the text */
+  /*box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+  /*font-size: 1rem; /* Font size as needed */
+}
+
 #instrucciones {
   text-align: justify;
 }
@@ -265,7 +263,7 @@ div {
   vertical-align: top;
   padding: 16px;
   margin: 8px 16px 8px 0px;
-  background-color: var(--color-grey);
+  background-color: var(--graph-background-color1);
 }
 .graph select {
   min-width: 200px;
@@ -274,13 +272,13 @@ div {
   font: inherit;
 }
 .graph select:focus{
-  background-color: var(--color-light-grey);
+  background-color: var(--graph-background-color2);
   /*border: 2px solid var(--color-dark-grey);*/
-  box-shadow: 0 0 0 2px var(--color-dark-grey);
+  box-shadow: 0 0 0 2px var(--graph-box-shadow);
 }
 .graph canvas {
   display: block;
-  background-color: var(--color-light-grey);
+  background-color: var(--graph-background-color2);
   margin: 8px 0px;
 }
 .graph button {
@@ -292,10 +290,10 @@ div {
   margin-top: 4px;
 }
 .graph button:hover {
-  background-color: var(--hover-color-dark-grey);
+  background-color: var(--graph-button-hover);
 }
 .graph button:active {
-  box-shadow: 0 0 0 1px var(--color-dark-grey);
+  box-shadow: 0 0 0 1px var(--graph-box-shadow);
 }
 button.zoomIn{
   background-image: url('../assets/images/zoomin.png');
@@ -318,17 +316,17 @@ button.zoomOut{
   padding: 16px;
 }
 .msg.error {
-  background-color: var(--color-light-red);
+  background-color: var(--msg-error-color);
 }
 .msg.info {
-  background-color: var(--color-light-blue);
+  background-color: var(--msg-info-color);
 }
 
 footer {
   margin: 32px -32px -32px -32px;
   padding: 16px 32px;
-  color: var(--color-black);
-  background-color: var(--hover-color-grey);
+  color: var(--text-color);
+  background-color: var(--background-color2);
 }
 
 
@@ -336,7 +334,7 @@ footer {
 /* New Styles */
 
 .inputError {
-  color: red;
+  color: var(--error-color);
   font-size: smaller;
   display: none; /* Hide by default */
 }
@@ -352,7 +350,7 @@ footer {
 
 .right-button {
   position: absolute;
-/*
+  /*
   left: 90%;
   top: 5%;
   transform: translateY(-50%);
@@ -366,22 +364,22 @@ footer {
 }
 
 .select:focus {
-  box-shadow: 0 0 0 1px var(--color-dark-grey);
+  box-shadow: 0 0 0 1px var(--button-color-border);
 }
 
 .href-focus:focus {
-  background-color: var(--color-blue);
-  color: var(--color-black);
+  background-color: var(--href-background-color);
+  color: var(--text-color);
   outline: none; /* Removes the default outline */
 }
 
 .slider:focus {
-  color: var(--color-black);
-  box-shadow: 0 0 0 2px var(--hover-color-grey); 
+  color: var(--slider-color);
+  box-shadow: 0 0 0 2px var(--slider-border); 
 }
 
 .hidden_p {
-  color: var(--color-blue);
+  color: var(--hidden-p-color);
   font-size: smaller;
   display: none;
 }
@@ -400,7 +398,7 @@ footer {
 }
 
 .guide-link {
-  color: blue;
+  color: var(--guide-link-color);
   text-decoration: underline;
   cursor: pointer;
 }
