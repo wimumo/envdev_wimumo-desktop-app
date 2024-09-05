@@ -27,6 +27,13 @@ function body_exchange (category_selected) {
   menu_close();
 }
 
+function shortcut (shortcutName) {
+  if (shortcutName === "configGuide" ) {
+    body_exchange('instrucciones2');
+    guiaConfig();
+  }
+}
+
 /* Datos */
 
 class Movprom {

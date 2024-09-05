@@ -359,7 +359,7 @@ footer {
   bottom: 0px;
 }
 
-.container_reroute {
+.container_relative {
   position: relative;
 }
 
@@ -410,12 +410,58 @@ footer {
   height: 100vh; /* Optional: to see the effect more clearly */
 }
 
-/* The child container */
 .child-centered {
   padding: 20px; /* Adds padding inside the container */
   text-align: center; /* Centers text within the container */
 }
 
+
+
+
+
+/* Guias */
+
+#stepContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.button_guide_right {
+  position: absolute;
+  right: 30px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 12px;
+
+}
+.button_guide_left {
+  position: absolute;
+  left: 30px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 12px;
+
+}
+
+/*button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+}*/
+
+.big_button {
+  padding: 6px 16px;
+  font-size: 14px;
+}
 
 
 

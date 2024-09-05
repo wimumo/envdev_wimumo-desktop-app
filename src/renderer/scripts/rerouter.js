@@ -133,7 +133,7 @@ function updateFields() {
             // Nuevo Div
             const indexIpPortContainer = document.createElement('div');
             indexIpPortContainer.id = `ip_port_container_${i}`;
-            indexIpPortContainer.className = 'container_reroute';
+            indexIpPortContainer.className = 'container_relative';
 
             // Separator add
             const separator = document.createElement('hr');
