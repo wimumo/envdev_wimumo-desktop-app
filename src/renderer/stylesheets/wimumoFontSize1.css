@@ -1,0 +1,21 @@
+/* Elementos obtenidos de: W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+/* https://www.w3schools.com/w3css/4/w3.css */
+
+:root {
+  --font-size-body: 15px;
+  --font-size-h1: 36px;
+  --font-size-h2: 30px; 
+  --font-size-h3: 24px;
+  --font-size-h4: 20px;
+  --font-size-h5: 18px;
+  --font-size-h6: 16px;
+
+  --font-size-checkbox: 2rem;
+
+  --font-size-input-error: smaller;
+  --font-size-hidden-p: smaller;
+
+  --font-size-home-container: large; /* Home page container */
+
+  --font-size-big-button: 14px;
+}

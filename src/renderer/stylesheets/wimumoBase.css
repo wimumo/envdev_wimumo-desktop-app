@@ -20,7 +20,7 @@ body {
   flex: 1;
   flex-direction: column;
   font-family: "Raleway", sans-serif;
-  font-size: 15px; 
+  font-size: var(--font-size-body); 
   line-height: 1.5;
   max-width: 1600px;
   margin: 0 auto 0 auto;
@@ -29,37 +29,37 @@ body {
 }
 
 h1 {
-  font-size:36px;
+  font-size: var(--font-size-h1);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
 h2 { 
-  font-size:30px;
+  font-size: var(--font-size-h2);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0; 
 }
 h3 {
-  font-size:24px;
+  font-size: var(--font-size-h3);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
 h4 {
-  font-size:20px;
+  font-size: var(--font-size-h4);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
 h5 {
-  font-size:18px;
+  font-size: var(--font-size-h5);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
 h6 {
-  font-size:16px;
+  font-size: var(--font-size-h6);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
@@ -109,7 +109,7 @@ input[type="checkbox"]:hover {
   color: var(--color-black);
 }
 .checkboxLabel {
-  font-size: 2rem; /* Match the font size to the checkbox height */
+  font-size: var(--font-size-checkbox); /* Match the font size to the checkbox height */
 }
 
 
@@ -187,7 +187,7 @@ div {
   width: auto;
   float: right;
   margin-right: 16px;
-  font-size: 24px;
+  font-size: var(--font-size-h3);
 }
 @media (max-width:992px){.menu-close-button{display: block;}}
 @media (min-width:993px){.menu-close-button{display: none;}}
@@ -198,7 +198,7 @@ div {
   position: fixed;
   top: 0;
   padding: 16px;
-  font-size: 24px;
+  font-size: var(--font-size-h3);
   color : var(--text-menu-color);
   background-color: var(--background-menu-color);
 }
@@ -250,7 +250,6 @@ div {
   /*padding: 10px; /* Optional: padding for spacing */
   /*text-align: center; /* Optional: center the text */
   /*box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
-  /*font-size: 1rem; /* Font size as needed */
 }
 
 #instrucciones {
@@ -335,7 +334,7 @@ footer {
 
 .inputError {
   color: var(--error-color);
-  font-size: smaller;
+  font-size: var(--font-size-input-error);
   display: none; /* Hide by default */
 }
 
@@ -380,7 +379,7 @@ footer {
 
 .hidden_p {
   color: var(--hidden-p-color);
-  font-size: smaller;
+  font-size: var(--font-size-hidden-p);
   display: none;
 }
 
@@ -390,7 +389,7 @@ footer {
 .homeContainer {
   padding: 20px;
   flex: 1;
-  font-size: large;
+  font-size: var(--font-size-home-container);
 }
 
 .ip-info {
@@ -427,11 +426,13 @@ footer {
 }
 
 .step {
-  display: none;
+  display: block;
+  color: var(--background-color2)
 }
 
 .step.active {
   display: block;
+  color: var(--text-color)
 }
 
 .button_guide_right {
@@ -439,7 +440,6 @@ footer {
   right: 30px;
   margin: 20px auto;
   padding: 10px 20px;
-  font-size: 12px;
 
 }
 .button_guide_left {
@@ -447,20 +447,12 @@ footer {
   left: 30px;
   margin: 20px auto;
   padding: 10px 20px;
-  font-size: 12px;
 
 }
 
-/*button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-}*/
-
 .big_button {
   padding: 6px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-big-button);
 }
 
 

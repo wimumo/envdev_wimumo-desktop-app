@@ -80,7 +80,6 @@
 }
 
 button {
-  font: inherit;
   color: var(--button-color);
   background-color: var(--button-background-color);
 }

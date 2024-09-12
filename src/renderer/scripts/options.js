@@ -13,6 +13,20 @@ function switchTheme(isDark) {
   }
 }
 
+
+// Function para cambiar fuente
+const inputFontSize = document.getElementById("font-size-input");
+const themeFontSize = document.getElementById('theme-font-size');
+function switchFontSize(fontSize) {
+  if (fontSize == 1) {
+    themeFontSize.setAttribute('href', 'stylesheets/wimumoFontSize1.css');
+    //localStorage.setItem('theme', 'dark');
+  } else if (fontSize == 2) {
+    themeFontSize.setAttribute('href', 'stylesheets/wimumoFontSize2.css');
+    //localStorage.setItem('theme', 'light');
+  }
+}
+
 // Load the saved theme preference on startup
 /*const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
@@ -25,4 +39,9 @@ if (savedTheme === 'dark') {
 // Add event listener to toggle switch
 themeToggle.addEventListener('change', (event) => {
   switchTheme(event.target.checked);
+});
+
+
+inputFontSize.addEventListener("change", (event) => {
+  switchFontSize(event.target.value);
 });
