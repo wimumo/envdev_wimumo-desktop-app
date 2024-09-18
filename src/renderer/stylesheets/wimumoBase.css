@@ -455,6 +455,17 @@ footer {
   font-size: var(--font-size-big-button);
 }
 
+/* OPTIONS */
+.options_smaller_button {
+  padding: 16px 16px;
+  font-size: var(--font-size-allways-small);
+}
+
+.options_bigger_button {
+  padding: 16px 16px;
+  font-size: var(--font-size-allways-big);
+}
+
 
 
 

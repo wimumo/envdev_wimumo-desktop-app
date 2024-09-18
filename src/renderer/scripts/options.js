@@ -24,6 +24,9 @@ function switchFontSize(fontSize) {
   } else if (fontSize == 2) {
     themeFontSize.setAttribute('href', 'stylesheets/wimumoFontSize2.css');
     //localStorage.setItem('theme', 'light');
+  } else if (fontSize == 3) {
+    themeFontSize.setAttribute('href', 'stylesheets/wimumoFontSize3.css');
+    //localStorage.setItem('theme', 'light');
   }
 }
 

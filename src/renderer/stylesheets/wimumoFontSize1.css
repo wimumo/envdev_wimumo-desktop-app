@@ -10,7 +10,7 @@
   --font-size-h5: 18px;
   --font-size-h6: 16px;
 
-  --font-size-checkbox: 2rem;
+  --font-size-checkbox: var(--font-size-h3);;
 
   --font-size-input-error: smaller;
   --font-size-hidden-p: smaller;
@@ -18,4 +18,8 @@
   --font-size-home-container: large; /* Home page container */
 
   --font-size-big-button: 14px;
+
+  /* Allways sized */
+  --font-size-allways-small: smaller;
+  --font-size-allways-big: large;
 }
