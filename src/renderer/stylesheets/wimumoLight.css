@@ -8,6 +8,7 @@
   --color-grey: #9e9e9e;
   --color-light-grey: #f1f1f1;
   --color-light-grey2: #ccc;
+  --color-lighter-grey: #fafafa; /* Lighter than #f1f1f1 */
   --color-dark-grey: #616161;
   --color-blue: #87CEEB;
   --color-deep-blue: blue;
@@ -38,6 +39,7 @@
   --menu-button-hover-color: var(--color-black);
   --menu-button-hover-background-color: var(--hover-color-grey);
 
+  --menu-button-active-background-color: var(--color-light-grey);
   --menu-button-active-boxshadow: var(--hover-color-grey);
 
   /* text */
@@ -53,11 +55,18 @@
   --guide-link-color: var(--color-deep-blue);
 
   /* buttons */
-  --button-color: none;
-  --button-background-color: none;
+  --button-background-color: var(color-lighter-grey); /*#f0f0f0;*/
+  --button-color: #333; 
+  --button-color-border: #ccc;
 
-  --button-color-active: var(--color-light-grey);
-  --button-color-border: var(--color-dark-grey);
+  --button-color-border-focus: #777;
+  --button-shadow-color-focus: #888;
+
+  --button-color-hover: #ddd;
+
+  --button-color-active: var(--color-grey);
+
+
 
   --radio-color-accent: var(--color-dark-grey);
 
@@ -69,7 +78,7 @@
   --graph-background-color2: var(--color-light-grey);
   --graph-box-shadow: var(--color-dark-grey);
 
-  --graph-button-hover: var(--hover-color-dark-grey);
+  --graph-button-hover: var(--hover-color-grey);
 
   /* href */
   --href-background-color: var(--color-blue);
@@ -77,4 +86,14 @@
   /* slider */
   --slider-color: var(--color-black);
   --slider-border: var(--hover-color-grey);
+
+  /* inputs */
+  --mark-color-bold: #007bff;
+  --input-border-color: #ccc; /* ccc */
+  --input-text-color: #333;
+  --input-focus-shadow-color: rgba(0, 123, 255, 0.5);
+  --input-background-color: var(--color-white); 
+  --input-background-color2: var(--input-background-color);
+
+  --input-placeholder-color: #999;
 }

@@ -38,6 +38,7 @@
   --menu-button-hover-color: var(--text-color-white);
   --menu-button-hover-background-color: var(--hover-color-dark-grey);
 
+  --menu-button-active-background-color: var(--color-grey);
   --menu-button-active-boxshadow: var(--hover-color-dark-grey);
 
   /* text */
@@ -53,11 +54,17 @@
   --guide-link-color: var(--color-deep-blue);
 
   /* buttons */
-  --button-color: var(--text-color-white);
-  --button-background-color: var(--text-color-dark-grey);
+  --button-background-color: #333; /* Dark background */
+  --button-color: #f0f0f0; /* Light text */
+  --button-color-border:#555; /* Darker border */
+
+  --button-color-border-focus: #888;
+  --button-shadow-color-focus: #999;
+
+  --button-color-hover: #444;
 
   --button-color-active: var(--color-dark-grey);
-  --button-color-border: var(--color-dark-grey);
+
 
   --radio-color-accent: var(--color-dark-grey);
 
@@ -69,7 +76,7 @@
   --graph-background-color2: var(--color-grey);
   --graph-box-shadow: var(--text-color-dark-grey);
 
-  --graph-button-hover: var(--hover-color-dark-grey);
+  --graph-button-hover: var(--hover-color-grey);
 
   /* href */
   --href-background-color: var(--color-blue);
@@ -77,9 +84,15 @@
   /* slider */
   --slider-color: var(--color-black);
   --slider-border: var(--hover-color-grey);
-}
 
-button {
-  color: var(--button-color);
-  background-color: var(--button-background-color);
+  /* inputs */
+  --mark-color-bold: #007bff;
+  --input-border-color: #aaa; /* ccc */
+  --input-text-color: white;
+  --input-focus-shadow-color: rgba(184, 219, 255, 0.5);
+  --input-background-color: var(--color-dark-grey); 
+  --input-background-color2: var(--button-background-color);
+
+  --input-placeholder-color: #aaa;
+
 }

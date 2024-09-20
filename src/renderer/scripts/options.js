@@ -44,7 +44,7 @@ themeToggle.addEventListener('change', (event) => {
   switchTheme(event.target.checked);
 });
 
-
+/*
 inputFontSize.addEventListener("change", (event) => {
   switchFontSize(event.target.value);
-});
+});*/

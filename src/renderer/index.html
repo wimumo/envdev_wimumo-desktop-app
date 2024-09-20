@@ -57,7 +57,8 @@
           <br>
 
           <p>Si es la primera vez que va a conectar el dispositivo, entre a
-          <a href="#instrucciones2" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a> </p>
+            <a href="#instrucciones2" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a>
+          </p>
         </div>
       </div>
     </div>
@@ -294,21 +295,21 @@
             <h5>Paso 4</h5>
             <p>Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta aplicación debe
               ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.</p>
-              <br>
+            <br>
           </div>
           <div class="step" id="step5">
             <h5>Paso 5</h5>
             <p>Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a la red verá el led
               titilar lentamente.</p>
-              <br>
+            <br>
           </div>
         </div>
 
         <div class="container_relative">
-          <button id="prevButton" class="button_guide_left"> Previo  </button>
+          <button id="prevButton" class="button_guide_left"> Previo </button>
           <button id="nextButton" class="button_guide_right">Siguiente</button>
         </div>
-        
+
         <br><br><br><br>
 
         <p>
@@ -338,22 +339,24 @@
       <h3>Opciones</h3>
       <br>
 
-      <h4> > Cambiar modo visual</h4>
-      <label for="theme-toggle" class="checkboxLabel">
-        <input type="checkbox" id="theme-toggle">
-        Dark Mode
-      </label>
+      <h4> Cambiar modo visual</h4>
 
-      <br><br>
+      <div class="options_button_container">
+        <button id="light-mode-btn" class="options_theme_buttons options_theme_buttons_ligth" onclick="switchTheme(false)">Modo Claro </button>
+        <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark" onclick="switchTheme(true)">Modo Oscuro</button>
+      </div>
 
-      <h4> > Cambiar fuente</h4>
-      <label for="font-size-input" class="checkboxLabel">
-        <input type="number" id="font-size-input" min="1" max="3" value="1">
-        
-      </label>
+      <br>
 
-      <button id="font-change-1" class="options_smaller_button" onclick="switchFontSize(1)">normal</button>
-      <button id="font-change-2" class="options_bigger_button" onclick="switchFontSize(2)">Grande</button>
+      <h4> Cambiar tamaño de fuente</h4>
+
+      <div class="options_button_container">
+        <button id="font-change-1" class="options_smaller_button" onclick="switchFontSize(1)">Pequeña</button>
+        <button id="font-change-2" class="options_normal_button" onclick="switchFontSize(2)">Normal</button>
+        <button id="font-change-2" class="options_bigger_button" onclick="switchFontSize(3)">Grande</button>
+      </div>
+
+
 
     </div>
 
@@ -396,7 +399,7 @@
     <div id="rerouter" hidden>
       <h3>Re-ruteo de paquetes OSC</h3>
       <div id="rerouter_dialog" class="msg info" hidden>
-        <p id="rerouter_dialog_p" >
+        <p id="rerouter_dialog_p">
           Si se encuentra utilizando el programa Processing en va, cierre esta aplicación antes de continuar...........
           SACAR ESTA ESTIQUETA (y uno de los br) cuando no haya que debuggear
         </p>

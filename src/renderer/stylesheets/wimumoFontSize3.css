@@ -2,24 +2,21 @@
 /* https://www.w3schools.com/w3css/4/w3.css */
 
 :root {
-  --font-size-body: small;
+  --font-size-body: x-large;
   --font-size-h1: xxx-large;
-  --font-size-h2: xx-large; 
-  --font-size-h3: x-large;
-  --font-size-h4: x-large;
-  --font-size-h5: large;
-  --font-size-h6: large;
+  --font-size-h2: xxx-large; 
+  --font-size-h3: xxx-large;
+  --font-size-h4: xx-large;
+  --font-size-h5: x-large;
+  --font-size-h6: x-large;
 
-  --font-size-checkbox: var(--font-size-h3);
+  --font-size-checkbox: var(--font-size-body);
 
   --font-size-input-error: 16px;
   --font-size-hidden-p: 16px;
 
   --font-size-home-container: var(--font-size-h5); /* Home page container */
 
-  --font-size-big-button: var(--font-size-h6);
+  --font-size-big-button: x-large;
 
-  /* Allways sized */
-  --font-size-allways-small: small;
-  --font-size-allways-big: large;
 }

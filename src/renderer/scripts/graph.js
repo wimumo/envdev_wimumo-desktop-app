@@ -356,11 +356,13 @@ function addGraph() {
   // ZOOM IN, ZOOM OUT
   let buttonZOut = document.createElement('button');
   buttonZOut.id = "zOutButton" + n;
+  buttonZOut.classList.add('zoomButton');
   buttonZOut.classList.add('zoomOut');
   div.appendChild(buttonZOut);
 
   let buttonZIn = document.createElement('button');
   buttonZIn.id = "zInButton" + n;
+  buttonZIn.classList.add('zoomButton');
   buttonZIn.classList.add('zoomIn');
   div.appendChild(buttonZIn);
 
