@@ -30,6 +30,12 @@
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
     <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
     <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Ruteo OSC</a>
+    <div class="status-container">
+      <div id="connection-indicator" class="connection_indicator_OFF"></div>
+      
+      <p id="status-text" class="connection_indicator_text_OFF">Dispositivo no conectado</p>
+      
+    </div>
   </nav>
 
   <!-- Barra de navegación [pantalla pequeña] -->
@@ -280,7 +286,11 @@
             <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con colores, esto
               indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo presionando el
               pulsador.</p>
+            <input type="checkbox" id="myCheckbox" name="myCheckbox" class="checkbox_right">
           </div>
+
+
+
           <div class="step" id="step2">
             <h5>Paso 2</h5>
             <p>Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark></p>
@@ -342,8 +352,10 @@
       <h4> Cambiar modo visual</h4>
 
       <div class="options_button_container">
-        <button id="light-mode-btn" class="options_theme_buttons options_theme_buttons_ligth" onclick="switchTheme(false)">Modo Claro </button>
-        <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark" onclick="switchTheme(true)">Modo Oscuro</button>
+        <button id="light-mode-btn" class="options_theme_buttons options_theme_buttons_ligth"
+          onclick="switchTheme(false)">Modo Claro </button>
+        <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark"
+          onclick="switchTheme(true)">Modo Oscuro</button>
       </div>
 
       <br>

@@ -526,13 +526,19 @@ footer {
 /* Guias */
 
 #stepContainer {
-  max-width: 600px;
+  /*max-width: 90%; /* 600px */
   margin: 0 auto;
 }
 
 .step {
+  max-width: 60%;
+  margin: 0 auto; /* Centers the step inside the container */
   display: block;
-  color: var(--background-color2)
+  color: var(--background-color2);
+}
+
+.checkbox_right {
+  right: 10px;
 }
 
 .step.active {
@@ -637,6 +643,45 @@ footer {
   box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-ligth); /* Optional: Add a subtle glow */
 }
 
+/* Indicador del menu de la coneccion */
+.connection_indicator_OFF {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-red); /* default to disconnected */
+  border-radius: 50%;
+  margin-right: 15px; /* Add space between indicator and text */
+}
+
+.connection_indicator_ON {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-blue); /* default to disconnected */
+  border-radius: 50%;
+  margin-right: 15px; /* Add space between indicator and text */
+}
+
+.status-container {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  position: absolute;
+  bottom: 10px; /* Position 10px from the bottom */
+  left: 50%; /* Position the container at the horizontal center */
+  transform: translateX(-50%); /* Adjust it to the exact center */
+}
+
+.connection_indicator_text_OFF {
+  color: var(--color-red);;
+  position: relative;
+  top: -1px; /* Slightly move the text up */
+  font-size: 16px; /* Adjust font size if needed */
+}
+
+.connection_indicator_text_ON {
+  color: var(--color-blue);;
+  position: relative;
+  top: -1px; /* Slightly move the text up */
+  font-size: 16px; /* Adjust font size if needed */
+}
 
 
 

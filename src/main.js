@@ -44,6 +44,34 @@ var redirectOSC = false;
 var oscClients = [];
 
 
+/* 
+*   Leer archivos de configuracion en startup
+*/
+
+function readFileAtStartup() {
+
+  fs.readFile(configFilePath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('An error occurred while reading the file:', err);
+      return;
+    }
+
+    // Do something with the file data
+    console.log('File data:', data);
+    
+    // JSON file parseado
+    try {
+      const config = JSON.parse(data);
+      dataRedirectConfig = config; // Guardar datos parseados
+      console.log('Parsed config:', dataRedirectConfig);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+    }
+  });
+
+}
+
+
 
 
 /* 
@@ -99,39 +127,9 @@ function closeOscClients() {
 
 
 
-/* 
-*   Leer archivos de configuracion en startup
-*/
-function readFileAtStartup() {
-
-  fs.readFile(configFilePath, 'utf-8', (err, data) => {
-    if (err) {
-      console.error('An error occurred while reading the file:', err);
-      return;
-    }
-
-    // Do something with the file data
-    console.log('File data:', data);
-    
-    // JSON file parseado
-    try {
-      const config = JSON.parse(data);
-      dataRedirectConfig = config; // Guardar datos parseados
-      console.log('Parsed config:', dataRedirectConfig);
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-    }
-  });
-
-}
-
-
-
-
 /*
-*    Ventana Electron 
+*    Ventana Electron, maneja todo el comportamiento dependiente en la ventana
 */
-
 var mainWindow;
 
 const createWindow = () => {
@@ -150,8 +148,7 @@ const createWindow = () => {
     mainWindow.webContents.send('savedRedirectConfig', dataRedirectConfig);
   });
 
-  // DEBUG
-  //mainWindow.webContents.openDevTools();
+  // DEBUG //mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
@@ -182,14 +179,13 @@ app.whenReady().then(() => {
   );
 
 
-  
-
   /*
   *   IPC messages 
   */
 
+  // Get Ip Local
   ipcMain.on('get-iplocal', (event, arg) => {
-    /* Notificación de IP local a página */
+    /* Notificación de IP local a página, se utiliza en la seccion de intruccion/guia de uso. */
 
     const nets = networkInterfaces();
     const results = [];
@@ -204,6 +200,7 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
+  // Guardar Configuracion de señales de redireccion
   ipcMain.on('save-config', async(event, data) => {
     /* Funcion que se encarga de guardar la configuracion del rerouter */ 
     /* El parametro Data es un array de diccionarios [ {cantidad_dir}, { ip, port, filter }, { ip, port, filter } ... ] */
@@ -213,9 +210,10 @@ app.whenReady().then(() => {
 
   });
 
-
+  // Ping IP
   ipcMain.on('ping-ip', async (event, data) => {
     /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
+    /* Se utiliza en la seccion de redireccion, como parte del proceso de validacion de una direccion IP. */
     /* Parametro data se define como {ip: ip, posicion: posicion}; */
 
     console.log(`Ping ip ${data.ip} - Checkear si la ip esta disponible `);
@@ -252,7 +250,7 @@ app.whenReady().then(() => {
     }
   });
 
-
+  // DEPRECATED // Activa la funcion de reruteo para todas las direcciones configuradas la mismo tiempo
   ipcMain.on('toggle-reruteo', (event, data) => {
     /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
     const { activate, ipPortPairs } = data;
@@ -295,11 +293,12 @@ app.whenReady().then(() => {
 
   });
 
+  // Activa el reruteo a UNA direccion espeifica de redireccion
   ipcMain.on('Add-RerouteAddress', (event, data) => {
-    /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
+    /* Activa el reruteo de los mensajes OSC a otra direccion. */
     const { posicion, ip, port, filter } = data;
 
-    if (!rerouteAddresses[posicion]) { // Se asegura de que no exista
+    if (!rerouteAddresses[posicion]) { // Se asegura de que no este activada ya esta direccion de redireccion.
 
       console.log(`Agregar direccion objetivo:`);
       console.log(` - ${ip}:${port}. Filtro: ${filter}`);
@@ -318,8 +317,9 @@ app.whenReady().then(() => {
 
   });
 
+  // Desactiva el reruteo a UNA direccion espeifica de redireccion
   ipcMain.on('Remove-RerouteAddress', (event, data) => {
-    /* Activa y desactiva el reruteo de los mensajes OSC a otra direccion. */
+    /* Desactiva el reruteo de los mensajes OSC a otra direccion. */
     const { posicion, ip, port, filter } = data;
 
     console.log(`Remove direccion objetivo.`);
@@ -346,7 +346,7 @@ app.whenReady().then(() => {
 
 
   /*
-  *   OSC 
+  *   OSC mensajes
   */
 
   var nClients = 0; // Cantidad de clientes de redireccion
@@ -405,6 +405,7 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('osc', msg);
   });
 
+  // Redireccion
   function forwardMessage(message) {
     /* Funcion que rerutea los mensajes y bundles. Solo deberia ser llamada cuando la redireccion esta activada. */
     try {
@@ -453,7 +454,7 @@ app.whenReady().then(() => {
 
             oscClients[index].send(modifiedMessage); //el message no tiene address o args. Es un array de strgings.
 
-            //console.log('Forwarded OSC message:', message);
+            // DEBUG // console.log('Forwarded OSC message:', message);
           });
 
         } catch (error) {
@@ -477,18 +478,22 @@ app.whenReady().then(() => {
     // Raw simplemente elimina los mensajes env. Y ch1 solo elimina los mensajes ch2.
     switch (filter) {
       case 'raw_signals_only':
+        // Manda todos los mensajes, menos los que incluyan "/env/"
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/env/'));
         break;
 
       case 'env_signals_only':
+        // Manda todos los mensajes, menos los que incluyan "/raw/"
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/raw/'));
         break;
 
       case 'channel_1_only':
+        // Manda todos los mensajes, menos los que incluyan "/ch2"
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/ch2'));
         break;
 
       case 'channel_2_only':
+        // Manda todos los mensajes, menos los que incluyan "/ch1"
         bundle.elements = bundle.elements.filter(element => !String(element.address).includes('/ch1'));
         break;
 

@@ -287,8 +287,9 @@ function filterAndGraph(data) {
 // NEW Funciones que se llaman cuando se dejan de recivir datos
 //
 function onConnectionLostGraph() {
+  /* Se encarga de limpiar los datos del grafico si se pierde la conexion, no se borra el grafico por pedido del cliente */
   emptyChannels();
-  emptyCurrentGraphs();
+  emptyCurrentChannels();
 }
 
 function emptyChannels() {
@@ -297,7 +298,7 @@ function emptyChannels() {
   channels_active = [];
 }
 
-function emptyCurrentGraphs() {
+function emptyCurrentChannels() {
   /* Reinicia los canales que ya estan incluidos en los graficos creados */
 
   /* // Esta seccion reiniciaria todo el grafico, pero esto se deshace de los datos que estan actualmente visibles

@@ -72,42 +72,27 @@ window.api.receive('osc', (data) => {
   if (data == 'CONNECTION LOST') {
 
     onConnectionLostConfig(); // Reset config
-    onConnectionLostGraph(); // Clear graphs
+    onConnectionLostGraph(); // Clear channels
 
     info_received = false;
+    updateConnectionIndicator(false);
 
     return;
   }
 
-  // Crea los canales del graficador
+  // Se activa con la primera señal, crea los canales del graficador
   if (info_received == false && data[0].substring(11, 15) == "info") {
     info_received = true;
     base_route = data[0].substring(0, 10);
 
-    addChannels(data)
+    updateConnectionIndicator(true); // actualiza el indicador del menu
 
-    /*for (let i = 0; i < parseInt(data[6]); i++) {
-
-      channels.push(data[7 + i].substring(10)); // Esto deberia ser una funcion de graph.js // REMOVE
-
-    }*/
-
+    addChannels(data);
     enableChannels();
   }
 
   /* Graficador */
   if(info_received == true && category_active == categories[2]) {
-
-    /* Acá se hace el filtado para graficar */
-    /*for (let i = 0; i < channels_active.length; i++){ // Esto deberia estar en graph.js
-      if (data[0] == (base_route + channels_active[i].channel)) {
-        var sample = [];
-        for (let i = 1; i < data.length; i++) {
-          sample.push(parseInt(data[i]));
-        }
-        plot(channels_active[i].channel, sample);
-      }
-    } */
 
     filterAndGraph(data);
 
@@ -132,3 +117,23 @@ window.api.receive('osc', (data) => {
 
 });
 
+// Actualizar indicador
+function updateConnectionIndicator(bool) {
+  if (bool) {
+    // Indicador de conexion del menu
+    const indicator = document.getElementById('connection-indicator');
+    const statusText = document.getElementById('status-text');
+
+    indicator.className = "connection_indicator_ON";
+    statusText.textContent = 'WIMUMO Conectado';
+    statusText.className = "connection_indicator_text_ON";
+  } else {
+    // Indicador de conexion del menu
+    const indicator = document.getElementById('connection-indicator');
+    const statusText = document.getElementById('status-text');
+
+    indicator.className = "connection_indicator_OFF";
+    statusText.textContent = 'WIMUMO Desconectado';
+    statusText.className = "connection_indicator_text_OFF";
+  }
+}
