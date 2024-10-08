@@ -13,8 +13,8 @@ function menu_close() {
 /* Pestañas */
 
 categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter', 'HomePage'];
-starting_category = categories[5]; // Home Page deberia ser la categoria con la que se inicia
-document.getElementById(starting_category).removeAttribute('hidden');
+starting_category = categories[0]; // Home Page deberia ser la categoria con la que se inicia
+//document.getElementById(starting_category).removeAttribute('hidden');
 category_active = starting_category;
 
 function body_exchange (category_selected) {
