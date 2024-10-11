@@ -29,7 +29,7 @@
     <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a>
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
     <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
-    <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Ruteo OSC</a>
+    <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Redirección de señales</a>
     <div class="status-container">
       <div id="connection-indicator" class="connection_indicator_OFF"></div>
       
@@ -388,18 +388,18 @@
     <!------------------------------------ Audio ------------------------------------>
     <div id="musica" hidden>
       <h3>Música</h3>
+
       <p>
-        <button class="vumetro" id="ch1">1</button>
+        <label class="vumetro" id="ch1">Canal 1</label>
         <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch1">
       </p>
       <p>
-        <button class="vumetro" id="ch2">2</button>
+        <label class="vumetro" id="ch2" disabled>Canal 2</label>
         <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch2">
       </p>
 
-
       <p>
-        <button id="audioEN" onclick="habilitarAudio()">Audio OFF</button>
+        <button id="audioEN" onclick="habilitarAudio()">Habilitar audio</button>
       </p>
 
       <datalist id="tickmarks">
@@ -409,7 +409,7 @@
 
     <!------------------------------------ Rerouter ------------------------------------>
     <div id="rerouter" hidden>
-      <h3>Re-ruteo de paquetes OSC</h3>
+      <h3>Redirección de señales OSC</h3><!----Re-ruteo de paquetes OSC---->
       <div id="rerouter_dialog" class="msg info" hidden>
         <p id="rerouter_dialog_p">
           Si se encuentra utilizando el programa Processing en va, cierre esta aplicación antes de continuar...........

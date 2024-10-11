@@ -49,7 +49,7 @@ function actualizarValor(canal, valor) {
 
     if (canal == 1) {
         amp1 = (valor < sr1 ? valor : sr1) * g1;
-        document.getElementById("ch1").style.backgroundColor = 'rgb(' + parseInt(amp1 * 2.55) + ',0,0)';
+        //document.getElementById("ch1").style.backgroundColor = 'rgb(' + parseInt(amp1 * 2.55) + ',0,0)';
         if (audioEnabled == true) {
             lastamp1 = amp1;
             cambiarVolumenes(1, amp1);
@@ -57,7 +57,7 @@ function actualizarValor(canal, valor) {
     }
     if (canal == 2) {
         amp2 = (valor < sr2 ? valor : sr2) * g2;
-        document.getElementById("ch2").style.backgroundColor = 'rgb(' + parseInt(amp2 * 2.55) + ',0,0)';
+        //document.getElementById("ch2").style.backgroundColor = 'rgb(' + parseInt(amp2 * 2.55) + ',0,0)';
         if (audioEnabled == true) {
             cambiarVolumenes(2, amp2);
         }
@@ -93,13 +93,13 @@ function habilitarAudio() {
         audioEnabled = true;
         content = [];
         document.getElementById("audioEN").style.backgroundColor = "red";
-        document.getElementById("audioEN").innerText = "Audio ON";
+        document.getElementById("audioEN").innerText = "Detenter";
     }
     else if (audioEnabled == true) {
         audioEnabled = false;
         volumeMaster.disconnect();
         document.getElementById("audioEN").style.backgroundColor = "";//"darkred"; // Ahora vuelve a su color original
-        document.getElementById("audioEN").innerText = "Audio OFF";
+        document.getElementById("audioEN").innerText = "Habilitar audio";
         return;
     }
 

@@ -64,8 +64,8 @@ const textosDinamicos = [
     { value: 'pingError', text: 'La direccion ip especificada no se pudo alcanzar.' },
 
     // Botones
-    { value: 'rerouteButtonON', text: 'Reroute ON' },
-    { value: 'rerouteButtonOFF', text: 'Reroute OFF' }
+    { value: 'rerouteButtonON', text: 'Iniciar redirección' },
+    { value: 'rerouteButtonOFF', text: 'Detener redirección' }
 ];
 
 function findText(value) {
@@ -278,12 +278,12 @@ function isValidFilter(filter) {
 // Botones
 function disableButton(reroute_button) {
     reroute_button.style.backgroundColor = "red";
-    reroute_button.innerText = "Reroute OFF";
+    reroute_button.innerText = findText("rerouteButtonOFF");
 }
 
 function enableButton(reroute_button) {
     reroute_button.style.backgroundColor = ""; //original
-    reroute_button.innerText = "Reroute ON";
+    reroute_button.innerText = findText("rerouteButtonON");
 }
 
 // Inputs

@@ -686,6 +686,23 @@ footer {
 
 
 
+/*
+  MUSIC
+*/
+
+.vumetro{
+  font: inherit;
+  background-color: var(--button-background-color); 
+  color: var(--button-color); 
+  border: 2px solid var(--button-color-border); 
+  padding: 10px 20px; 
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+
+
 /* Google Fonts: 'Raleway'*/
 /* https://fonts.googleapis.com/css?family=Raleway */
 
