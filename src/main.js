@@ -4,7 +4,7 @@ Este proceso se encarga de crear la ventana de Electron y trata con la logica pa
 Tambien se definen en este proceso todos los servidores y clientes OSC que reciven y mandan señales del 
 dispositivo WIMUMO, y se mantiene una comunicacion con la ventana de Electron para poder mostrar y tratar las señales. */
 
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu  } = require('electron');
 const { networkInterfaces } = require('os');
 const http = require('http');
 const WebSocketServer = require('websocket').server;
@@ -142,6 +142,9 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+
+  // Esconder el menu de opciones de la pantalla Electron. "File", "Edit", etc
+  Menu.setApplicationMenu(null);
 
   // Manda los datos por defecto 
   mainWindow.webContents.on('did-finish-load', () => {
