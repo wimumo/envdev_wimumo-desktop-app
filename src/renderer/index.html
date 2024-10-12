@@ -23,18 +23,18 @@
     <h3 class="menu-title">
       <a href="#HomePage" onclick="body_exchange('HomePage')" class="menu-title">WIMUMO</a>
     </h3>
-    <a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a>
+    <!--<a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a>-->
     <a href="#instrucciones2" onclick="body_exchange('instrucciones2')" class="menu-button">Guias de uso</a>
     <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Estado</a>
     <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a>
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
     <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
-    <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Redirección de señales</a>
+    <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Redirección</a>
     <div class="status-container">
       <div id="connection-indicator" class="connection_indicator_OFF"></div>
-      
+
       <p id="status-text" class="connection_indicator_text_OFF">Dispositivo no conectado</p>
-      
+
     </div>
   </nav>
 
@@ -241,19 +241,18 @@
         <p> Aquí se explica cómo configurar el dispositivo WIMUMO y su uso básico. </p>
         <hr>
 
+        <h4>¿Qué es WIMUMO?</h4>
+
+        <p>
+          <button id="infoWIMUMO" onclick="" class="big_button">Dispositivo WIMUMO</button>
+        </p>
+        <hr>
+
         <h4>Configurar el dispositivo</h4>
 
         <p>
           <button id="configGuide" onclick="guiaConfig()" class="big_button">Ver guia paso a paso</button>
           <button id="configManual" onclick="" class="big_button">Manual de uso</button>
-        </p>
-
-        <hr>
-
-        <h4>Usar el dispositivo</h4>
-
-        <p>
-          <button id="infoUse" onclick="" class="big_button">Sujeto a cambios</button>
         </p>
         <hr>
 
@@ -261,8 +260,8 @@
 
         <p>
           <button id="infoGraph" class="big_button" onclick="">Graficar señales</button>
-          <button id="infoAudio" class="big_button" onclick="">Crear musica</button>
-          <button id="infoReroute" class="big_button" onclick="">Rerutear señales a otras aplicaciones</button>
+          <button id="infoAudio" class="big_button" onclick="">Hacer música</button>
+          <button id="infoReroute" class="big_button" onclick="">Conectar a otras aplicaciones</button>
         </p>
         <hr>
         <p>
@@ -286,32 +285,34 @@
             <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con colores, esto
               indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo presionando el
               pulsador.</p>
-            <input type="checkbox" id="myCheckbox" name="myCheckbox" class="checkbox_right">
+            <input type="checkbox" id="configCheck1" name="Step 1 checkbox" class="checkbox_right">
           </div>
-
-
 
           <div class="step" id="step2">
             <h5>Paso 2</h5>
             <p>Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark></p>
-            <br><br>
+            <input type="checkbox" id="configCheck2" name="Step 2 checkbox" class="checkbox_right">
+            
           </div>
           <div class="step" id="step3">
             <h5>Paso 3</h5>
             <p>Ingrese a "Configurar Red" para ingresar los datos de la red WiFi a donde conectará WIMUMO.</p>
-            <br>
+            <input type="checkbox" id="configCheck3" name="Step 3 checkbox" class="checkbox_right">
+            
           </div>
           <div class="step" id="step4">
             <h5>Paso 4</h5>
             <p>Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta aplicación debe
               ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.</p>
-            <br>
+            <input type="checkbox" id="configCheck4" name="Step 4 checkbox" class="checkbox_right">
+            
           </div>
           <div class="step" id="step5">
             <h5>Paso 5</h5>
             <p>Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a la red verá el led
               titilar lentamente.</p>
-            <br>
+            <input type="checkbox" id="configCheck5" name="Step 5 checkbox" class="checkbox_right">
+            
           </div>
         </div>
 
@@ -338,7 +339,7 @@
       <p id="estado"> - No hay ningún dispositivo conectado actualmente.</p>
       <br><br>
 
-      <h4>Redirección de señales</h4>
+      <h3>Redirección de señales</h3>
       <p id="estado_redireccion"> - No hay ninguna redirección configurada actualmente.</p>
       <p id="redireccion_activada" class="hidden_p"></p>
 

@@ -58,7 +58,7 @@ function initialiceMaxMinCount() {
 const textosDinamicos = [
 
     // Errores
-    { value: 'ipError', text: 'Dirección IP inválida. Debe consistir de 4 números separados por puntos, ejemplo: "x.x.x.x".' },
+    { value: 'ipError', text: 'Dirección IP inválida. Debe consistir de 4 números separados por puntos, ejemplo: "127.0.0.1".' },
     { value: 'portError', text: 'Número de puerto inválido. Debe ser un número entre 0 y 65535.' },
     { value: 'filterError', text: 'Filtro no reconocido' },
     { value: 'pingError', text: 'La direccion ip especificada no se pudo alcanzar.' },

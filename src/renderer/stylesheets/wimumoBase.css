@@ -531,20 +531,33 @@ footer {
 }
 
 .step {
-  max-width: 60%;
+  position: relative;
+  max-width: 80%;
   margin: 0 auto; /* Centers the step inside the container */
   display: block;
   color: var(--background-color2);
 }
 
-.checkbox_right {
-  right: 10px;
+.step p {
+  max-width: 90%;  /* Adjust this width if needed */
 }
 
 .step.active {
   display: block;
   color: var(--text-color)
 }
+
+.checkbox_right { 
+  position: absolute;
+  /*left: 10px;*/
+  right: 0px;            /* Position 30px from the right */
+  top: 50%;               /* Position the top at 50% of the container's height */
+  transform: translateY(-50%);  /* Shift the element up by 50% of its height to center it */
+  margin: 20px auto;
+  padding: 10px 20px;
+}
+
+
 
 .button_guide_right {
   position: absolute;
