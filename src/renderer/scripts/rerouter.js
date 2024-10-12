@@ -574,8 +574,7 @@ function habilitarReruteoPorPosicion(posicion) {
 
     if (valid) {
 
-        //ipcSend_saveConfig(); // Esto no deberia de ocurrir aca, deberia de ocurrir cuando se va a cerrar la app
-        // Si el resto de las validaciones son correctas, entonces hace un Ping a la ip objetivo para asegurarse de que esta disponible
+       // Si el resto de las validaciones son correctas, entonces hace un Ping a la ip objetivo para asegurarse de que esta disponible
         ipcSend_pingIP(ipInput.value, posicion);
 
     }
@@ -660,7 +659,3 @@ window.api.receive('savedRedirectConfig', (data) => {
     }
 
 });
-
-
-
-//module.exports = { habilitarReruteoPorPosicion, updateFields }

@@ -22,6 +22,7 @@ if (require('electron-squirrel-startup')) {
 // Path para guardar datos de configuracion en Disco
 const userDataPath = app.getPath('userData');
 const configFilePath = userDataPath + "/configRedireccion.txt"
+const optionsFilePath = userDataPath + "/options.txt"
 
 // Puerto en el que se esperan los daztos del dispositivo WIMUMO. Por defecto [ 4560 ]
 const listeningPort = 4560;
@@ -32,9 +33,12 @@ let lastReceivedTime = null;
 let oscConnectionInProgress = false;
 let checkDataIntervalId = null;
 
-// -- Redireccion
+// -- GUARDAR CONFIGURACION
 // Variable que guarda el estado de las direccion de redireccion, para despues guardarlo en Disco.
 let dataRedirectConfig = [];
+// Variable que guarda las opciones
+let dataOptions = [];
+
 
 // Reroute // Comunmente usadas [ 4559 purrdata ]  [ 127.0.0.1 loopback ]
 const rerouteAddresses = []; // ejemplo = [{ ipAddress: '127.0.0.1', port: 4559 }]
@@ -50,9 +54,31 @@ var oscClients = [];
 
 function readFileAtStartup() {
 
+  // Leer opciones guardadas
+  fs.readFile(optionsFilePath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('Un error ocurrio leyendo el archivo:', err);
+      return;
+    }
+
+    // Do something with the file data
+    console.log('File data:', data);
+
+    // JSON file parseado
+    try {
+      const options = JSON.parse(data);
+      dataOptions = options; // Guardar datos parseados
+      console.log('Parsed config:', dataOptions);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+    }
+
+  } )
+
+  // Leer configuracion de redireccion
   fs.readFile(configFilePath, 'utf-8', (err, data) => {
     if (err) {
-      console.error('An error occurred while reading the file:', err);
+      console.error('Un error ocurrio leyendo el archivo:', err);
       return;
     }
 
@@ -67,6 +93,8 @@ function readFileAtStartup() {
     } catch (parseErr) {
       console.error('Error parsing JSON:', parseErr);
     }
+
+
   });
 
 }
@@ -149,6 +177,7 @@ const createWindow = () => {
   // Manda los datos por defecto 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('savedRedirectConfig', dataRedirectConfig);
+    mainWindow.webContents.send('savedOptions', dataOptions);
   });
 
   // DEBUG //mainWindow.webContents.openDevTools();
@@ -173,6 +202,7 @@ app.whenReady().then(() => {
 
     // Guardar configuracion de redirecciones en disco
     fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig)); 
+    fs.writeFileSync(optionsFilePath, JSON.stringify(dataOptions)); 
     // --------------------------------------
 
     if (process.platform !== 'darwin') {
@@ -210,6 +240,15 @@ app.whenReady().then(() => {
     
     dataRedirectConfig = data;
     console.log(`Configuracion de redireccion guardada.`)
+
+  });
+
+  // Guardar Opciones
+  ipcMain.on('save-options', async(event, data) => {
+    /* Funcion que se encarga de guardar la configuracion de las opciones */ 
+   
+    dataOptions = data;
+    console.log(`Configuracion de opciones guardada.`)
 
   });
 

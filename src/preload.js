@@ -11,7 +11,8 @@ contextBridge.exposeInMainWorld(
             // whitelist channels
             let validChannels = [
                 'get-iplocal', 'toggle-reruteo', 'ping-ip', 
-                'Add-RerouteAddress', 'Remove-RerouteAddress', 'save-config'
+                'Add-RerouteAddress', 'Remove-RerouteAddress', 
+                'save-config', 'save-options' //Estas ultimas dos guardan los datos en disco
             ];
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
@@ -20,7 +21,7 @@ contextBridge.exposeInMainWorld(
         receive: (channel, func) => {
             let validChannels = [
                 'osc','iplocal', 
-                'ping-result', 'savedRedirectConfig'
+                'ping-result', 'savedRedirectConfig', 'savedOptions' //Estas ultimas dos recuperan la informacion de disco
             ];
             if (validChannels.includes(channel)) {
                 // Deliberately strip event as it includes `sender` 

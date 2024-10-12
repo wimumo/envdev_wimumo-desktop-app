@@ -2,13 +2,13 @@
 /* https://www.w3schools.com/w3css/4/w3.css */
 
 :root {
-  --font-size-body: x-large;
+  --font-size-body: large;
   --font-size-h1: xxx-large;
   --font-size-h2: xxx-large; 
-  --font-size-h3: xxx-large;
+  --font-size-h3: xx-large;
   --font-size-h4: xx-large;
   --font-size-h5: x-large;
-  --font-size-h6: x-large;
+  --font-size-h6: large;
 
   --font-size-checkbox: var(--font-size-body);
 

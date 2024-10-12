@@ -586,29 +586,30 @@ footer {
   text-align: left;
 }
 
-.options_smaller_button {
+.options_button {
   display: inline-block;
   vertical-align: bottom; /* Ensures buttons are aligned at the bottom */
   margin-right: 10px;
+}
 
+.options_button.selected {
+  background-color: var(--button-color-border);
+  /*border: 2px solid var(--button-color-border-focus); /* #007bff; /* Change border color on focus */
+  /*outline: none; /* Remove default outline */
+  /*box-shadow: 0 0 5px var(--button-shadow-color-focus); /* Optional: Add a subtle glow */
+}
+
+.options_smaller_button {
   padding: 8px 16px;
   font-size: var(--font-size-allways-small);
 }
 
 .options_normal_button {
-  display: inline-block;
-  vertical-align: bottom; /* Ensures buttons are aligned at the bottom */
-  margin-right: 10px;
-
   padding: 12px 16px;
   font-size: var(--font-size-allways-normal);
 }
 
 .options_bigger_button {
-  display: inline-block;
-  vertical-align: bottom; /* Ensures buttons are aligned at the bottom */
-  margin-right: 10px;
-
   padding: 16px 16px;
   font-size: var(--font-size-allways-big);
 }
