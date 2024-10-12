@@ -1,11 +1,13 @@
-// Get the link element for the theme
+/* Funciones relacionadas a cambiar las opciones de la app, como tema visual y tamaño de letra */
+
+// Tema Visual -------------
 const themeStyle = document.getElementById('theme-style');
 const themes = ['ligth', 'dark']
 const themeStylesheets = ['stylesheets/wimumoLight.css', 'stylesheets/wimumoDark.css']
 let currentTheme = themes[0];
 
-// Function to switch theme
 function switchTheme(theme) {
+  /* Esta funcion recive un String y cambia al tema apropiado si el String es un nombre de tema */
 
   themes.forEach((auxTheme, index) => {  
     if (auxTheme === theme) {
@@ -13,24 +15,23 @@ function switchTheme(theme) {
       currentTheme = themes[index];
     }
   });
-
 }
 
 // Dar funcionalidad a los botones
 const ligthButton = document.getElementById('light-mode-btn');
 const darkButton = document.getElementById('dark-mode-btn');
-
 ligthButton.addEventListener('click', () => { switchTheme(themes[0]) });
 darkButton.addEventListener('click', () => { switchTheme(themes[1]) });
 
 
-// Function para cambiar fuente
+// Tamaño de fuente -------------
 const themeFontSize = document.getElementById('theme-font-size');
 const fontSizes = ['small', 'medium', 'large'];
 const fontStylesheets = ['stylesheets/wimumoFontSize1.css', 'stylesheets/wimumoFontSize2.css', 'stylesheets/wimumoFontSize3.css'];
 let currentFontSize = fontSizes[1]; // por defecto medium
 
 function switchFontSize(fontSize) {
+  /* Esta funcion recive un String y cambia al tamaño de letra aporpiado si es un nombre de tamaño de fuente */
 
   fontSizes.forEach((auxFontSize, index) => {  
     if( auxFontSize ==  fontSize) {
@@ -39,19 +40,17 @@ function switchFontSize(fontSize) {
       highligthFontButton(index);
     }
   })
-
 }
 
 // Dar funcionalidad a los botones
 const smallFontButton = document.getElementById('font-change-1');
 const mediumFontButton = document.getElementById('font-change-2');
 const largeFontButton = document.getElementById('font-change-3');
-const fontButtons = [smallFontButton, mediumFontButton, largeFontButton]
-
 smallFontButton.addEventListener('click', () => { switchFontSize(fontSizes[0]) });
 mediumFontButton.addEventListener('click', () => { switchFontSize(fontSizes[1]) });
 largeFontButton.addEventListener('click', () => { switchFontSize(fontSizes[2]) });
 
+const fontButtons = [smallFontButton, mediumFontButton, largeFontButton]
 function highligthFontButton( buttonIndex ) {
   fontButtons.forEach((button, index) => {  
     if ( buttonIndex === index ) {
@@ -60,8 +59,8 @@ function highligthFontButton( buttonIndex ) {
   });
 }
 
-// Recuperar opciones guardadas
 
+// Recuperar opciones guardadas -------------
 window.api.receive('savedOptions', (data) => {
   configData = JSON.stringify(data);
 
@@ -87,7 +86,7 @@ window.api.receive('savedOptions', (data) => {
 });
 
 
-//Enviar a guardar opciones
+// Guardar opciones en un archivo -------------
 window.addEventListener('beforeunload', (event) => {
   /* Antes de cerrar la app se deberia nguardar las direcciones objetivo que se hayan escrito. */
   ipcSend_saveOptions();
