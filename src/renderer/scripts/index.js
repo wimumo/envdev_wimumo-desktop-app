@@ -12,7 +12,7 @@ function menu_close() {
 
 /* Pestañas */
 
-categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter', 'HomePage'];
+categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter', 'HomePage', 'guiasDeUso'];
 starting_category = categories[5]; // Home Page deberia ser la categoria con la que se inicia
 document.getElementById(starting_category).removeAttribute('hidden');
 category_active = starting_category;
@@ -24,13 +24,19 @@ function body_exchange (category_selected) {
 
   category_active = category_selected;
 
+  // Para que las guias de uso siempre empiecen desde la seleccion de guias
+  if (category_selected === categories[6]) { homeGuia() } 
+
   menu_close();
 }
 
 function shortcut (shortcutName) {
   if (shortcutName === "configGuide" ) {
-    body_exchange('instrucciones2');
+    body_exchange('guiasDeUso');
     guiaConfig();
+  } else if (shortcutName === "WIMUMOInfo") {
+    body_exchange('guiasDeUso');
+    WIMUMOInfo();
   }
 }
 

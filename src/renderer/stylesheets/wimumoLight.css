@@ -54,6 +54,8 @@
 
   --guide-link-color: var(--color-deep-blue);
 
+  --inactive-step-color: var(--hover-color-grey);
+
   /* buttons */
   --button-background-color: var(color-lighter-grey); /*#f0f0f0;*/
   --button-color: #333; 

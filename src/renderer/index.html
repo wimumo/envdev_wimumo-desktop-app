@@ -24,7 +24,7 @@
       <a href="#HomePage" onclick="body_exchange('HomePage')" class="menu-title">WIMUMO</a>
     </h3>
     <!--<a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a>-->
-    <a href="#instrucciones2" onclick="body_exchange('instrucciones2')" class="menu-button">Guias de uso</a>
+    <a href="#guiasDeUso" onclick="body_exchange('guiasDeUso')" class="menu-button">Guias de uso</a>
     <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Estado</a>
     <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a>
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
@@ -57,14 +57,29 @@
           <h1>Bienvenido/a a la plataforma WIMUMO</h1>
           <br>
 
+          <p>Esta aplicación existe para configurar, monitorear y utilizar un dispositivo WIMUMO</p>
+
+          <div id="homePageWIMUMODisconnected">
+            <div class="conectar_dispositivo_div">
+              <div class="connection_indicator_OFF"></div>
+              <p class="conectar_dispositivo_text">Por favor conecte un dispositivo WIMUMO</p>
+            </div>
+
+            <br>
+
+            <button id="infoWIMUMO" onclick="shortcut('WIMUMOInfo')" class="big_button">¿Qué es WIMUMO?</button>
+            <button id="configGuide" onclick="shortcut('configGuide')" class="big_button">Conectar dispositivo</button>
+          </div>
+
+          <!---
           <p>Para utilizar las funciones de esta aplicación conecte un dispositivo WIMUMO.</p>
           <p><span class="ip-info">IP local: </span><span id="instrucciones_iplocal"> Leer IP de la máquina</span></p>
           <p><span class="ip-info">Puerto:</span> 4560</p>
           <br>
 
           <p>Si es la primera vez que va a conectar el dispositivo, entre a
-            <a href="#instrucciones2" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a>
-          </p>
+            <a href="#guiasDeUso" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a>
+          </p>--->
         </div>
       </div>
     </div>
@@ -232,8 +247,8 @@
       </footer>
     </div>
 
-    <!------------------------------------ Inst 2 ------------------------------------>
-    <div id="instrucciones2" hidden>
+    <!------------------------------------ Guias de uso ------------------------------------>
+    <div id="guiasDeUso" hidden>
       <h3>Guias de uso</h3>
 
       <div id="guiasMainDiv">
@@ -244,7 +259,7 @@
         <h4>¿Qué es WIMUMO?</h4>
 
         <p>
-          <button id="infoWIMUMO" onclick="" class="big_button">Dispositivo WIMUMO</button>
+          <button id="infoWIMUMO" onclick="WIMUMOInfo()" class="big_button">Dispositivo WIMUMO</button>
         </p>
         <hr>
 
@@ -269,15 +284,97 @@
             target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
         </p>
 
-        <footer>
-          <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
-          <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
-          <br>Instituto LEICI (UNLP-CONICET-CIC).
-        </footer>
+      </div>
+
+      <div id="WIMUMOInfoDiv" hidden>
+        <h4>¿Qué es el dispositivo WIMUMO?</h4>
+
+        <p>
+          WIMUMO es un dispositivo inalámbrico capaz de medir señales eléctricas del cuerpo. La señal electrofisiológica
+          o biopotencial más conocida es el electrocardiograma (ECG) con la que casi todo el mundo ha tenido experiencia
+          en el consultorio médico en algún momento. Pero también se pueden medir otros biopotenciales, como los
+          provenientes de los músculos (llamado electromiograma o EMG), del cerebro (EEG) o de los ojos (EOG).
+        </p>
+
+        <p>
+          WIMUMO mide estas señales, las transmite de forma inalámbrica a través de Wi-Fi y las utiliza para una
+          variedad de aplicaciones, como generación de música, juegos y aprendizaje sobre las propias señales.
+          Técnicamente lo llamamos plataforma de adquisición Multi-Modal, y de ahí su nombre (WIreless MUlti MOdal
+          aqcuisition platform).
+        </p>
+
+        <p>
+          WIMUMO no está destinado solo para ser utilizado por los profesionales que lo desarrollaron, sino que uno de
+          sus objetivos es proporcionar un acceso simple y amigable a las señales producidas en el cuerpo humano. El
+          poder motivador de las señales biopotenciales junto con el fácil acceso posibilita la generación de múltiples
+          aplicaciones para la enseñanza, espectáculos artísticos, entretenimiento, dispositivos de ayuda para personas
+          con discapacidad y muchas otras.
+        </p>
+
+        <p>
+          Es por ello que WIMUMO pone a su disposición las señales, aplicaciones y herramientas de configuración a
+          través de una página web. En el caso de las actuaciones artísticas, las señales ya procesadas se transmiten
+          para generar música, imágenes y más con programas estándar que utilizan músicos y diseñadores multimedia,
+          basados ​​en el protocolo OSC.
+        </p>
+
+        <h4>Uso de WIMUMO</h4>
+
+      <p>
+        WIMUMO tiene electrodos que miden señales eléctricas del cuerpo. Si los coloca
+        sobre su cuerpo (con los contactos metálicos apoyados sobre la piel en una zona
+        libre de pelo) podrá visualizar la actividad eléctrica de los músculos que se
+        encuentren en ese lugar, cuando se contraigan. Si los apoya en su pecho incluso
+        puede visualizar los latidos del corazón.
+      </p>
+      <p>
+        WIMUMO envía los datos de las señales que mide usando el protocolo OSC. Este protocolo
+        es muy utilizado en programas de generación de multimedia. Con esta aplicación
+        podrá ver las señales y controlar tonos musicales, pero sacará mayor provecho a WIMUMO
+        creando lo que desee con aplicaciones tales como puredata y la muy conocida
+        <a href="https://processing.org/" target="_blank" class="href-focus">Processing (https://processing.org/)</a>.
+        En la <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank" class="href-focus">página del proyecto</a>
+        encontrará algunos
+        ejemplos de Processing para comenzar a usar WIMUMO.
+      </p>
+      <p>
+        WIMUMO funciona con baterías de litio recargables tipo 14500 de 3.7 V. Si bien tienen
+        el mismo tamaño, <mark> son distintas de las pilas AA comunes </mark>, y no funcionará si se
+        intentan utilizar. Cuando la batería está baja, la luz indicadora titilará en rojo y
+        debe retirarse la batería del quipo y recargarla.
+      </p>
+
       </div>
 
       <div id="configGuideDiv" hidden>
-        <h4>Guia de configuracion del dispositivo WIMUMO</h4><br>
+        <h4>Configuración del dispositivo WIMUMO</h4><br>
+
+        <p>
+          El dispositivo WIMUMO se conectara a esta maquina por medio de la red Wi-Fi. 
+        </p>
+
+        <p>
+          Para poder conectarse hay que configurar el dispositivo correctamente.
+        </p>
+
+        <p>
+          Esto se puede hacer en esta maquina, o alternativamente usando un celular.
+        </p>
+        <br>
+
+        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta maquina</button><br><br>
+        <button class="big_button" onclick="guiaConfigPhone()">Configurar usando un celular</button>
+        
+
+      </div>
+
+      <div id="compConfigGuideDiv" hidden>
+
+        
+      </div>
+
+      <div id="phoneConfigGuideDiv" hidden>
+        <h4>Configuración del dispositivo WIMUMO</h4><br>
 
         <div id="stepContainer">
           <div class="step" id="step1">
@@ -292,27 +389,27 @@
             <h5>Paso 2</h5>
             <p>Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark></p>
             <input type="checkbox" id="configCheck2" name="Step 2 checkbox" class="checkbox_right">
-            
+
           </div>
           <div class="step" id="step3">
             <h5>Paso 3</h5>
             <p>Ingrese a "Configurar Red" para ingresar los datos de la red WiFi a donde conectará WIMUMO.</p>
             <input type="checkbox" id="configCheck3" name="Step 3 checkbox" class="checkbox_right">
-            
+
           </div>
           <div class="step" id="step4">
             <h5>Paso 4</h5>
             <p>Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta aplicación debe
               ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.</p>
             <input type="checkbox" id="configCheck4" name="Step 4 checkbox" class="checkbox_right">
-            
+
           </div>
           <div class="step" id="step5">
             <h5>Paso 5</h5>
             <p>Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a la red verá el led
               titilar lentamente.</p>
             <input type="checkbox" id="configCheck5" name="Step 5 checkbox" class="checkbox_right">
-            
+
           </div>
         </div>
 
@@ -321,13 +418,23 @@
           <button id="nextButton" class="button_guide_right">Siguiente</button>
         </div>
 
+      </div>
+
+      <div id="guideBackButtons" hidden>
         <br><br><br><br>
 
         <p>
           <button id="homeGuide" onclick="homeGuia()">Volver a todas las guias</button>
-          <button id="configManual" onclick="">Manual de uso</button>
+          <button id="WIMUMOPageButton">Ir a pagina del proyecto WIMUMO</button>
         </p>
+      </div>
 
+      <div id="guideFooter">
+        <footer>
+          <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
+          <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
+          <br>Instituto LEICI (UNLP-CONICET-CIC).
+        </footer>
       </div>
 
 
@@ -353,10 +460,8 @@
       <h4> Cambiar modo visual</h4>
 
       <div class="options_button_container">
-        <button id="light-mode-btn" class="options_theme_buttons options_theme_buttons_ligth"
-          >Modo Claro </button>
-        <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark"
-          >Modo Oscuro</button>
+        <button id="light-mode-btn" class="options_theme_buttons options_theme_buttons_ligth">Modo Claro </button>
+        <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark">Modo Oscuro</button>
       </div>
 
       <br>

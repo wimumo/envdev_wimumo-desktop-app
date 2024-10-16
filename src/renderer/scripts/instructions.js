@@ -1,3 +1,4 @@
+// Conseguir IP Local
 window.api.send('get-iplocal');
 
 window.api.receive('iplocal', (data) => {
@@ -6,22 +7,80 @@ window.api.receive('iplocal', (data) => {
         data[0];
 });
 
+// funciones de uso por el index
 const guiasMainDiv = document.getElementById('guiasMainDiv');
 const configGuideDiv = document.getElementById('configGuideDiv');
+const phoneConfigGuideDiv = document.getElementById('phoneConfigGuideDiv');
+const compConfigGuideDiv = document.getElementById('compConfigGuideDiv');
+const WIMUMOInfoDiv = document.getElementById('WIMUMOInfoDiv');
 
-function guiaConfig() {
+const guideBackButtons = document.getElementById('guideBackButtons');
+const guideFooter = document.getElementById('guideFooter');
+
+function hideAllGuides() {
     guiasMainDiv.setAttribute('hidden', '');
+    configGuideDiv.setAttribute('hidden', '');
+    phoneConfigGuideDiv.setAttribute('hidden', '');
+    compConfigGuideDiv.setAttribute('hidden', '');
+    WIMUMOInfoDiv.setAttribute('hidden', '');
+    guideBackButtons.setAttribute('hidden', '');
+    guideFooter.setAttribute('hidden', '');
+}
+
+// Gias de configuracion
+function guiaConfig() {
+    hideAllGuides();
+
     configGuideDiv.removeAttribute('hidden');
 }
-
-function homeGuia() {
-    configGuideDiv.setAttribute('hidden', '');
-    guiasMainDiv.removeAttribute('hidden');
+function guiaConfigPhone() {
+    hideAllGuides();
+    
+    phoneConfigGuideDiv.removeAttribute('hidden');
+    guideBackButtons.removeAttribute('hidden');
 }
+function guiaConfigComp() {
+    hideAllGuides();
+    
+    compConfigGuideDiv.removeAttribute('hidden');
+    guideBackButtons.removeAttribute('hidden');
+}
+
+// Que es wimumo
+function WIMUMOInfo() {
+    hideAllGuides();
+    
+    WIMUMOInfoDiv.removeAttribute('hidden');
+    guideBackButtons.removeAttribute('hidden');
+}
+
+// Lista de guias
+function homeGuia() {
+    hideAllGuides();
+    
+    guiasMainDiv.removeAttribute('hidden');
+    guideFooter.removeAttribute('hidden');
+}
+
+document.getElementById('WIMUMOPageButton').addEventListener('click', function() {
+    window.open('https://gibic.ing.unlp.edu.ar/wimumo', '_blank');
+});
+
+// Guia de Configuracion de dispositivo
+
+/*const pasos = [
+    "",
+    "",
+    "",
+    "",
+    ""
+]*/
 
 let currentStep = 1;
 const totalSteps = 5; // Adjust this number according to the total number of steps
 const nextButton = document.getElementById('nextButton');
+
+let botonTerminarActivo = false;
 
 function showStep(step) {
     // Hide all steps
@@ -30,13 +89,6 @@ function showStep(step) {
     // Show the current step
     const currentStepElement = document.getElementById(`step${step}`);
     currentStepElement.classList.add('active');
-
-    // Update the button text when on the last step
-    if (step === totalSteps) {
-        nextButton.textContent = 'Terminar';
-    } else {
-        nextButton.textContent = 'Siguiente';
-    }
 
     // Hide the button
     if (step === 1) {
@@ -47,14 +99,22 @@ function showStep(step) {
 }
 
 nextButton.addEventListener('click', () => {
-    if (currentStep < totalSteps) { currentStep++ }
-    showStep(currentStep);
+    if (currentStep <= totalSteps) {
+        checkboxes[(currentStep - 1)].checked = true;
+        checkCheckbox(currentStep);
+        currentStep++;
+    } else if (botonTerminarActivo) { homeGuia() }
+    
+
 });
 
 prevButton.addEventListener('click', () => {
     if (currentStep > 1) { currentStep-- }
-    showStep(currentStep);
+    checkboxes[currentStep-1].checked = false;
+    uncheckCheckbox(currentStep);
 });
+
+
 
 
 // Checkbox handling
@@ -77,10 +137,11 @@ function checkCheckbox(step) {
     if ((step + 1) <= totalSteps) {
         showStep(step + 1);
     } else {
-        // Update the button text when on the last step
+        // Actualizar en el ultimo paso
         if (step === totalSteps) {
             showStep(totalSteps);
             nextButton.textContent = 'Terminar';
+            botonTerminarActivo = true;
         }
     }
 
@@ -97,6 +158,12 @@ function uncheckCheckbox(step) {
     checkboxes.forEach((checkbox, index) => {
         if ((index + 1) > step) checkbox.checked = false;
     })
+
+    // Volver del ultimo paso
+    if (botonTerminarActivo) {
+        botonTerminarActivo = false;
+        nextButton.textContent = 'Siguiente';
+    }
 }
 
 function onChange(checked, checkboxId) {

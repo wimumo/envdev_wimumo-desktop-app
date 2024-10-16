@@ -519,6 +519,16 @@ footer {
   text-align: center; /* Centers text within the container */
 }
 
+/* dispositivo desconectado aviso */
+.conectar_dispositivo_div {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align items vertically */
+}
+
+.conectar_dispositivo_text {
+  color: var(--color-red);
+}
 
 
 
@@ -535,7 +545,7 @@ footer {
   max-width: 80%;
   margin: 0 auto; /* Centers the step inside the container */
   display: block;
-  color: var(--background-color2);
+  color: var(--inactive-step-color);
 }
 
 .step p {

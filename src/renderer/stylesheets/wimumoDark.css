@@ -4,7 +4,7 @@
 :root {
   --color-white: #fff;
   --color-black: #000;
-  --color-tra-black: rgba(0,0,0,0.5); /* transparent black */
+  --color-tr-black: rgba(0,0,0,0.5); /* transparent black */
   --color-grey: #9e9e9e;
   --color-light-grey: #f1f1f1;
   --color-light-grey2: #ccc;
@@ -52,6 +52,8 @@
   --mark-color: var(--color-light-blue);
 
   --guide-link-color: var(--color-deep-blue);
+
+  --inactive-step-color: var(--hover-color-dark-grey);
 
   /* buttons */
   --button-background-color: #333; /* Dark background */
