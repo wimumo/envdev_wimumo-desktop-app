@@ -124,22 +124,31 @@ window.api.receive('osc', (data) => {
 });
 
 // Actualizar indicador
+const indicator = document.getElementById('connection-indicator')
+const statusText = document.getElementById('status-text');
+
+// Actualizar Home page
+const homePageDisconnectedDiv = document.getElementById('homePageDisconnectedDiv');
+const homePageConnectedDiv = document.getElementById('homePageConnectedDiv');
+
 function updateConnectionIndicator(bool) {
   if (bool) {
     // Indicador de conexion del menu
-    const indicator = document.getElementById('connection-indicator');
-    const statusText = document.getElementById('status-text');
-
     indicator.className = "connection_indicator_ON";
     statusText.textContent = 'WIMUMO Conectado';
     statusText.className = "connection_indicator_text_ON";
+
+    // Actualizar home page
+    homePageDisconnectedDiv.setAttribute('hidden', '');
+    homePageConnectedDiv.removeAttribute('hidden');
   } else {
     // Indicador de conexion del menu
-    const indicator = document.getElementById('connection-indicator');
-    const statusText = document.getElementById('status-text');
-
     indicator.className = "connection_indicator_OFF";
     statusText.textContent = 'WIMUMO Desconectado';
     statusText.className = "connection_indicator_text_OFF";
+
+    // Actualizar home page
+    homePageDisconnectedDiv.removeAttribute('hidden');
+    homePageConnectedDiv.setAttribute('hidden', '');
   }
 }

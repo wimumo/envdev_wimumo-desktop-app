@@ -35,21 +35,31 @@ function guiaConfig() {
 }
 function guiaConfigPhone() {
     hideAllGuides();
-    
+
     phoneConfigGuideDiv.removeAttribute('hidden');
     guideBackButtons.removeAttribute('hidden');
+
+    // logica de los pasos
+    ///showStep(1);
+    setUpGuide(totalStepsPhone, stepIdsPhone, buttonIdsPhone, checkboxIdsPhone);
+    showStep(currentStep);
 }
 function guiaConfigComp() {
     hideAllGuides();
-    
+
     compConfigGuideDiv.removeAttribute('hidden');
     guideBackButtons.removeAttribute('hidden');
+
+    // logica de los pasos
+    ///showStep(1);
+    setUpGuide(totalStepsComp, stepIdsComp, buttonIdsComp, checkboxIdsComp);
+    showStep(currentStep);
 }
 
 // Que es wimumo
 function WIMUMOInfo() {
     hideAllGuides();
-    
+
     WIMUMOInfoDiv.removeAttribute('hidden');
     guideBackButtons.removeAttribute('hidden');
 }
@@ -57,81 +67,143 @@ function WIMUMOInfo() {
 // Lista de guias
 function homeGuia() {
     hideAllGuides();
-    
+
     guiasMainDiv.removeAttribute('hidden');
     guideFooter.removeAttribute('hidden');
 }
 
-document.getElementById('WIMUMOPageButton').addEventListener('click', function() {
+document.getElementById('WIMUMOPageButton').addEventListener('click', function () {
     window.open('https://gibic.ing.unlp.edu.ar/wimumo', '_blank');
 });
 
-// Guia de Configuracion de dispositivo
 
-/*const pasos = [
-    "",
-    "",
-    "",
-    "",
-    ""
-]*/
+/* 
+*   Logica guias de Configuracion de dispositivo 
+*/
 
+// constantes de la guia con telefono
+const totalStepsPhone = 5;
+const stepIdsPhone = ['stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5'];
+const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh'];
+const checkboxIdsPhone = [
+    'confCheckPh1',
+    'confCheckPh2',
+    'confCheckPh3',
+    'confCheckPh4',
+    'confCheckPh5'
+];
+///const nextButtonPhone = document.getElementById('nextButtonPh');
+///const prevButtonPhone = document.getElementById('prevButtonPh');
+
+// constantes de la guia con la maquina
+const totalStepsComp = 5;
+const stepIdsComp = ['stepC1', 'stepC2', 'stepC3', 'stepC4', 'stepC5'];
+const buttonIdsComp = ['nextButtonComp', 'prevButtonComp'];
+const checkboxIdsComp = [
+    'confCheckCo1',
+    'confCheckCo2',
+    'confCheckCo3',
+    'confCheckCo4',
+    'confCheckCo5'
+];
+///const nextButtonComp = document.getElementById('nextButtonComp');
+///const prevButtonComp = document.getElementById('prevButtonComp');
+
+// variables
 let currentStep = 1;
-const totalSteps = 5; // Adjust this number according to the total number of steps
-const nextButton = document.getElementById('nextButton');
-
+let totalSteps; // se inicializa antes de usarse
 let botonTerminarActivo = false;
 
-function showStep(step) {
-    // Hide all steps
-    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+const steps = [];
+let nextButton;
+let prevButton;
+const checkboxes = [];
 
-    // Show the current step
-    const currentStepElement = document.getElementById(`step${step}`);
-    currentStepElement.classList.add('active');
 
-    // Hide the button
-    if (step === 1) {
+function setUpGuide(totalStp, stpIds, btnIds, chkboxIds) {
+    currentStep = 1;
+    totalSteps = totalStp;
+
+    steps.length = 0;
+    stpIds.forEach((id) => {
+        steps.push(document.getElementById(id));
+    });
+
+    nextButton = document.getElementById(btnIds[0]);
+    prevButton = document.getElementById(btnIds[1]);
+    toggleTerminarBtn(false);
+
+    uncheckAllCheckboxes();
+    checkboxes.length = 0;
+    chkboxIds.forEach((id) => {
+        checkboxes.push(document.getElementById(id));
+    });
+
+    checkboxes.forEach((checkbox, index) => {
+        // Agrega la funcionalidad a cada checkbox
+        checkbox.addEventListener('change', function () {
+            onChange(this.checked, index + 1);  // Pass checked state and index (1-based)
+        });
+    });
+}
+
+function toggleTerminarBtn(bool) {
+    if (bool) {
+        botonTerminarActivo = true;
+        nextButton.textContent = 'Terminar';
+    } else {
+        botonTerminarActivo = false;
+        nextButton.textContent = 'Siguiente';
+    }
+}
+
+function toggleVisibilityPreviousBtn(bool) {
+    if (bool) {
         prevButton.setAttribute('hidden', '');
     } else {
         prevButton.removeAttribute('hidden');
     }
 }
 
-nextButton.addEventListener('click', () => {
+function uncheckAllCheckboxes() {
+    checkboxes.forEach((chk) => {
+        chk.checked = false;
+    });
+}
+
+
+function showStep(step) {
+    /* Se encarga de mostrar el paso activo en un guia, toma como parametro un String que determina la guia*/
+    // Esconder todos los pasos
+    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+
+    // Show the current step
+    //const currentStepElement = document.getElementById(`step${step}`);
+    const currentStepElement = steps[step - 1];
+    currentStepElement.classList.add('active');
+
+    // Hide the "previous" button if it is the first step
+    toggleVisibilityPreviousBtn(step === 1);
+
+    currentStep = step;
+}
+
+function nextButtonOnClick() {
+    if (botonTerminarActivo) { homeGuia() };
     if (currentStep <= totalSteps) {
         checkboxes[(currentStep - 1)].checked = true;
         checkCheckbox(currentStep);
-        currentStep++;
-    } else if (botonTerminarActivo) { homeGuia() }
-    
+    }
+}
 
-});
-
-prevButton.addEventListener('click', () => {
+function prevButtonOnClick() {
     if (currentStep > 1) { currentStep-- }
-    checkboxes[currentStep-1].checked = false;
+    checkboxes[currentStep - 1].checked = false;
     uncheckCheckbox(currentStep);
-});
-
-
+}
 
 
 // Checkbox handling
-
-const checkboxIds = [
-    'configCheck1',
-    'configCheck2',
-    'configCheck3',
-    'configCheck4',
-    'configCheck5'
-];
-
-const checkboxes = [];
-checkboxIds.forEach((id, index) => {
-    checkboxes.push(document.getElementById(id));
-});
-
 
 function checkCheckbox(step) {
     if ((step + 1) <= totalSteps) {
@@ -140,8 +212,7 @@ function checkCheckbox(step) {
         // Actualizar en el ultimo paso
         if (step === totalSteps) {
             showStep(totalSteps);
-            nextButton.textContent = 'Terminar';
-            botonTerminarActivo = true;
+            toggleTerminarBtn(true);
         }
     }
 
@@ -161,8 +232,7 @@ function uncheckCheckbox(step) {
 
     // Volver del ultimo paso
     if (botonTerminarActivo) {
-        botonTerminarActivo = false;
-        nextButton.textContent = 'Siguiente';
+        toggleTerminarBtn(false)
     }
 }
 
@@ -174,13 +244,3 @@ function onChange(checked, checkboxId) {
     }
 }
 
-// initialize checkboxes
-checkboxes.forEach((checkbox, index) => {
-    // Agrega la funcionalidad a cada checkbox
-    checkbox.addEventListener('change', function () {
-        onChange(this.checked, index + 1);  // Pass checked state and index (1-based)
-    });
-});
-
-// Initialize the first step
-showStep(currentStep);

@@ -31,6 +31,8 @@
   --hover-color: var(--hover-color-grey);
   --overlay-color: var(--color-tr-black);
 
+  --separator-color: #888;
+
   /* menu */
   --text-menu-color: var(--hover-color-grey);
   --background-menu-color: var(--color-dark-grey);
@@ -97,4 +99,7 @@
 
   --input-placeholder-color: #aaa;
 
+  /* Connected and disconnected colors */
+  --connected-color: var(--color-blue);
+  --disconnected-color: var(--color-red);
 }

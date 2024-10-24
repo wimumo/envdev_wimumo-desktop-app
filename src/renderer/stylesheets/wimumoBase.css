@@ -443,7 +443,7 @@ footer {
 }
 
 .separator {
-  border: 1px solid #ccc;
+  border: 1px solid  var(--separator-color);
   margin: 10px 0;
 }
 
@@ -527,7 +527,11 @@ footer {
 }
 
 .conectar_dispositivo_text {
-  color: var(--color-red);
+  color: var(--disconnected-color);
+}
+
+.dispositivo_conectado_text {
+  color: var(--connected-color);
 }
 
 
@@ -671,7 +675,7 @@ footer {
 .connection_indicator_OFF {
   width: 20px;
   height: 20px;
-  background-color: var(--color-red); /* default to disconnected */
+  background-color: var(--disconnected-color); /* default to disconnected */
   border-radius: 50%;
   margin-right: 15px; /* Add space between indicator and text */
 }
@@ -679,7 +683,7 @@ footer {
 .connection_indicator_ON {
   width: 20px;
   height: 20px;
-  background-color: var(--color-blue); /* default to disconnected */
+  background-color: var(--connected-color); /* default to disconnected */
   border-radius: 50%;
   margin-right: 15px; /* Add space between indicator and text */
 }

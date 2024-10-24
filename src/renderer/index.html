@@ -59,7 +59,7 @@
 
           <p>Esta aplicación existe para configurar, monitorear y utilizar un dispositivo WIMUMO</p>
 
-          <div id="homePageWIMUMODisconnected">
+          <div id="homePageDisconnectedDiv">
             <div class="conectar_dispositivo_div">
               <div class="connection_indicator_OFF"></div>
               <p class="conectar_dispositivo_text">Por favor conecte un dispositivo WIMUMO</p>
@@ -69,6 +69,13 @@
 
             <button id="infoWIMUMO" onclick="shortcut('WIMUMOInfo')" class="big_button">¿Qué es WIMUMO?</button>
             <button id="configGuide" onclick="shortcut('configGuide')" class="big_button">Conectar dispositivo</button>
+          </div>
+
+          <div id="homePageConnectedDiv" hidden>
+            <div class="conectar_dispositivo_div">
+              <div class="connection_indicator_ON"></div>
+              <p class="dispositivo_conectado_text">Dispositivo conectado</p>
+            </div>
           </div>
 
           <!---
@@ -253,7 +260,7 @@
 
       <div id="guiasMainDiv">
 
-        <p> Aquí se explica cómo configurar el dispositivo WIMUMO y su uso básico. </p>
+        <p>Aquí se explica que es el dispositivo WIMUMO, como configurarlo y su uso básico. </p>
         <hr>
 
         <h4>¿Qué es WIMUMO?</h4>
@@ -350,11 +357,11 @@
         <h4>Configuración del dispositivo WIMUMO</h4><br>
 
         <p>
-          El dispositivo WIMUMO se conectara a esta maquina por medio de la red Wi-Fi. 
+          El dispositivo WIMUMO se conectara a esta maquina por medio de una <mark> red Wi-Fi </mark>. 
         </p>
 
         <p>
-          Para poder conectarse hay que configurar el dispositivo correctamente.
+          Para poder conctarlo, primero hay que configurar el dispositivo correctamente.
         </p>
 
         <p>
@@ -369,7 +376,49 @@
       </div>
 
       <div id="compConfigGuideDiv" hidden>
+        <h4>Configuración del dispositivo WIMUMO</h4><br>
 
+        <div id="stepContainerPh">
+          <div class="step" id="stepC1">
+            <h5>Paso 1</h5>
+            <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con colores, esto
+              indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo presionando el
+              pulsador.</p>
+            <input type="checkbox" id="confCheckCo1" name="Step 1 checkbox" class="checkbox_right">
+          </div>
+
+          <div class="step" id="stepC2">
+            <h5>Paso 2</h5>
+            <p>Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark></p>
+            <input type="checkbox" id="confCheckCo2" name="Step 2 checkbox" class="checkbox_right">
+
+          </div>
+          <div class="step" id="stepC3">
+            <h5>Paso 3</h5>
+            <p>Ingrese a "Configurar Red" para ingresar los datos de la red WiFi a donde conectará WIMUMO.</p>
+            <input type="checkbox" id="confCheckCo3" name="Step 3 checkbox" class="checkbox_right">
+
+          </div>
+          <div class="step" id="stepC4">
+            <h5>Paso 4</h5>
+            <p>Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta aplicación debe
+              ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.</p>
+            <input type="checkbox" id="confCheckCo4" name="Step 4 checkbox" class="checkbox_right">
+
+          </div>
+          <div class="step" id="stepC5">
+            <h5>Paso 5</h5>
+            <p>Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a la red verá el led
+              titilar lentamente.</p>
+            <input type="checkbox" id="confCheckCo5" name="Step 5 checkbox" class="checkbox_right">
+
+          </div>
+        </div>
+
+        <div class="container_relative">
+          <button id="prevButtonComp" class="button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
+          <button id="nextButtonComp" class="button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
+        </div>
         
       </div>
 
@@ -377,45 +426,45 @@
         <h4>Configuración del dispositivo WIMUMO</h4><br>
 
         <div id="stepContainer">
-          <div class="step" id="step1">
+          <div class="step" id="stepP1">
             <h5>Paso 1</h5>
             <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con colores, esto
               indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo presionando el
               pulsador.</p>
-            <input type="checkbox" id="configCheck1" name="Step 1 checkbox" class="checkbox_right">
+            <input type="checkbox" id="confCheckPh1" name="Step 1 checkbox" class="checkbox_right">
           </div>
 
-          <div class="step" id="step2">
+          <div class="step" id="stepP2">
             <h5>Paso 2</h5>
             <p>Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark></p>
-            <input type="checkbox" id="configCheck2" name="Step 2 checkbox" class="checkbox_right">
+            <input type="checkbox" id="confCheckPh2" name="Step 2 checkbox" class="checkbox_right">
 
           </div>
-          <div class="step" id="step3">
+          <div class="step" id="stepP3">
             <h5>Paso 3</h5>
             <p>Ingrese a "Configurar Red" para ingresar los datos de la red WiFi a donde conectará WIMUMO.</p>
-            <input type="checkbox" id="configCheck3" name="Step 3 checkbox" class="checkbox_right">
+            <input type="checkbox" id="confCheckPh3" name="Step 3 checkbox" class="checkbox_right">
 
           </div>
-          <div class="step" id="step4">
+          <div class="step" id="stepP4">
             <h5>Paso 4</h5>
             <p>Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta aplicación debe
               ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.</p>
-            <input type="checkbox" id="configCheck4" name="Step 4 checkbox" class="checkbox_right">
+            <input type="checkbox" id="confCheckPh4" name="Step 4 checkbox" class="checkbox_right">
 
           </div>
-          <div class="step" id="step5">
+          <div class="step" id="stepP5">
             <h5>Paso 5</h5>
             <p>Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a la red verá el led
               titilar lentamente.</p>
-            <input type="checkbox" id="configCheck5" name="Step 5 checkbox" class="checkbox_right">
+            <input type="checkbox" id="confCheckPh5" name="Step 5 checkbox" class="checkbox_right">
 
           </div>
         </div>
 
         <div class="container_relative">
-          <button id="prevButton" class="button_guide_left"> Previo </button>
-          <button id="nextButton" class="button_guide_right">Siguiente</button>
+          <button id="prevButtonPh" class="button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
+          <button id="nextButtonPh" class="button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
         </div>
 
       </div>
@@ -481,6 +530,11 @@
     <!------------------------------------ Graph ------------------------------------>
     <div id="graficador" hidden>
       <h3>Señales</h3>
+      <p>
+        Visualicé las señales detectadas por el dispositivo WIMUMO. 
+      </p>
+      <hr class="separator">
+
       <div id="graphButtonsDiv">
         <button onclick="addGraph()">Agregar</button>
         <button onclick="removeGraph()">Eliminar</button>
@@ -494,6 +548,11 @@
     <!------------------------------------ Audio ------------------------------------>
     <div id="musica" hidden>
       <h3>Música</h3>
+
+      <p>
+        Permite producir sonidos en base a las señales que detecta el dispositivo WIMUMO
+      </p>
+      <hr class="separator">
 
       <p>
         <label class="vumetro" id="ch1">Canal 1</label>
@@ -516,6 +575,11 @@
     <!------------------------------------ Rerouter ------------------------------------>
     <div id="rerouter" hidden>
       <h3>Redirección de señales OSC</h3><!----Re-ruteo de paquetes OSC---->
+      <p>
+        Permite enviar las señales recibidas del WIMUMO a otras aplicaciones. Utilizando el protocolo OSC.
+      </p>
+      <hr class="separator">
+
       <div id="rerouter_dialog" class="msg info" hidden>
         <p id="rerouter_dialog_p">
           Si se encuentra utilizando el programa Processing en va, cierre esta aplicación antes de continuar...........
