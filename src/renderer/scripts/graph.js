@@ -48,7 +48,7 @@ class Graph {
   channel;
   ready;
 
-
+  // Canvas es un DIV, title un SELECT y info un p
   constructor(canvas, title, info) {
     // Componentes gráficos
     this.canvas = canvas;
@@ -162,15 +162,30 @@ class Graph {
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
     this.cursor.pedirMovimiento(y);
-    this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1);
+
+    let afterZoomText = this.info.innerHTML.split("<br>")[1].trim();
+    this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1) + "<br>" + afterZoomText;
   }
 
 
   scaleDown() {
-    this.scale = this.scale * 2;
+    if (this.scale < 32768) {
+      this.scale = this.scale * 2;
+
+      let infoText = this.info.innerHTML; // update info
+      let beforeZoomText = infoText.split("<br>")[0].trim();
+      this.info.innerHTML = beforeZoomText + "<br>Zoom: " + this.scale;
+    }
+
   }
   scaleUp() {
-    this.scale = this.scale / 2;
+    if (this.scale > 0.03125) {
+      this.scale = this.scale / 2;
+
+      let infoText = this.info.innerHTML; // update info
+      let beforeZoomText = infoText.split("<br>")[0].trim();
+      this.info.innerHTML = beforeZoomText + "<br>Zoom: " + this.scale;
+    }
   }
 }
 
@@ -313,14 +328,14 @@ function emptyCurrentChannels() {
   // Elimina todos los canales actuales y los reemplaza con el canal por defecto sin tocar el grafico en si
   for (let i = 0; i < graphs.length; i++) {
     if (graphs[i].ready == true) {
-      graphs[i].ready = false; 
+      graphs[i].ready = false;
 
       // Se eliminan todos los canales que ya estan incluidos en los graficos actuales
       while (graphs[i].title.firstChild) {
         graphs[i].title.removeChild(graphs[i].title.firstChild);
       }
 
-       // Se deja en su lugar el canal por defecto para no causar errores 
+      // Se deja en su lugar el canal por defecto para no causar errores 
       graphs[i].title.appendChild(opcionCanalPorDefecto());
 
     }
@@ -355,6 +370,17 @@ function addGraph() {
   div.appendChild(title);
 
   // ZOOM IN, ZOOM OUT
+  /*let scaleLabel = document.createElement('label');
+  scaleLabel.textContent = scale;
+  div.appendChild(scaleLabel);*/
+
+  /*const scaleP = document.createElement('p');
+  scaleP.id = "scaleP" + n;
+  scaleP.textContent = 'zoom: 0';
+  scaleP.classList.add('zoomButton');
+  div.appendChild(scaleP);*/
+
+
   let buttonZOut = document.createElement('button');
   buttonZOut.id = "zOutButton" + n;
   buttonZOut.classList.add('zoomButton');
@@ -376,7 +402,7 @@ function addGraph() {
 
   let info = document.createElement('p');
   info.id = "infoCanvas" + n;
-  info.innerHTML = "Información:"
+  info.innerHTML = "Información: <br>Zoom: 32"
   div.appendChild(info);
 
   document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtonsDiv'));
