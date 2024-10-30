@@ -34,7 +34,7 @@ let oscConnectionInProgress = false;
 let checkDataIntervalId = null;
 
 // -- GUARDAR CONFIGURACION
-// Variable que guarda el estado de las direccion de redireccion, para despues guardarlo en Disco.
+// Variable que guarda el estado de las direccion de redirección, para despues guardarlo en Disco.
 let dataRedirectConfig = [];
 // Variable que guarda las opciones
 let dataOptions = [];
@@ -44,7 +44,7 @@ let dataOptions = [];
 const rerouteAddresses = []; // ejemplo = [{ ipAddress: '127.0.0.1', port: 4559 }]
 var redirectOSC = false;
 
-// Array de clientes para redireccion. Se definen y usan segun sea necesario.
+// Array de clientes para redirección. Se definen y usan segun sea necesario.
 var oscClients = [];
 
 
@@ -75,7 +75,7 @@ function readFileAtStartup() {
 
   } )
 
-  // Leer configuracion de redireccion
+  // Leer configuracion de redirección
   fs.readFile(configFilePath, 'utf-8', (err, data) => {
     if (err) {
       console.error('Un error ocurrio leyendo el archivo:', err);
@@ -103,7 +103,7 @@ function readFileAtStartup() {
 
 
 /* 
-*   Mantenimiento de coneccion OSC
+*   Mantenimiento de conexion OSC
 */
 
 // Funcion que se llama cada vez que hay una conexion con el servidor
@@ -200,7 +200,7 @@ app.whenReady().then(() => {
     oscServer.close();
     closeOscClients();
 
-    // Guardar configuracion de redirecciones en disco
+    // Guardar configuracion de redireccionamiento en disco
     fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig)); 
     fs.writeFileSync(optionsFilePath, JSON.stringify(dataOptions)); 
     // --------------------------------------
@@ -233,13 +233,13 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
-  // Guardar Configuracion de señales de redireccion
+  // Guardar Configuracion de señales de redirección
   ipcMain.on('save-config', async(event, data) => {
     /* Funcion que se encarga de guardar la configuracion del rerouter */ 
     /* El parametro Data es un array de diccionarios [ {cantidad_dir}, { ip, port, filter }, { ip, port, filter } ... ] */
     
     dataRedirectConfig = data;
-    console.log(`Configuracion de redireccion guardada.`)
+    console.log(`Configuracion de redirección guardada.`)
 
   });
 
@@ -254,8 +254,8 @@ app.whenReady().then(() => {
 
   // Ping IP
   ipcMain.on('ping-ip', async (event, data) => {
-    /* Manda un ping a una ip para asegurarse de que esta disponible para la redireccion. */
-    /* Se utiliza en la seccion de redireccion, como parte del proceso de validacion de una direccion IP. */
+    /* Manda un ping a una ip para asegurarse de que esta disponible para la redirección. */
+    /* Se utiliza en la seccion de redirección, como parte del proceso de validacion de una direccion IP. */
     /* Parametro data se define como {ip: ip, posicion: posicion}; */
 
     console.log(`Ping ip ${data.ip} - Checkear si la ip esta disponible `);
@@ -335,7 +335,7 @@ app.whenReady().then(() => {
 
   });
 
-  // Activa el reruteo a UNA direccion espeifica de redireccion
+  // Activa el reruteo a UNA direccion espeifica de redirección
   ipcMain.on('Add-RerouteAddress', (event, data) => {
     /* Activa el reruteo de los mensajes OSC a otra direccion. */
     const { posicion, ip, port, filter } = data;
@@ -354,12 +354,12 @@ app.whenReady().then(() => {
       console.log('OSC redirection started.');
 
     } else {
-      console.log(`La posicion de redireccion ya esta ocupada. Esto no deberia de poder ocurrir.`);
+      console.log(`La posicion de redirección ya esta ocupada. Esto no deberia de poder ocurrir.`);
     }
 
   });
 
-  // Desactiva el reruteo a UNA direccion espeifica de redireccion
+  // Desactiva el reruteo a UNA direccion espeifica de redirección
   ipcMain.on('Remove-RerouteAddress', (event, data) => {
     /* Desactiva el reruteo de los mensajes OSC a otra direccion. */
     const { posicion, ip, port, filter } = data;
@@ -374,7 +374,7 @@ app.whenReady().then(() => {
       oscClients[posicion] = null;
 
       console.log('Direccion removida.');
-    } else console.log('Hubo un error para remover direccion de redireccion.');
+    } else console.log('Hubo un error para remover direccion de redirección.');
 
     const allNull = rerouteAddresses.every(item => !item);
     if (allNull) {
@@ -391,7 +391,7 @@ app.whenReady().then(() => {
   *   OSC mensajes
   */
 
-  var nClients = 0; // Cantidad de clientes de redireccion
+  var nClients = 0; // Cantidad de clientes de redirección
 
   const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
@@ -401,7 +401,7 @@ app.whenReady().then(() => {
 
     oscConnectionAlive();
 
-    //------------------------------------------------------------------- Redireccion Bundles
+    //------------------------------------------------------------------- Redirección Bundles
     if (redirectOSC) {
       //console.log('Received OSC bundle:', bundle);
       forwardMessage(bundle);
@@ -438,7 +438,7 @@ app.whenReady().then(() => {
 
     oscConnectionAlive();
 
-    //------------------------------------------------------------------- Redireccion Mensajes
+    //------------------------------------------------------------------- Redirección Mensajes
     if (redirectOSC) {
       forwardMessage(msg);
     }
@@ -449,7 +449,7 @@ app.whenReady().then(() => {
 
   // Redireccion
   function forwardMessage(message) {
-    /* Funcion que rerutea los mensajes y bundles. Solo deberia ser llamada cuando la redireccion esta activada. */
+    /* Funcion que rerutea los mensajes y bundles. Solo deberia ser llamada cuando la redirección esta activada. */
     try {
 
       if (message.oscType === 'bundle') { // Los mensajes tienen "osctype = undefined"

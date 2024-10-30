@@ -11,7 +11,7 @@ var cantidad_dir = 1;
 const cantInput = document.getElementById('cant_direcciones');
 const cantError = document.getElementById('cant_direcciones_error');
 
-/* Inicializar todo lo que necesite en el index.htlml de redireccion */
+/* Inicializar todo lo que necesite en el index.htlml de redirección */
 document.addEventListener("DOMContentLoaded", function () {
     initialiceFiltros();
     initialiceTextosDinamicos();
@@ -142,7 +142,7 @@ function updateFields() {
 
             // Title add
             const title = document.createElement('em');
-            title.innerText = `Direccion objetivo ${i}`;
+            title.innerText = `Dirección objetivo ${i}`;
             indexIpPortContainer.appendChild(title);
 
             indexIpPortContainer.appendChild(document.createElement('br'));
@@ -327,7 +327,7 @@ function hideInputError(errorSpan) {
 
 // Mensaje de estado de reruteo en pantalla de Configuracion
 function updateStateMessage() {
-    /* Esta funcion actuaiza el estado de la seccion de redireccion en la pantalla de configuracion. */
+    /* Esta funcion actuaiza el estado de la seccion de redirección en la pantalla de configuracion. */
     var state = "";
     var confirmation_message = "";
 
@@ -339,7 +339,7 @@ function updateStateMessage() {
 
             if (first) {
                 state = "Redirección configurada <br>";
-                confirmation_message = "Redireccion activada.";
+                confirmation_message = "Redirección activada.";
                 first = false
             }
 
@@ -354,7 +354,7 @@ function updateStateMessage() {
 
     }
 
-    if (first) state = "- No hay Redireccion configurada actualmente.<br>"
+    if (first) state = "- No hay redirección configurada actualmente.<br>"
 
 
     document.getElementById("estado_redireccion").innerHTML = state;
@@ -395,7 +395,7 @@ function ipcSend_pingIP(ip, posicion) {
 
 
 window.api.receive('ping-result', (data) => {
-    /* Recive la señal del main y activa la redireccion si la ip que se ingreso esta habilitada. */
+    /* Recive la señal del main y activa la redirección si la ip que se ingreso esta habilitada. */
 
     if (data.resultado.alive) {
         // Si el ping fue exitoso
@@ -457,9 +457,9 @@ function ipcSend_removeRoute(posicion, ip, port, filter) {
 
 }
 
-//Guardar datos de las redirecciones ip antes de cerrar la aplicacion
+//Guardar datos de las direcciones ip antes de cerrar la aplicacion
 function ipcSend_saveConfig() {
-    /* Esta funcion se encarga de guardar la configuracion de redirecciones ip en un archivo.  */
+    /* Esta funcion se encarga de guardar la configuracion de redirección ip en un archivo.  */
     /* Esta funcion se deberia llamar antes de cerrar la pagina.  */
 
     const ipPortArray = [];

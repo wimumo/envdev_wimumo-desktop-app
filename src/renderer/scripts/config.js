@@ -24,13 +24,13 @@ function reportInfo(data) {
     info_reported = true;
     var cad = "";
 
-    cad += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> En IP ";
+    cad += "WIMUMO " + data[0].substring(7, 10) + " " + "<mark>detectado</mark>! <br> IP del WIMUMO: ";
     cad += data[1];
 
     if (data[2] == "false") {
       cad += '<br> NO está enviando datos (configure manualmente o presione "autoconfigurar")';
     } else {
-      cad += '<br> Enviando datos a: ';
+      cad += '<br> Dirección objetivo del WIMUMO: ';
       cad += data[3] + ":" + data[4];
     }
 
@@ -38,7 +38,7 @@ function reportInfo(data) {
 
     document.getElementById("estado").innerHTML = cad;
 
-    // Avisa si la redireccion esta activa mientras esten mandando datos.
+    // Avisa si la redirección esta activa mientras esten mandando datos.
     document.getElementById("redireccion_activada").style.display = 'inline';
 
   }
