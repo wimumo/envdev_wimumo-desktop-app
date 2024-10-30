@@ -283,7 +283,8 @@
         <p>
           <button id="infoGraph" class="big_button" onclick="body_exchange('graficador')">Graficar señales</button>
           <button id="infoAudio" class="big_button" onclick="body_exchange('musica')">Hacer música</button>
-          <button id="infoReroute" class="big_button" onclick="body_exchange('rerouter')">Conectar a otras aplicaciones</button>
+          <button id="infoReroute" class="big_button" onclick="body_exchange('rerouter')">Conectar a otras
+            aplicaciones</button>
         </p>
         <hr>
         <p>
@@ -416,9 +417,12 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
-              objeto fino y alargado. Se
-              encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
+            <div class="helpDiv">
+              <p id="verMasC1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
+                objeto fino y alargado. Se
+                encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
+            </div>
+
           </div>
 
           <div class="step" id="stepC1.5">
@@ -433,21 +437,23 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC1.5-ip_p1" hidden>
-              - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
-              Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
-              "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
-              <a id="verMasC1.5-ip_a" class="internetA"
-                href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
-                target="_blank" hidden>
-                Pagina oficial de Microsoft Windows
-              </a>
-            </p>
+            <div class="helpDiv">
+              <p id="verMasC1.5-ip_p1" hidden>
+                - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
+                Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
+                "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
+                <a id="verMasC1.5-ip_a" class="internetA"
+                  href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
+                  target="_blank" hidden>
+                  Pagina oficial de Microsoft Windows
+                </a>
+              </p>
 
-            <p id="verMasC1.5-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
-              terminal, e ingresar el
-              comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
-              ejemplo: 127.0.0.1).</p>
+              <p id="verMasC1.5-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
+                terminal, e ingresar el
+                comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
+                ejemplo: 127.0.0.1).</p>
+            </div>
           </div>
 
           <div class="step" id="stepC2">
@@ -466,11 +472,14 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para configurar
-              el WIMUMO, y no
-              tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
-              1. Poner el dispositivo en modo avión y activar solo el wifi antes.
-              2. Ingresar a opciones de WIMUMOxxx y seleccione que se conecte automáticamente. </p>
+            <div class="helpDiv">
+              <p id="verMasC2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
+                configurar
+                el WIMUMO, y no
+                tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
+                1. Poner el dispositivo en modo avión y activar solo el wifi antes.
+                2. Ingresar a opciones de WIMUMOxxx y seleccione que se conecte automáticamente. </p>
+            </div>
           </div>
           <div class="step" id="stepC3">
             <div class="container_relative">
@@ -488,13 +497,14 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
-              “Refrescar”. Asegúrese
-              de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
-            <p id="verMasC3_p2" hidden> - <strong>Después de apretar "aplicar" no indica que se guardo la
-                configuración</strong>: Eso es
-              normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
-
+            <div class="helpDiv">
+              <p id="verMasC3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
+                “Refrescar”. Asegúrese
+                de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
+              <p id="verMasC3_p2" hidden> - <strong>Después de apretar "aplicar" no indica que se guardo la
+                  configuración</strong>: Eso es
+                normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
+            </div>
 
 
           </div>
@@ -512,12 +522,14 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
-              datos. Normalmente es
-              usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
-              protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el modo
-              en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
-
+            <div class="helpDiv">
+              <p id="verMasC4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
+                datos. Normalmente es
+                usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
+                protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
+                modo
+                en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
+            </div>
           </div>
           <div class="step" id="stepC5">
             <div class="container_relative">
@@ -554,28 +566,31 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasC6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
-              Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
-              conectado a la red Wi-Fi, pero este intentando mandar mensajes a una <mark>dirección errónea</mark>. Para
-              solucionar el
-              problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
-              de hacer esto debería volver a configurar el dispositivo correctamente.</p>
-            <p id="verMasC6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
-                aplicación</strong>:
-              Alguno de los datos ingresados en el
-              <strong>paso 4</strong> debieron de estar errados. Intente apretar el pulsador, volver a la sección de
-              “Configurar OSC”
-              en
-              la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
-              Ip
-              local de esta maquina.
-            </p>
-            <p id="verMasC6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
-              Es posible que la Firewall de esta
-              maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
-              <mark>dirección
-                4560</mark>.
-            </p>
+            <div class="helpDiv">
+              <p id="verMasC6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
+                Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
+                conectado a la red Wi-Fi, pero este intentando mandar mensajes a una <mark>dirección errónea</mark>.
+                Para
+                solucionar el
+                problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
+                de hacer esto debería volver a configurar el dispositivo correctamente.</p>
+              <p id="verMasC6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
+                  aplicación</strong>:
+                Alguno de los datos ingresados en el
+                <strong>paso 4</strong> debieron de estar errados. Intente apretar el pulsador, volver a la sección de
+                “Configurar OSC”
+                en
+                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
+                Ip
+                local de esta maquina.
+              </p>
+              <p id="verMasC6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
+                Es posible que la Firewall de esta
+                maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
+                <mark>dirección
+                  4560</mark>.
+              </p>
+            </div>
           </div>
 
         </div>
@@ -623,9 +638,11 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasP1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
-              objeto fino y alargado. Se
-              encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
+            <div class="helpDiv">
+              <p id="verMasP1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
+                objeto fino y alargado. Se
+                encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
+            </div>
           </div>
 
           <div class="step" id="stepP2">
@@ -641,11 +658,14 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasP2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para configurar
-              el WIMUMO, y no
-              tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
-              1. Poner el dispositivo en modo avión y activar solo el wifi.
-              2. Ingresar a opciones de la red WIMUMOxxx y seleccione que se conecte automáticamente. </p>
+            <div class="helpDiv">
+              <p id="verMasP2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
+                configurar
+                el WIMUMO, y no
+                tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
+                1. Poner el dispositivo en modo avión y activar solo el wifi.
+                2. Ingresar a opciones de la red WIMUMOxxx y seleccione que se conecte automáticamente. </p>
+            </div>
           </div>
           <div class="step" id="stepP3">
             <div class="container_relative">
@@ -663,15 +683,17 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasP3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
-              “Refrescar”. Asegúrese
-              de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
-            <p id="verMasP3_p2" hidden> - <strong>Después de apretar aplicar no indica que se guardo la
-                configuración</strong>: Eso es
-              normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
+            <div class="helpDiv">
+              <p id="verMasP3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
+                “Refrescar”. Asegúrese
+                de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
+              <p id="verMasP3_p2" hidden> - <strong>Después de apretar aplicar no indica que se guardo la
+                  configuración</strong>: Eso es
+                normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
 
 
 
+            </div>
           </div>
           <div class="step" id="stepP4">
             <div class="container_relative">
@@ -689,28 +711,31 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasP4-ip_p1" hidden>
-              - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
-              Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
-              "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
-              <a id="verMasP4-ip_a" class="internetA"
-                href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
-                target="_blank" hidden>
-                Pagina oficial de Microsoft Windows
-              </a>
-            </p>
+            <div class="helpDiv">
+              <p id="verMasP4-ip_p1" hidden>
+                - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
+                Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
+                "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
+                <a id="verMasP4-ip_a" class="internetA"
+                  href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
+                  target="_blank" hidden>
+                  Pagina oficial de Microsoft Windows
+                </a>
+              </p>
 
-            <p id="verMasP4-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
-              terminal, e ingresar el
-              comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
-              ejemplo: 127.0.0.1).</p>
+              <p id="verMasP4-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
+                terminal, e ingresar el
+                comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
+                ejemplo: 127.0.0.1).</p>
 
-            <p id="verMasP4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
-              datos. Normalmente es
-              usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
-              protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el modo
-              en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
+              <p id="verMasP4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
+                datos. Normalmente es
+                usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
+                protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
+                modo
+                en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
 
+            </div>
           </div>
           <div class="step" id="stepP5">
             <div class="container_relative">
@@ -744,20 +769,28 @@
             </div>
 
             <hr class="separator">
-            <p id="verMasP6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:</p>
-            <p id="verMasP6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
-                aplicación</strong>:
-              Alguno de los datos ingresados en el
-              paso 4 debieron de estar errados. Intente apretar el pulsador, volver a la sección de “Configurar OSC”
-              en
-              la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
-              Ip
-              local de esta maquina. </p>
-            <p id="verMasP6_p3" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
-                aplicación</strong>:
-              Es posible que la Firewall de esta
-              maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la dirección
-              4560.</p>
+            <div class="helpDiv">
+              <p id="verMasP6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
+                Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
+                conectado a la red Wi-Fi, pero este intentando mandar mensajes a una <mark>dirección errónea</mark>.
+                Para
+                solucionar el
+                problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
+                de hacer esto debería volver a configurar el dispositivo correctamente.</p>
+              <p id="verMasP6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
+                  aplicación</strong>:
+                Alguno de los datos ingresados en el
+                paso 4 debieron de estar errados. Intente apretar el pulsador, volver a la sección de “Configurar OSC”
+                en
+                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
+                Ip
+                local de esta maquina. </p>
+              <p id="verMasP6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
+                Es posible que la Firewall de esta
+                maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
+                <mark>dirección
+                  4560</mark>.
+            </div>
           </div>
         </div>
 
@@ -818,7 +851,7 @@
       <p id="redireccion_activada" class="hidden_p"></p>
       <div id="stateRedirectHelp" class="helpDiv" hidden>
         <p>
-          Se listan las direcciones de redirección configuradas. 
+          Se listan las direcciones de redirección configuradas.
         </p>
         <p>
           Cuando se conecte un <strong>WIMUMO</strong>, las señales se enviaran a
@@ -864,11 +897,12 @@
       <div id="graficadorHelp" class="helpDiv" hidden>
         <p>
           Esta sección permite visualizar las señales leídas por el dispositivo WIMUMO.
-          Haga click en los botones <strong>Agregar</strong> y <strong>Eliminar</strong> para aumentar 
+          Haga click en los botones <strong>Agregar</strong> y <strong>Eliminar</strong> para aumentar
           la cantidad de señales que se pueden ver al mismo tiempo.
         </p>
         <p>
-          La <strong>selección de canales</strong> permite visualizar las señales de cada electrodo, con distintos filtros.
+          La <strong>selección de canales</strong> permite visualizar las señales de cada electrodo, con distintos
+          filtros.
         </p>
         <hr class="separator">
       </div>
@@ -893,10 +927,10 @@
 
       <div id="musicaHelp" class="helpDiv" hidden>
         <p>
-          Permite producir sonidos en base a las señales que detecta el dispositivo WIMUMO. 
+          Permite producir sonidos en base a las señales que detecta el dispositivo WIMUMO.
         </p>
         <p>
-          Para empezar a escuchar haga click en el botón <strong>Habilitar audio</strong>. 
+          Para empezar a escuchar haga click en el botón <strong>Habilitar audio</strong>.
         </p>
         <p>
           <strong>Canal 1 y 2</strong> refieren a cada uno de los electrodo, y permiten subir o bajar su volumen.
