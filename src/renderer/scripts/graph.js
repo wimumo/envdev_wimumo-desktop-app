@@ -34,6 +34,7 @@ class Graph {
   width;
   height;
   scale;
+  scaleLevel;
   offset;
   /* Componentes gráficos */
   canvas;
@@ -57,6 +58,7 @@ class Graph {
     this.width = width;
     this.height = height;
     this.scale = 32;
+    this.scaleLevel = 0;
     this.offset = Math.floor(this.height / 2);
 
     // Características
@@ -163,28 +165,40 @@ class Graph {
     let y = e.clientY - rect.top;
     this.cursor.pedirMovimiento(y);
 
-    let afterZoomText = this.info.innerHTML.split("<br>")[1].trim();
-    this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1) + "<br>" + afterZoomText;
+    try {
+      let afterZoomText = this.info.innerHTML.split(" z")[1].trim();
+      this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1) + " / z" + afterZoomText;
+    } catch {
+      this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1);
+    }
+    
+    this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
   }
 
 
   scaleDown() {
     if (this.scale < 32768) {
       this.scale = this.scale * 2;
+      this.scaleLevel = this.scaleLevel - 1;
 
       let infoText = this.info.innerHTML; // update info
-      let beforeZoomText = infoText.split("<br>")[0].trim();
-      this.info.innerHTML = beforeZoomText + "<br>Zoom: " + this.scale;
+      let beforeZoomText = infoText.split(" / z")[0].trim();
+      this.info.innerHTML = beforeZoomText + " / zoom = " + this.scaleLevel;
+
+      this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
     }
 
   }
   scaleUp() {
     if (this.scale > 0.03125) {
       this.scale = this.scale / 2;
+      this.scaleLevel = this.scaleLevel + 1;
 
       let infoText = this.info.innerHTML; // update info
-      let beforeZoomText = infoText.split("<br>")[0].trim();
-      this.info.innerHTML = beforeZoomText + "<br>Zoom: " + this.scale;
+      let beforeZoomText = infoText.split(" / z")[0].trim();
+      this.info.innerHTML = beforeZoomText + " / zoom = " + this.scaleLevel;
+
+      this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
     }
   }
 }
@@ -402,7 +416,7 @@ function addGraph() {
 
   let info = document.createElement('p');
   info.id = "infoCanvas" + n;
-  info.innerHTML = "Información: <br>Zoom: 32"
+  info.innerHTML =  "<Strong>Información: y = 0 / zoom = 0</Strong>"
   div.appendChild(info);
 
   document.getElementById('graficador').insertBefore(div, document.getElementById('graphButtonsDiv'));
