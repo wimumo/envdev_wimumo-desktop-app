@@ -24,7 +24,7 @@
       <a href="#HomePage" onclick="body_exchange('HomePage')" class="menu-title">WIMUMO</a>
     </h3>
     <!--<a href="#instrucciones" onclick="body_exchange('instrucciones')" class="menu-button">Instrucciones</a>-->
-    <a href="#guiasDeUso" onclick="body_exchange('guiasDeUso')" class="menu-button">Guias de uso</a>
+    <a href="#guiasDeUso" onclick="body_exchange('guiasDeUso')" class="menu-button">Guías de uso</a>
     <a href="#configuracion" onclick="body_exchange('configuracion')" class="menu-button">Estado</a>
     <a href="#opciones" onclick="body_exchange('opciones')" class="menu-button">Opciones</a>
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
@@ -254,9 +254,9 @@
       </footer>
     </div>
 
-    <!------------------------------------ Guias de uso ------------------------------------>
+    <!------------------------------------ Guías de uso ------------------------------------>
     <div id="guiasDeUso" hidden>
-      <h3>Guias de uso</h3>
+      <h3>Guías de uso</h3>
 
       <div id="guiasMainDiv">
 
@@ -273,7 +273,7 @@
         <h4>Configurar el dispositivo</h4>
 
         <p>
-          <button onclick="guiaConfig()" class="big_button">Ver guia paso a paso</button>
+          <button onclick="guiaConfig()" class="big_button">Ver guía paso a paso</button>
           <button id="configManualBtn" class="big_button">Manual de uso</button>
         </p>
         <hr>
@@ -365,19 +365,19 @@
         <h4>Configuración del dispositivo WIMUMO - elegir guiá</h4><br>
 
         <p>
-          El <mark>dispositivo WIMUMO</mark> se conectara a esta maquina por medio de una <mark> red Wi-Fi </mark>.
+          El <mark>dispositivo WIMUMO</mark> se conectará a esta máquina por medio de una <mark> red Wi-Fi </mark>.
         </p>
 
         <p>
-          Para poder conctarlo, primero hay que configurar el dispositivo correctamente.
+          Para poder conectarlo, primero hay que configurar el dispositivo correctamente.
         </p>
 
         <p>
-          Esto se puede hacer en esta maquina, o alternativamente usando un celular (o dispositivo similar).
+          Esto se puede hacer en esta máquina, o alternativamente usando un celular (o dispositivo similar).
         </p>
         <br>
 
-        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta maquina</button><br><br>
+        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta máquina</button><br><br>
         <button class="big_button" onclick="guiaConfigPhone()">Configurar usando un celular</button>
 
 
@@ -391,9 +391,9 @@
           <div class="step" id="stepC0">
             <div class="container_relative">
               <h5><strong>Paso 0</strong> - Material necesario</h5>
-              <p>Para seguir estas instrucciones necesitara: un <strong>dispositivo WIMUMO</strong>,
+              <p>Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>,
                 una <strong>red Wi-Fi</strong>, y
-                <strong>esta maquina</strong> conectada a la red Wi-Fi.
+                <strong>esta máquina</strong> conectada a la red Wi-Fi.
               </p>
 
               <input type="checkbox" id="confCheckCo0" name="Step 0 checkbox" class="checkbox_right">
@@ -427,11 +427,11 @@
 
           <div class="step" id="stepC1.5">
             <div class="container_relative">
-              <h5><strong>Paso 2</strong> - Anotar la dirección Ip local</h5>
+              <h5><strong>Paso 2</strong> - Anotar la dirección IP local</h5>
 
-              <p>Para conectar el WIMUMO con esta aplicacion necesitara recordar su Ip local y red Wi-Fi.</p>
-              <p>Ip local detectada: <mark><span id="instrucciones_iplocal"> </mark></p>
-              <input type="button" id="verMasC1.5_first" class="input-paragraph-button" value="¿Cómo busco mi Ip local?"
+              <p>Para conectar el WIMUMO con esta aplicación necesitará recordar su IP local y red Wi-Fi.</p>
+              <p>IP local detectada: <mark><span id="instrucciones_iplocal"> </mark></p>
+              <input type="button" id="verMasC1.5_first" class="input-paragraph-button" value="¿Cómo busco mi IP local?"
                 onclick="verMas('verMasC1.5')" tabindex="0" />
               <input type="checkbox" id="confCheckCo1.5" name="Step 1.5 checkbox" class="checkbox_right">
             </div>
@@ -439,19 +439,19 @@
             <hr class="separator">
             <div class="helpDiv">
               <p id="verMasC1.5-ip_p1" hidden>
-                - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
-                Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
-                "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
+                - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que está conectada.
+                Entre las propiedades encontrará su dirección IP local al lado de "dirección IPv4", tendrá la forma
+                "x.x.x.x" (por ejemplo: 127.0.0.1). Para más detalles puede entrar a:
                 <a id="verMasC1.5-ip_a" class="internetA"
                   href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
                   target="_blank" hidden>
-                  Pagina oficial de Microsoft Windows
+                  Página oficial de Microsoft Windows
                 </a>
               </p>
 
-              <p id="verMasC1.5-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
+              <p id="verMasC1.5-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su IP local puede abrir una
                 terminal, e ingresar el
-                comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
+                comando "ifconfig". Encontrará su dirección IP local al lado de "inet", tendrá la forma "x.x.x.x" (por
                 ejemplo: 127.0.0.1).</p>
             </div>
           </div>
@@ -476,7 +476,7 @@
               <p id="verMasC2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
                 configurar
                 el WIMUMO, y no
-                tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
+                tiene conexión a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
                 1. Poner el dispositivo en modo avión y activar solo el wifi antes.
                 2. Ingresar a opciones de WIMUMOxxx y seleccione que se conecte automáticamente. </p>
             </div>
@@ -486,9 +486,9 @@
               <h5><strong>Paso 4</strong> - configurar red Wi-Fi</h5>
               <p>Ingrese a "Configurar WiFi" para ingresar los datos de la red Wi-Fi a donde conectará WIMUMO.
               </p>
-              <p>Para conectar el WIMUMO a esta aplicacion, necesitara seleccionar la red cuya dirección Ip anoto
+              <p>Para conectar el WIMUMO a esta aplicación, necesitará seleccionar la red cuya dirección Ip anotó
                 anteriormente.
-                Tambien es necesario ingresar su contraseña. </p>
+                También es necesario ingresar su contraseña. </p>
               <p>Los demás campos no son necesarios. Solo necesita apretar “Aplicar”.</p>
               <input type="button" id="verMasC3_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="verMas('verMasC3')" tabindex="0" />
@@ -501,7 +501,7 @@
               <p id="verMasC3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
                 “Refrescar”. Asegúrese
                 de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
-              <p id="verMasC3_p2" hidden> - <strong>Después de apretar "aplicar" no indica que se guardo la
+              <p id="verMasC3_p2" hidden> - <strong>Después de apretar "aplicar" no indica que se guardó la
                   configuración</strong>: Eso es
                 normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
             </div>
@@ -511,8 +511,8 @@
           <div class="step" id="stepC4">
             <div class="container_relative">
               <h5><strong>Paso 5</strong> - Configurar dirección</h5>
-              <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandara las señales el WIMUMO.
-                Para conectar con esta aplicación debe ingresar la <mark>Ip local</mark> que anoto en el <strong>paso
+              <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandará las señales el WIMUMO.
+                Para conectar con esta aplicación debe ingresar la <mark>IP local</mark> que anotó en el <strong>paso
                   2</strong> (antes de conectarse a la red WIMUMOxxx) y el puerto <mark> 4560
                 </mark>.</p>
               <input type="button" id="verMasC4-osc" class="input-paragraph-button" value="¿Qué es OSC?"
@@ -523,22 +523,22 @@
 
             <hr class="separator">
             <div class="helpDiv">
-              <p id="verMasC4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
+              <p id="verMasC4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envío de
                 datos. Normalmente es
                 usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
                 protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
                 modo
-                en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
+                en donde el dispositivo constantemente envía datos por medio de este protocolo.</p>
             </div>
           </div>
           <div class="step" id="stepC5">
             <div class="container_relative">
               <h5><strong>Paso 6</strong> - Cambiar a modo de uso normal</h5>
               <p>Presione botón “Modo OSC” en la aplicación de configuración, o el pulsador en el WIMUMO para
-                cambiar al modo de uso normal. En este modo el WIMUMO mandara las señales que lea a la dirección
+                cambiar al modo de uso normal. En este modo el WIMUMO mandará las señales que lea a la dirección
                 indicada.
               </p>
-              <p>Entonces puede volver a conectar esta maquina a la red Wi-Fi anterior.
+              <p>Entonces puede volver a conectar esta máquina a la red Wi-Fi anterior.
               </p>
               <input type="checkbox" id="confCheckCo5" name="Step 5 checkbox" class="checkbox_right">
             </div>
@@ -549,13 +549,13 @@
 
           <div class="step" id="stepC6">
             <div class="container_relative">
-              <h5><strong>Ultimo paso</strong> - Confirmar conexión</h5>
+              <h5><strong>Último paso</strong> - Confirmar conexión</h5>
 
               <p>Si WIMUMO logró conectarse a la red Wi-Fi configurada, entonces verá el LED titilar lentamente con un
                 único
                 color.
               </p>
-              <p>Si se configuro correctamente la dirección Ip de esta maquina, y el Puerto de esta aplicación, entonces
+              <p>Si se configuró correctamente la dirección IP  de esta máquina, y el puerto de esta aplicación, entonces
                 se debería haber conectado a esta aplicación. Puede confirmarlo entrando a “Estado” </p>
 
               <input type="button" id="verMasC6_first" class="input-paragraph-button" value="Problemas comunes..."
@@ -569,24 +569,24 @@
             <div class="helpDiv">
               <p id="verMasC6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
                 Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
-                conectado a la red Wi-Fi, pero este intentando mandar mensajes a una <mark>dirección errónea</mark>.
+                conectado a la red Wi-Fi, pero esté intentando mandar mensajes a una <mark>dirección errónea</mark>.
                 Para
                 solucionar el
                 problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
                 de hacer esto debería volver a configurar el dispositivo correctamente.</p>
-              <p id="verMasC6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
+              <p id="verMasC6_p2" hidden> - <strong>El LED titila de un color, pero no se conectó a esta
                   aplicación</strong>:
                 Alguno de los datos ingresados en el
                 <strong>paso 4</strong> debieron de estar errados. Intente apretar el pulsador, volver a la sección de
                 “Configurar OSC”
                 en
-                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
+                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingresó correctamente la
                 Ip
-                local de esta maquina.
+                local de esta máquina.
               </p>
               <p id="verMasC6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
                 Es posible que la Firewall de esta
-                maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
+                máquina esté deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
                 <mark>dirección
                   4560</mark>.
               </p>
@@ -611,9 +611,9 @@
           <div class="step" id="stepP0">
             <div class="container_relative">
               <h5><strong>Paso 0</strong> - Material necesario</h5>
-              <p>Para seguir estas instrucciones necesitara: un <strong>dispositivo WIMUMO</strong>, un
+              <p>Para seguir estas instrucciones necesitará : un <strong>dispositivo WIMUMO</strong>, un
                 <strong>celular</strong> (o dispositivo similar) con conexión Wi-Fi, una <strong>red Wi-Fi</strong>, y
-                <strong>esta maquina</strong> conectada a esta red.
+                <strong>esta máquina</strong> conectada a esta red.
               </p>
 
               <input type="checkbox" id="confCheckPh0" name="Step 0 checkbox" class="checkbox_right">
@@ -662,7 +662,7 @@
               <p id="verMasP2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
                 configurar
                 el WIMUMO, y no
-                tiene confección a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
+                tiene conexión a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
                 1. Poner el dispositivo en modo avión y activar solo el wifi.
                 2. Ingresar a opciones de la red WIMUMOxxx y seleccione que se conecte automáticamente. </p>
             </div>
@@ -672,9 +672,9 @@
               <h5><strong>Paso 3</strong> - configurar red Wi-Fi</h5>
               <p>Ingrese a "Configurar WiFi" para ingresar los datos de la red Wi-Fi a donde conectará WIMUMO.
               </p>
-              <p>Para conectarse con esta aplicación, necesitara seleccionar la red a la que esta maquina esta
+              <p>Para conectarse con esta aplicación, necesitará seleccionar la red a la que esta máquina está
                 conectada.
-                Tambien necesita ingresar la contraseña de la misma. </p>
+                También necesita ingresar la contraseña de la misma. </p>
               <p>Los demás campos no son necesarios. Solo necesita apretar “Aplicar”.</p>
               <input type="button" id="verMasP3_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="verMas('verMasP3')" tabindex="0" />
@@ -687,7 +687,7 @@
               <p id="verMasP3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
                 “Refrescar”. Asegúrese
                 de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
-              <p id="verMasP3_p2" hidden> - <strong>Después de apretar aplicar no indica que se guardo la
+              <p id="verMasP3_p2" hidden> - <strong>Después de apretar aplicar no indica que se guardó la
                   configuración</strong>: Eso es
                 normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
 
@@ -698,11 +698,11 @@
           <div class="step" id="stepP4">
             <div class="container_relative">
               <h5><strong>Paso 4</strong> - Configurar dirección</h5>
-              <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandara las señales el WIMUMO.
-                Para conectar con esta aplicación debe ingresar su dirección ip local <mark> <span
+              <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandará las señales el WIMUMO.
+                Para conectar con esta aplicación debe ingresar su dirección IP local <mark> <span
                     id="instrucciones_iplocal2"> </mark> y el puerto <mark> 4560
                 </mark>.</p>
-              <input type="button" id="verMasP4-ip" class="input-paragraph-button" value="¿Cómo busco mi ip local?"
+              <input type="button" id="verMasP4-ip" class="input-paragraph-button" value="¿Cómo busco mi IP local?"
                 onclick="verMas('verMasP4-ip')" tabindex="0" />
               <input type="button" id="verMasP4-osc" class="input-paragraph-button" value="¿Qué es OSC?"
                 onclick="verMas('verMasP4-osc')" tabindex="0" />
@@ -714,26 +714,26 @@
             <div class="helpDiv">
               <p id="verMasP4-ip_p1" hidden>
                 - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
-                Entre las propiedades encontrara su dirección Ip local al lado de "dirección IPv4", tendrá la forma
-                "x.x.x.x" (por ejemplo: 127.0.0.1). Para mas detalles puede entrar a:
+                Entre las propiedades encontrará su dirección IP local al lado de "dirección IPv4", tendrá la forma
+                "x.x.x.x" (por ejemplo: 127.0.0.1). Para más detalles puede entrar a:
                 <a id="verMasP4-ip_a" class="internetA"
                   href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
                   target="_blank" hidden>
-                  Pagina oficial de Microsoft Windows
+                  Página oficial de Microsoft Windows
                 </a>
               </p>
 
-              <p id="verMasP4-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su Ip local puede abrir una
+              <p id="verMasP4-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su IP local puede abrir una
                 terminal, e ingresar el
-                comando "ifconfig". Encontrara su dirección Ip local al lado de "inet", tendrá la forma "x.x.x.x" (por
+                comando "ifconfig". encontrará su dirección IP local al lado de "inet", tendrá la forma "x.x.x.x" (por
                 ejemplo: 127.0.0.1).</p>
 
-              <p id="verMasP4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envió de
+              <p id="verMasP4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envío de
                 datos. Normalmente es
                 usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
                 protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
                 modo
-                en donde el dispositivo constantemente enviá datos por medio de este protocolo.</p>
+                en donde el dispositivo constantemente envía datos por medio de este protocolo.</p>
 
             </div>
           </div>
@@ -741,7 +741,7 @@
             <div class="container_relative">
               <h5><strong>Paso 5</strong> - Cambiar a modo de uso normal</h5>
               <p>Presione botón “Modo OSC” en la aplicación de configuración, o el pulsador en el WIMUMO para
-                cambiar al modo de uso normal. En este modo el WIMUMO mandara las señales que lea a la dirección
+                cambiar al modo de uso normal. En este modo el WIMUMO mandará las señales que lea a la dirección
                 indicada.
               </p>
               <input type="checkbox" id="confCheckPh5" name="Step 5 checkbox" class="checkbox_right">
@@ -753,12 +753,12 @@
 
           <div class="step" id="stepP6">
             <div class="container_relative">
-              <h5><strong>Ultimo paso</strong> - Confirmar conexión</h5>
+              <h5><strong>Último paso</strong> - Confirmar conexión</h5>
 
               <p>Si WIMUMO logró conectarse a la red Wi-Fi configurada verá el LED titilar lentamente con un único
                 color.
               </p>
-              <p>Si se configuro correctamente la dirección Ip de esta maquina, y el Puerto de esta aplicación, entonces
+              <p>Si se configuró correctamente la dirección IP de esta máquina, y el puerto de esta aplicación, entonces
                 se debería haber conectado a esta aplicación. Puede confirmarlo entrando a “Estado” </p>
 
               <input type="button" id="verMasP6_first" class="input-paragraph-button" value="Problemas comunes..."
@@ -772,22 +772,22 @@
             <div class="helpDiv">
               <p id="verMasP6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
                 Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
-                conectado a la red Wi-Fi, pero este intentando mandar mensajes a una <mark>dirección errónea</mark>.
+                conectado a la red Wi-Fi, pero esté intentando mandar mensajes a una <mark>dirección errónea</mark>.
                 Para
                 solucionar el
                 problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
                 de hacer esto debería volver a configurar el dispositivo correctamente.</p>
-              <p id="verMasP6_p2" hidden> - <strong>El LED titila de un color, pero no se conecto a esta
+              <p id="verMasP6_p2" hidden> - <strong>El LED titila de un color, pero no se conectó a esta
                   aplicación</strong>:
                 Alguno de los datos ingresados en el
                 paso 4 debieron de estar errados. Intente apretar el pulsador, volver a la sección de “Configurar OSC”
                 en
-                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingreso correctamente la
+                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingresó correctamente la
                 Ip
-                local de esta maquina. </p>
+                local de esta máquina. </p>
               <p id="verMasP6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
                 Es posible que la Firewall de esta
-                maquina este deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
+                máquina esté deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
                 <mark>dirección
                   4560</mark>.
             </div>
@@ -805,13 +805,13 @@
         <br><br><br><br>
 
         <p>
-          <button id="homeGuide" onclick="homeGuia()">Volver a todas las guias</button>
+          <button id="homeGuide" onclick="homeGuia()">Volver a todas las guías</button>
           <button id="confBtn" onclick="guiaConfig()" hidden><strong>Conectar dispositivo</strong></button>
           <button id="confCompuBtn" onclick="guiaConfigComp()" hidden><strong>Configurar usando esta
-              maquina</strong></button>
+              máquina</strong></button>
           <button id="confPhoneBtn" onclick="guiaConfigPhone()" hidden><strong>Configurar usando un
               celular</strong></button>
-          <button id="WIMUMOPageButton">Ir a pagina del proyecto WIMUMO</button>
+          <button id="WIMUMOPageButton">Ir a página del proyecto WIMUMO</button>
         </p>
       </div>
 
@@ -836,7 +836,7 @@
       <p id="estado"> - No hay ningún dispositivo conectado actualmente.</p>
       <div id="stateHelp" class="helpDiv" hidden>
         <p>
-          Cuando un <strong>dispositivo WIMUMO</strong> este conectado, esta sección mostrara su información.
+          Cuando un <strong>dispositivo WIMUMO</strong> esté conectado, esta sección mostrará su información.
         </p>
       </div>
       <br><br>
@@ -854,7 +854,7 @@
           Se listan las direcciones de redirección configuradas.
         </p>
         <p>
-          Cuando se conecte un <strong>WIMUMO</strong>, las señales se enviaran a
+          Cuando se conecte un <strong>WIMUMO</strong>, las señales se enviarán a
           cada una de estas direcciones.
         </p>
       </div>
@@ -980,9 +980,8 @@
           <span id="cant_direcciones_error" class="inputError">Minimo 1, máximo 5.</span>
 
           <div id="rerouterHelp" class="helpDiv" hidden>
-            <p>Puede cambiar la <strong>cantidad</strong> para indicar a cuantas direcciones se quiere reenviar señales,
-              con máximo de
-              5.</p>
+            <p>Puede cambiar la <strong>cantidad</strong> para indicar a cuántas direcciones se quiere enviar señales,
+              con máximo de 5.</p>
           </div>
 
         </div>
@@ -1017,13 +1016,13 @@
 
           <div id="rerouterHelp" class="helpDiv" hidden>
             <p>
-              Para configurar la redirección es necesario ingresar la <strong>Ip de la maquina</strong> que se desea
-              alcanzar, y <strong>el puerto</strong>
-              en el que se recibirán las señales OSC del WIMUMO. Luego apretar en el botón de <strong>"Iniciar
-                redirección"</strong>.
-              Si no se reciben señales de un WIMUMO entonces no se enviara ninguna señal.
-              En <strong>Estado</strong> puede ver las redirecciones configuradas.
-
+              Para configurar la redirección es necesario ingresar la <strong>IP de la máquina</strong> que se desea
+              alcanzar, y <strong>el
+                puerto</strong> en el que se recibirán las señales OSC del WIMUMO. Luego apretar en el botón de
+              <strong>Iniciar
+                redirección</strong>. Si no se reciben señales de un WIMUMO entonces no se enviará ninguna señal. En
+              <strong>Estado</strong> puede
+              ver las direcciones configuradas.
             </p>
             <p>
               Los <strong>filtros</strong> permiten solo enviar los datos de uno de los electrodos,
