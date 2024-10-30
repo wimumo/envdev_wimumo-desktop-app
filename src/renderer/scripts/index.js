@@ -40,6 +40,14 @@ function shortcut (shortcutName) {
   }
 }
 
+function verAyuda(id) {
+  const ayudaDivs = document.querySelectorAll(`div[id^='${id}']`);
+
+  ayudaDivs.forEach(element => {
+        element.hidden = !element.hidden;
+    });
+}
+
 /* Datos */
 
 class Movprom {

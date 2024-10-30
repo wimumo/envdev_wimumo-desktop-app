@@ -33,6 +33,8 @@
 
   --separator-color: #888;
 
+  --internetA-color: var(--color-deep-blue)
+
   /* menu */
   --text-menu-color: var(--hover-color-grey);
   --background-menu-color: var(--color-dark-grey);
@@ -51,7 +53,8 @@
   
   --hidden-p-color: var(--color-blue);
 
-  --mark-color: var(--color-light-blue);
+  /*--mark-color: var(--color-light-blue);*/
+  --mark-color: #245292;
 
   --guide-link-color: var(--color-deep-blue);
 
@@ -73,7 +76,8 @@
   --radio-color-accent: var(--color-dark-grey);
 
   --checkbox-color-accent: var(--color-blue);
-  --checkbox-color-hover: var(--color-black);
+  --checkbox-color-hover: var(--color-white);
+  --checkbox-color-outline: var(--color-deep-blue);
 
   /* graph */
   --graph-background-color1: var(--color-dark-grey);

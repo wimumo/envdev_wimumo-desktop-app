@@ -1,16 +1,24 @@
 // Conseguir IP Local
 window.api.send('get-iplocal');
 
+let ipLocal = "";
+
 window.api.receive('iplocal', (data) => {
-    document.getElementById('instrucciones_iplocal').innerHTML =
-        //"(si la autodetección funciona puede ser: <mark>" + data[0] + "</mark>)";
-        data[0];
+    ipLocal = data[0];
+    //"(si la autodetección funciona puede ser: <mark>" + data[0] + "</mark>)";
+    document.getElementById('instrucciones_iplocal').innerHTML = ipLocal;
+    document.getElementById('instrucciones_iplocal2').innerHTML = ipLocal;
 });
+
+function getIpLocal() {
+    return ipLocal
+}
 
 /*
 *   Funciones para ver guias. Usadas por el indice
 */
 
+// divs
 const guiasMainDiv = document.getElementById('guiasMainDiv');               // Pagina principal de guias
 const configGuideDiv = document.getElementById('configGuideDiv');           // primera pantalla de congif wimumo
 const phoneConfigGuideDiv = document.getElementById('phoneConfigGuideDiv'); // guia con celular
@@ -19,6 +27,12 @@ const WIMUMOInfoDiv = document.getElementById('WIMUMOInfoDiv');             // I
 
 const guideBackButtons = document.getElementById('guideBackButtons');       // Botones para volver atras de una guia
 const guideFooter = document.getElementById('guideFooter');                 // footer
+
+// buttons
+const confCompuBtn = document.getElementById('confCompuBtn'); 
+const confPhoneBtn = document.getElementById('confPhoneBtn'); 
+const confBtn = document.getElementById('confBtn');
+
 
 function hideAllGuides() {
     /* Antes de mostrar una guia siempre se necesita esconder el resto */
@@ -29,28 +43,30 @@ function hideAllGuides() {
     WIMUMOInfoDiv.setAttribute('hidden', '');
     guideBackButtons.setAttribute('hidden', '');
     guideFooter.setAttribute('hidden', '');
+
+    confCompuBtn.setAttribute('hidden', '');
+    confPhoneBtn.setAttribute('hidden', '');
+    confBtn.setAttribute('hidden', '');
 }
 
 function homeGuia() {
     /* Muestra todas las guias */
     hideAllGuides();
 
-    guiasMainDiv.removeAttribute('hidden');
-    guideFooter.removeAttribute('hidden');
+    showElement([guiasMainDiv, guideFooter]);
 }
 
 function guiaConfig() {
     /* Primera pagina de la guia de configuracion, delega a guiaConfigPhone o guiaConfigComp */
     hideAllGuides();
 
-    configGuideDiv.removeAttribute('hidden');
+    showElement([configGuideDiv]);
 }
 function guiaConfigPhone() {
     /* Guia de configuracion usando un telefono */
     hideAllGuides();
 
-    phoneConfigGuideDiv.removeAttribute('hidden');
-    guideBackButtons.removeAttribute('hidden');
+    showElement([phoneConfigGuideDiv, guideBackButtons, confCompuBtn, guideFooter]);
 
     setUpGuide(totalStepsPhone, stepIdsPhone, buttonIdsPhone, checkboxIdsPhone);    // Preparar la guia dinamica
 }
@@ -58,8 +74,7 @@ function guiaConfigComp() {
     /* Guia de configuracion usando la misma maquina */
     hideAllGuides();
 
-    compConfigGuideDiv.removeAttribute('hidden');
-    guideBackButtons.removeAttribute('hidden');
+    showElement([compConfigGuideDiv, guideBackButtons, confPhoneBtn, guideFooter]);
 
     // Preparar la guia dinamica
     setUpGuide(totalStepsComp, stepIdsComp, buttonIdsComp, checkboxIdsComp);        // Preparar la guia dinamica
@@ -69,8 +84,7 @@ function WIMUMOInfo() {
     /* Informacion sobre el dispositivo */
     hideAllGuides();
 
-    WIMUMOInfoDiv.removeAttribute('hidden');
-    guideBackButtons.removeAttribute('hidden');
+    showElement([WIMUMOInfoDiv, guideBackButtons, confBtn, guideFooter]);
 }
 
 
@@ -78,22 +92,41 @@ document.getElementById('WIMUMOPageButton').addEventListener('click', function (
     window.open('https://gibic.ing.unlp.edu.ar/wimumo', '_blank');
 });
 
+document.getElementById('configManualBtn').addEventListener('click', function () {
+    window.open('https://github.com/wimumo/wimumo.github.io/blob/main/Documentacion/Manual.pdf', '_blank');
+});
+
+
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Use "smooth" for a smooth scroll or "auto" for an instant scroll
+    });
+}
+
+function showElement(ArrayOfElements) {
+    ArrayOfElements.forEach((element) => {
+        element.removeAttribute('hidden');
+    });
+    scrollToTop();
+}
 
 /* 
 *   Logica para guias dinamicas 
 */
 
 // constantes de la guia con telefono
-const totalStepsPhone = 5;
-const stepIdsPhone = ['stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5'];
+const totalStepsPhone = 7;
+const stepIdsPhone = ['stepP0', 'stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5', 'stepP6'];
 const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh'];
-const checkboxIdsPhone = ['confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5'];
+const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5', 'confCheckPh6'];
 
 // constantes de la guia con la maquina
-const totalStepsComp = 5;
-const stepIdsComp = ['stepC1', 'stepC2', 'stepC3', 'stepC4', 'stepC5'];
+const totalStepsComp = 8;
+const stepIdsComp = ['stepC0', 'stepC1', 'stepC1.5', 'stepC2', 'stepC3', 'stepC4', 'stepC5', 'stepC6'];
 const buttonIdsComp = ['nextButtonComp', 'prevButtonComp'];
-const checkboxIdsComp = ['confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5'];
+const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo1.5', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6'];
 
 // variables dinamicas
 let currentStep = 1;
@@ -146,9 +179,11 @@ function toggleTerminarBtn(bool) {
     if (bool) {
         botonTerminarActivo = true;
         nextButton.textContent = 'Terminar';
+        nextButton.classList.add('terminar-active');
     } else {
         botonTerminarActivo = false;
         nextButton.textContent = 'Siguiente';
+        nextButton.classList.remove('terminar-active');
     }
 }
 
@@ -202,7 +237,7 @@ function onUncheckCheckbox(step) {
         if ((index + 1) > step) checkbox.checked = false;   // Permite ir varios pasos para atras si hubo un salto
     })
 
-    if (botonTerminarActivo) {                              
+    if (botonTerminarActivo) {
         toggleTerminarBtn(false);                            // Permite volver desde el ultimo paso
     }
 }
@@ -231,4 +266,16 @@ function prevButtonOnClick() {
         checkboxes[currentStep - 1].checked = false;
         onUncheckCheckbox(currentStep);
     }
+}
+
+
+// hidden paragraphs
+
+// Select the "Problemas comunes" paragraph and hidden paragraphs
+function verMas(id) {
+    const verMasElements = document.querySelectorAll(`p[id^='${id}'], a[id^='${id}']`);
+
+    verMasElements.forEach(element => {
+        element.hidden = !element.hidden;
+    });
 }

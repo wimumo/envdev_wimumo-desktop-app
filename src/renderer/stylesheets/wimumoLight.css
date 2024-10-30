@@ -34,6 +34,8 @@
 
   --separator-color: #ccc;
 
+  --internetA-color: var(input-focus-shadow-color)
+
   /* menu */
   --text-menu-color: var(--text-color-grey);
   --background-menu-color: var(--color-white);
@@ -76,6 +78,7 @@
 
   --checkbox-color-accent: var(--color-blue);
   --checkbox-color-hover: var(--color-black);
+  --checkbox-color-outline: var(--color-deep-blue);
 
   /* graph */
   --graph-background-color1: var(--color-grey);

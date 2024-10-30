@@ -105,6 +105,7 @@ b, strong {
 mark {
   background-color: var(--mark-color);
   border-radius: 5px;
+  color: inherit;
 }
 a {
   color: inherit;
@@ -128,6 +129,11 @@ input[type="checkbox"]:checked::before {
 }
 input[type="checkbox"]:hover {
   color: var(--color-black);
+}
+input[type="checkbox"]:focus {
+  color: var(--checkbox-color-accent);
+  box-shadow: 0 0 5px var(--checkbox-color-accent); /* Optional: Add a subtle glow */
+  outline: 2px solid var(--checkbox-color-outline);
 }
 .checkboxLabel {
   font-size: var(--font-size-checkbox); /* Match the font size to the checkbox height */
@@ -472,6 +478,9 @@ footer {
   outline: none; /* Removes the default outline */
 }
 
+.slider {
+  cursor: pointer;
+}
 .slider:focus {
   color: var(--slider-color);
   box-shadow: 0 0 0 2px var(--slider-border); 
@@ -497,14 +506,63 @@ footer {
 }
 
 .guide-link {
-  color: var(--guide-link-color);
   text-decoration: underline;
   cursor: pointer;
 }
 .guide-link:focus {
-  background-color: var(--href-background-color);
+  color: var(--guide-link-color);
+  outline: 1px solid var(--text-color);
+}
+.guide-link:active {
   color: var(--text-color);
-  outline: none; /* Removes the default outline */
+}
+.guide-link:hover {
+  color: var(--guide-link-color);
+}
+
+.internetA{
+  color: inherit;
+}
+.internetA:focus{
+  color: var(--mark-color-bold);
+  outline: 1px solid var(--text-color);
+}
+.internetA:hover{
+  color: var(--mark-color-bold);
+}
+
+/* input p*/
+.input-paragraph-button {
+  border: none;
+  background: none;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.input-paragraph-button:focus {
+  color: var(--mark-color-bold);
+  outline: 1px solid var(--text-color);
+  border-radius: 3rem;
+}
+.input-paragraph-button:active {
+  color: var(--text-color);
+}
+.input-paragraph-button:hover {
+  color: var(--mark-color-bold);
+}
+
+/* input p de ayuda */
+
+.helpDiv{
+  color: var(--mark-color-bold);
+}
+
+.title-help-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically centered */
+  gap: 16px;/*8px; /* Adjust spacing between the elements */
 }
 
 /* The parent container */
@@ -563,11 +621,10 @@ footer {
 
 .checkbox_right { 
   position: absolute;
-  /*left: 10px;*/
   right: 0px;            /* Position 30px from the right */
   top: 50%;               /* Position the top at 50% of the container's height */
   transform: translateY(-50%);  /* Shift the element up by 50% of its height to center it */
-  margin: 20px auto;
+  /*margin: 20px auto;*/
   padding: 10px 20px;
 }
 
@@ -586,6 +643,11 @@ footer {
   margin: 20px auto;
   padding: 10px 20px;
 
+}
+
+.terminar-active {
+  background-color: var(--checkbox-color-accent);
+  border: 2px solid var(--button-color-border-focus);
 }
 
 .big_button {
@@ -671,7 +733,7 @@ footer {
   box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-ligth); /* Optional: Add a subtle glow */
 }
 
-/* Indicador del menu de la coneccion */
+/* Indicador del menu de la conexion */
 .connection_indicator_OFF {
   width: 20px;
   height: 20px;
@@ -720,12 +782,12 @@ footer {
 
 .vumetro{
   font: inherit;
-  background-color: var(--button-background-color); 
+  background-color: var(--button-color-hover); 
   color: var(--button-color); 
   border: 2px solid var(--button-color-border); 
   padding: 10px 20px; 
   border-radius: 5px;
-  cursor: pointer;
+  cursor: default;
   margin-right: 20px;
 }
 
