@@ -472,10 +472,16 @@ footer {
   box-shadow: 0 0 0 1px var(--button-color-border);
 }
 
+.href-focus:hover {
+  background-color: var(--href-hover-color);
+  color: var(--text-color);
+  outline: none; /* Removes the default outline */
+}
 .href-focus:focus {
   background-color: var(--href-background-color);
   color: var(--text-color);
-  outline: none; /* Removes the default outline */
+  outline: 1px solid var(--text-color);
+  /*outline: none; /* Removes the default outline */
 }
 
 .slider {

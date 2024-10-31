@@ -9,6 +9,7 @@
   --color-light-grey: #f1f1f1;
   --color-light-grey2: #ccc;
   --color-dark-grey: #616161;
+  --color-blue-light: #B0E2FF;
   --color-blue: #87CEEB;
   --color-deep-blue: blue;
   --color-red: red;
@@ -87,7 +88,8 @@
   --graph-button-hover: var(--hover-color-grey);
 
   /* href */
-  --href-background-color: var(--color-blue);
+  --href-hover-color: #4A90E2;
+  --href-background-color: #2F5D9F;
 
   /* slider */
   --slider-color: var(--color-black);
