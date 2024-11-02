@@ -76,6 +76,18 @@
               <div class="connection_indicator_ON"></div>
               <p class="dispositivo_conectado_text">Dispositivo conectado</p>
             </div>
+            <div>
+             
+              <h4>Formas de usar el dispositivo</h4>
+
+              <p>
+                <button id="infoGraph" onclick="body_exchange('graficador')">Graficar
+                  señales</button>
+                <button id="infoAudio" onclick="body_exchange('musica')">Hacer música</button>
+                <button id="infoReroute" onclick="body_exchange('rerouter')">Conectar a otras
+                  aplicaciones</button>
+              </p>
+            </div>
           </div>
 
           <!---
@@ -356,11 +368,13 @@
         <p>
           Haciendo uso de la <mark>función de redirección</mark>, también puede usar esta aplicación en conjunto con
           otras aplicaciones. Solo debe de seguir la
-          <a href="#" target="_blank" class="href-focus" onclick="guiaConfig(); return false;"> guía de configuración.</a>
+          <a href="#" target="_blank" class="href-focus" onclick="guiaConfig(); return false;"> guía de
+            configuración.</a>
           , conectar el WIMUMO, y luego poner los datos
           de su otra aplicación en la
-          <a href="#" target="_blank" class="href-focus" onclick="body_exchange('rerouter'); return false;"> sección de redirección.</a>
-          </p>
+          <a href="#" target="_blank" class="href-focus" onclick="body_exchange('rerouter'); return false;"> sección de
+            redirección.</a>
+        </p>
         </p>
         <p>
           WIMUMO funciona con baterías de litio recargables tipo 14500 de 3.7 V. Si bien tienen el mismo tamaño,

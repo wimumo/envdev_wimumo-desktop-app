@@ -37,7 +37,7 @@ No implementado
 
 ### Retransmisión de osc
 
-No implementado
+Posee la capacidad para enviar las señales recibidas de un WIMUMO hacia hasta 5 direcciones objetivo. Se puede programar para cambiar el límite.
 
 ## Instalación
 
