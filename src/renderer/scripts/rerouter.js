@@ -425,7 +425,7 @@ window.api.receive('ping-result', (data) => {
 
         showInputError(ipError, findText('pingError'));
 
-        document.getElementById("rerouter_dialog_p").textContent = "PING FAILEDDDDDDDDDDDDDDDD";
+        //document.getElementById("rerouter_dialog_p").textContent = "PING FAILEDDDDDDDDDDDDDDDD";
 
     }
 })
@@ -478,20 +478,21 @@ function ipcSend_saveConfig() {
 
 
         if (ipInput.value && portInput.value && FilterInput.value) {
-            ipPortArray.push({
-                id: posicion,
-                ip: ipInput.value,
-                port: portInput.value,
-                filter: FilterInput.value
-            });
-
-            console.log(`Posicion "${posicion}" guardada. ${ipInput.value}:${portInput.value} filtro ${ipInput.value}`);
-        } /*else {
-            console.warn(`Element with ID "${posicion}" not found.`);
-        }*/
+            if ( isValidIP_ClientSide(ipInput.value) && isValidPort_ClientSide(portInput.value) && isValidFilter(FilterInput.value)){
+                // Comprobacion agregada para evitar posibles errores de seguridad
+                ipPortArray.push({
+                    id: posicion,
+                    ip: ipInput.value,
+                    port: portInput.value,
+                    filter: FilterInput.value
+                });
+    
+                console.log(`Posicion "${posicion}" guardada. ${ipInput.value}:${portInput.value} filtro ${ipInput.value}`);
+            }
+        } 
     }
 
-    document.getElementById("rerouter_dialog_p").textContent = JSON.stringify(ipPortArray, null, 2);
+    //document.getElementById("rerouter_dialog_p").textContent = JSON.stringify(ipPortArray, null, 2);
 
     const data = ipPortArray;
     window.api.send('save-config', data);
@@ -584,7 +585,7 @@ function habilitarReruteoPorPosicion(posicion) {
 window.api.receive('savedRedirectConfig', (data) => {
     configData = JSON.stringify(data);
 
-    document.getElementById("rerouter_dialog_p").textContent = "FUNCIONO " + configData;
+    //document.getElementById("rerouter_dialog_p").textContent = "FUNCIONO " + configData;
 
     //const dataArray = JSON.parse(jsonString); // Forma [{cantidad_dir},{id,ip,port,filter},{id,ip,port,filter}...]
     //cantInput.value = dataArray[0].cantidad_dir;
@@ -595,7 +596,7 @@ window.api.receive('savedRedirectConfig', (data) => {
 
         // Accede al primer elemento del array para encontrar el valor previo de cantidad_dir
         const cantidadDirValue = dataArray[0].cantidad_dir;
-        console.log('Value of cantidad_dir:', cantidadDirValue); // Output the value
+        //console.log('Value of cantidad_dir:', cantidadDirValue); // Output the value
 
         // SEGURIDAD se asegura que el valor de cantidadDir sea uno posible, si no detiene la ejecucion.
         if (cantidadDirValue > maxCount || cantidadDirValue < minCount) { return }
