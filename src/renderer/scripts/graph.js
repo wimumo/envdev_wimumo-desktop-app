@@ -14,6 +14,8 @@ var channels = [];
 var channels_active = [];
 // -----------------
 
+const maxZoomLevel = 10;
+
 class Graph {
   /* Características */
   fsps;
@@ -177,7 +179,7 @@ class Graph {
 
 
   scaleDown() {
-    if (this.scale < 32768) {
+    if (this.scaleLevel > (-maxZoomLevel)) {
       this.scale = this.scale * 2;
       this.scaleLevel = this.scaleLevel - 1;
 
@@ -190,7 +192,7 @@ class Graph {
 
   }
   scaleUp() {
-    if (this.scale > 0.03125) {
+    if (this.scaleLevel < (maxZoomLevel)) {
       this.scale = this.scale / 2;
       this.scaleLevel = this.scaleLevel + 1;
 

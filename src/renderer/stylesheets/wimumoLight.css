@@ -29,6 +29,8 @@
   --text-color: var(--color-black);
   --background-color1: var(--color-light-grey);
   --background-color2: var(--hover-color-grey);
+
+  --background-color-footer: var(--background-color2);
   
   --hover-color: var(--hover-color-grey);
   --overlay-color: var(--color-tr-black);
@@ -73,6 +75,7 @@
 
   --button-color-active: var(--color-grey);
 
+  --terminar-active-button: var(--checkbox-color-accent);
 
 
   --radio-color-accent: var(--color-dark-grey);

@@ -56,6 +56,12 @@ body {
   background-color: var(--background-color1);
 }
 
+title {
+  font-size: var(--font-size-h1);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  margin: 10px 0;
+}
 h1 {
   font-size: var(--font-size-h1);
   font-family: "Raleway", sans-serif;
@@ -431,7 +437,7 @@ footer {
   margin: 32px -32px -32px -32px;
   padding: 16px 32px;
   color: var(--text-color);
-  background-color: var(--background-color2);
+  background-color: var(--background-color-footer);
 }
 
 
@@ -610,7 +616,7 @@ footer {
 
 .step {
   position: relative;
-  max-width: 80%;
+  max-width: 95%;
   margin: 0 auto; /* Centers the step inside the container */
   display: block;
   color: var(--inactive-step-color);
@@ -652,7 +658,7 @@ footer {
 }
 
 .terminar-active {
-  background-color: var(--checkbox-color-accent);
+  background-color: var(--terminar-active-button);
   border: 2px solid var(--button-color-border-focus);
 }
 

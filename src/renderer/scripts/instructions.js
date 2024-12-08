@@ -92,6 +92,10 @@ document.getElementById('WIMUMOPageButton').addEventListener('click', function (
     window.open('https://gibic.ing.unlp.edu.ar/wimumo', '_blank');
 });
 
+document.getElementById('WIMUMOPageButton1').addEventListener('click', function () {
+    window.open('https://gibic.ing.unlp.edu.ar/wimumo', '_blank');
+});
+
 document.getElementById('configManualBtn').addEventListener('click', function () {
     window.open('https://github.com/wimumo/wimumo.github.io/blob/main/Documentacion/Manual.pdf', '_blank');
 });
@@ -253,7 +257,7 @@ function onChange(checked, checkboxId) {
 // Button handlers
 
 function nextButtonOnClick() {
-    if (botonTerminarActivo) { homeGuia() };                // Si es el ultimo paso entonces vuelve al inicio
+    if (botonTerminarActivo) { body_exchange('HomePage') };                // Si es el ultimo paso entonces vuelve al inicio
     if (currentStep <= totalSteps) {
         checkboxes[(currentStep - 1)].checked = true;
         onCheckCheckbox(currentStep);

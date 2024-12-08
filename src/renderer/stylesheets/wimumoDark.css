@@ -28,6 +28,8 @@
   --text-color: var(--color-white);
   --background-color1: var(--color-black);
   --background-color2: var(--color-tr-black);
+
+  --background-color-footer: var(--overlay-color-grey);
   
   --hover-color: var(--hover-color-grey);
   --overlay-color: var(--color-tr-black);
@@ -72,6 +74,8 @@
   --button-color-hover: #444;
 
   --button-color-active: var(--color-dark-grey);
+
+  --terminar-active-button: var(--mark-color-bold);
 
 
   --radio-color-accent: var(--color-dark-grey);
