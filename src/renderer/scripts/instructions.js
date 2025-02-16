@@ -170,6 +170,7 @@ function setUpGuide(totalStp, stpIds, btnIds, chkboxIds) {
     // Agrega la funcionalidad a cada checkbox
     checkboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
+            this.setAttribute("aria-checked", !this.checked ? "true" : "false"); // Screen reader lee las checkbox al reves, esto lo soluciona
             onChange(this.checked, index + 1);
         });
     });
@@ -213,6 +214,7 @@ function showStep(step) {
 
     const currentStepElement = steps[step - 1];
     currentStepElement.classList.add('active');             // Muestra el paso actual
+    currentStepElement.setAttribute("aria-hidden", "false");
 
     togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
 

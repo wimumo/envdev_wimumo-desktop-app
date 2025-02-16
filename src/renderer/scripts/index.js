@@ -1,14 +1,27 @@
-/* Manu principal */
+/* Menu principal */
 
 function menu_open() {
-    document.getElementById('menu').setAttribute('shown','');
-    document.getElementById("overlay").setAttribute('shown','');
-  }
-  
-function menu_close() {
-    document.getElementById('menu').removeAttribute('shown');
-    document.getElementById('overlay').removeAttribute('shown');
+  document.getElementById('menu').setAttribute('shown', '');
+  document.getElementById("overlay").setAttribute('shown', '');
 }
+
+function menu_close() {
+  document.getElementById('menu').removeAttribute('shown');
+  document.getElementById('overlay').removeAttribute('shown');
+}
+
+/* Codigo del container principal */
+
+// Codigo para que los screen reader lean la zona aria-live cuando aparece
+document.addEventListener("DOMContentLoaded", () => {
+  const liveRegion = document.getElementById("HomePage");
+  const text = liveRegion.innerHTML;
+
+  liveRegion.innerHTML = ""; // Remove content
+  setTimeout(() => {
+    liveRegion.innerHTML = text; // Reinsert content after a short delay
+  }, 100); // Short delay to trigger announcement
+});
 
 /* Pestañas */
 
@@ -17,21 +30,23 @@ starting_category = categories[5]; // Home Page deberia ser la categoria con la 
 document.getElementById(starting_category).removeAttribute('hidden');
 category_active = starting_category;
 
-function body_exchange (category_selected) {
+function body_exchange(category_selected) {
 
-  document.getElementById(category_active).setAttribute('hidden','');
+  document.getElementById(category_active).setAttribute('hidden', '');
   document.getElementById(category_selected).removeAttribute('hidden');
 
   category_active = category_selected;
 
+
+
   // Para que las guias de uso siempre empiecen desde la seleccion de guias
-  if (category_selected === categories[6]) { homeGuia() } 
+  if (category_selected === categories[6]) { homeGuia() }
 
   menu_close();
 }
 
-function shortcut (shortcutName) {
-  if (shortcutName === "configGuide" ) {
+function shortcut(shortcutName) {
+  if (shortcutName === "configGuide") {
     body_exchange('guiasDeUso');
     guiaConfig();
   } else if (shortcutName === "WIMUMOInfo") {
@@ -44,8 +59,8 @@ function verAyuda(id) {
   const ayudaDivs = document.querySelectorAll(`div[id^='${id}']`);
 
   ayudaDivs.forEach(element => {
-        element.hidden = !element.hidden;
-    });
+    element.hidden = !element.hidden;
+  });
 }
 
 /* Datos */
@@ -61,7 +76,7 @@ class Movprom {
     if (this.arr.length > this.N) {
       this.arr.shift();
     }
-    
+
     var acc = 0.0;
     for (var i = 0; i < this.arr.length; i++) {
       acc += parseFloat(this.arr[i]);
@@ -106,7 +121,7 @@ window.api.receive('osc', (data) => {
   }
 
   /* Graficador */
-  if(info_received == true && category_active == categories[2]) {
+  if (info_received == true && category_active == categories[2]) {
 
     filterAndGraph(data);
 

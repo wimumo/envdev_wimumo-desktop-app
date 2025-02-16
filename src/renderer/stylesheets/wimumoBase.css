@@ -128,7 +128,7 @@ input[type="radio"]{
 input[type="checkbox"] {
   width: 2em;
   height: 2rem;
-  accent-color: var(--checkbox-color-accent)
+  accent-color: var(--checkbox-color-accent);
 }
 input[type="checkbox"]:checked::before {
   transform: scale(1);
@@ -785,6 +785,18 @@ footer {
   font-size: 16px; /* Adjust font size if needed */
 }
 
+/* Screen readers*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
 
 
 

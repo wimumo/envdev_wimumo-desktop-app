@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="Spanish">
 
 <head>
   <meta name="description" content="WIMUMO">
@@ -14,10 +14,10 @@
   <link id="theme-font-size" rel="stylesheet" href="stylesheets/wimumoFontSize2.css">
 </head>
 
-<body>
+<body role="application">
 
   <!-- Menu -->
-  <nav class="menu" id="menu"><br>
+  <nav class="menu" id="menu" aria-label="Menu de navegación"><br aria-hidden="true">
     <a onclick="menu_close()" class="menu-button menu-close-button"></a>
     <h3 class="menu-title">
       <a href="#HomePage" onclick="body_exchange('HomePage')" class="menu-title">WIMUMO</a>
@@ -29,42 +29,42 @@
     <a href="#graficador" onclick="body_exchange('graficador')" class="menu-button">Señales</a>
     <a href="#musica" onclick="body_exchange('musica')" class="menu-button">Música</a>
     <a href="#rerouter" onclick="body_exchange('rerouter')" class="menu-button">Redirección</a>
-    <div class="status-container">
-      <div id="connection-indicator" class="connection_indicator_OFF"></div>
 
-      <p id="status-text" class="connection_indicator_text_OFF">Dispositivo no conectado</p>
-
+    <div class="status-container" role="alert" aria-label="Indicador de conexion con WIMUMO">
+      <div id="connection-indicator" class="connection_indicator_OFF" role="status" aria-labelledby="connectionStatus">
+      </div>
+      <p id="status-text" class="connection_indicator_text_OFF" id="connectionStatus">Dispositivo no conectado</p>
     </div>
   </nav>
 
   <!-- Barra de navegación [pantalla pequeña] -->
   <header class="menu-top-bar">
     <span class="menu-top-title">WIMUMO</span>
-    <a class="menu-button menu-top-button" onclick="menu_open()">☰</a>
+    <a class="menu-button menu-top-button" onclick="menu_open()" aria-expanded="false" aria-controls="menu">☰</a>
   </header>
 
   <!-- Efecto overlay [pantalla pequeña] -->
-  <div class="menu-overlay" onclick="menu_close()" id="overlay"></div>
+  <div class="menu-overlay" onclick="menu_close()" id="overlay" aria-expanded="true" aria-controls="menu"></div>
 
   <!-- Paneles -->
-  <div class="main">
+  <div class="main" id="liveRegion" role="polite" aria-live="assertive">
 
     <!------------------------------------ Home Page ------------------------------------>
     <div id="HomePage" hidden>
       <div class="homeContainer parent-centered">
         <div class="child-centered">
           <h1>Bienvenido/a a la plataforma WIMUMO</h1>
-          <br>
+          <br aria-hidden="true">
 
           <p>Esta aplicación existe para configurar, monitorear y utilizar un dispositivo WIMUMO</p>
 
-          <div id="homePageDisconnectedDiv">
-            <div class="conectar_dispositivo_div">
-              <div class="connection_indicator_OFF"></div>
+          <div id="homePageDisconnectedDiv" role="region">
+            <div class="conectar_dispositivo_div" role="group" aria-label="Indicador de conexion con WIMUMO">
+              <div class="connection_indicator_OFF" role="status" aria-label="No hay conexion detectada"></div>
               <p class="conectar_dispositivo_text">Por favor conecte un dispositivo WIMUMO</p>
             </div>
 
-            <br>
+            <br aria-hidden="true">
 
             <button id="infoWIMUMO" onclick="shortcut('WIMUMOInfo')" class="big_button">¿Qué es WIMUMO?</button>
             <button id="configGuide" onclick="shortcut('configGuide')" class="big_button">Conectar dispositivo</button>
@@ -76,7 +76,7 @@
               <p class="dispositivo_conectado_text">Dispositivo conectado</p>
             </div>
             <div>
-             
+
               <h4>Formas de usar el dispositivo</h4>
 
               <p>
@@ -93,7 +93,7 @@
           <p>Para utilizar las funciones de esta aplicación conecte un dispositivo WIMUMO.</p>
           <p><span class="ip-info">IP local: </span><span id="instrucciones_iplocal"> Leer IP de la máquina</span></p>
           <p><span class="ip-info">Puerto:</span> 4560</p>
-          <br>
+          <br aria-hidden="true">
 
           <p>Si es la primera vez que va a conectar el dispositivo, entre a
             <a href="#guiasDeUso" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a>
@@ -260,19 +260,19 @@
       </p>
       <footer>
         <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
-        <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
-        <br>Instituto LEICI (UNLP-CONICET-CIC).
+        <br aria-hidden="true">Grupo de Instrumentación Biomédica, Industrial y Científica.
+        <br aria-hidden="true">Instituto LEICI (UNLP-CONICET-CIC).
       </footer>
     </div>
 
     <!------------------------------------ Guías de uso ------------------------------------>
-    <div id="guiasDeUso" hidden>
+    <div id="guiasDeUso" role="main" hidden> <!--- role="alert" aria-live="assertive">------>
       <h3>Guías de uso</h3>
+      <p>Aquí se explica que es el dispositivo WIMUMO, como configurarlo y su uso básico. </p>
 
-      <div id="guiasMainDiv">
+      <hr>
 
-        <p>Aquí se explica que es el dispositivo WIMUMO, como configurarlo y su uso básico. </p>
-        <hr>
+      <div id="guiasMainDiv"> <!---role="alert" aria-live="assertive"--->
 
         <h4>¿Qué es WIMUMO?</h4>
         <p>
@@ -307,7 +307,7 @@
 
       </div>
 
-      <div id="WIMUMOInfoDiv" hidden>
+      <div id="WIMUMOInfoDiv" hidden role="article">
         <h4>¿Qué es el dispositivo WIMUMO?</h4>
 
         <p>
@@ -391,8 +391,8 @@
 
       </div>
 
-      <div id="configGuideDiv" hidden>
-        <h4>Configuración del dispositivo WIMUMO - elegir guiá</h4><br>
+      <div id="configGuideDiv" role="main" hidden>
+        <h4>Configuración del dispositivo WIMUMO - elegir guiá</h4><br aria-hidden="true">
 
         <p>
           El <mark>dispositivo WIMUMO</mark> se conectará a esta máquina por medio de una <mark> red Wi-Fi </mark>.
@@ -401,34 +401,41 @@
         <p>
           Para poder conectarlo, primero hay que configurar el dispositivo correctamente.
         </p>
-        <br>
+        <br aria-hidden="true">
 
-        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta máquina</button><br><br>
+        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta máquina</button><br
+          aria-hidden="true"><br aria-hidden="true">
         <button class="big_button" onclick="guiaConfigPhone()">Configurar usando un celular</button>
 
 
       </div>
 
-      <!--                  COMPU                         -->
-      <div id="compConfigGuideDiv" hidden>
-        <h4>Configuración del dispositivo WIMUMO</h4><br>
+      <!--                  COMPU GUIA                         -->
+      <div id="compConfigGuideDiv" role="main" hidden>
+        <h4>Configuración del dispositivo WIMUMO</h4>
+        <br aria-hidden="true">
 
-        <div id="stepContainer">
-          <div class="step" id="stepC0">
-            <div class="container_relative">
-              <h5><strong>Paso 0</strong> - Material necesario</h5>
-              <p>Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>,
-                una <strong>red Wi-Fi</strong>, y
-                <strong>esta máquina</strong> conectada a la red Wi-Fi.
-              </p>
+        <div id="stepContainer" role="main" aria-label="Pasos a seguir, paso 0 a paso 7">
 
-              <input type="checkbox" id="confCheckCo0" name="Step 0 checkbox" class="checkbox_right">
-            </div>
+          <section class="step" id="stepC0" role="article" class="container_relative" aria-hidden="true">
+            <h5 id="paso0" aria-hidden="true"> <strong>Paso 0</strong> - Material necesario</h5>
+            <h5 id="paso0" class="sr-only"> Paso 0 - Material necesario</h5>
 
-            <hr class="separator">
+            <p>Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>,
+              una <strong>red Wi-Fi</strong>, y
+              <strong>esta máquina</strong> conectada a la red Wi-Fi.
+            </p>
 
-          </div>
-          <div class="step" id="stepC1">
+            <label for="confCheckCo0" class="checkbox_right">
+              <input type="checkbox" id="confCheckCo0" name="Step 0 checkbox" class="checkbox_right"
+                aria-label="Marcar como completado paso 0">
+            </label>
+
+            <hr class="separator" aria-hidden="true">
+
+          </section>
+
+          <div class="step" id="stepC1" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 1</strong> - Encender WIMUMO en modo de configuración</h5>
               <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con
@@ -451,7 +458,7 @@
 
           </div>
 
-          <div class="step" id="stepC1.5">
+          <div class="step" id="stepC1.5" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 2</strong> - Anotar la dirección IP local</h5>
 
@@ -482,7 +489,7 @@
             </div>
           </div>
 
-          <div class="step" id="stepC2">
+          <div class="step" id="stepC2" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 3</strong> - Ingresar a la página de configuración</h5>
 
@@ -491,7 +498,7 @@
                 ingrese a la dirección web "<a class="internetA" href="http://192.168.0.2" target="_blank">
                   192.168.0.2
                 </a>".</p>
-              <br>
+              <br aria-hidden="true">
               <input type="button" id="verMasC2_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="verMas('verMasC2')" tabindex="0" />
               <input type="checkbox" id="confCheckCo2" name="Step 2 checkbox" class="checkbox_right">
@@ -507,7 +514,8 @@
                 2. Ingresar a opciones de WIMUMOxxx y seleccione que se conecte automáticamente. </p>
             </div>
           </div>
-          <div class="step" id="stepC3">
+
+          <div class="step" id="stepC3" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 4</strong> - configurar red Wi-Fi</h5>
               <p>Ingrese a "Configurar WiFi" para ingresar los datos de la red Wi-Fi a donde conectará WIMUMO.
@@ -534,7 +542,8 @@
 
 
           </div>
-          <div class="step" id="stepC4">
+
+          <div class="step" id="stepC4" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 5</strong> - Configurar dirección</h5>
               <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandará las señales el WIMUMO.
@@ -557,7 +566,8 @@
                 en donde el dispositivo constantemente envía datos por medio de este protocolo.</p>
             </div>
           </div>
-          <div class="step" id="stepC5">
+
+          <div class="step" id="stepC5" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Paso 6</strong> - Cambiar a modo de uso normal</h5>
               <p>Presione botón “Modo OSC” en la aplicación de configuración, o el pulsador en el WIMUMO para
@@ -573,7 +583,7 @@
 
           </div>
 
-          <div class="step" id="stepC6">
+          <div class="step" id="stepC6" aria-hidden="true">
             <div class="container_relative">
               <h5><strong>Último paso</strong> - Confirmar conexión</h5>
 
@@ -597,7 +607,8 @@
                 Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
                 escrito mal la contraseña de la red, o la dirección ip.
 
-                Para solucionar el problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
+                Para solucionar el problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del
+                área de la red. Luego
                 de hacer esto debería volver a configurar el dispositivo correctamente. </p>
               <p id="verMasC6_p2" hidden> - <strong>El LED titila de un color, pero no se conectó a esta
                   aplicación</strong>:
@@ -627,10 +638,10 @@
 
       </div>
 
-      <!--                  PHONE                         -->
+      <!--                  PHONE GUIDE                         -->
       <div id="phoneConfigGuideDiv" hidden>
         <h4>Configuración del dispositivo WIMUMO <strong>con celular</strong></h4>
-        <br>
+        <br aria-hidden="true">
 
         <div id="stepContainer">
           <div class="step" id="stepP0">
@@ -827,7 +838,7 @@
       </div>
 
       <div id="guideBackButtons" hidden>
-        <br><br><br><br>
+        <br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true">
 
         <p>
           <button id="homeGuide" onclick="homeGuia()">Volver a todas las guías</button>
@@ -843,8 +854,8 @@
       <div id="guideFooter">
         <footer>
           <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
-          <br>Grupo de Instrumentación Biomédica, Industrial y Científica.
-          <br>Instituto LEICI (UNLP-CONICET-CIC).
+          <br aria-hidden="true">Grupo de Instrumentación Biomédica, Industrial y Científica.
+          <br aria-hidden="true">Instituto LEICI (UNLP-CONICET-CIC).
         </footer>
       </div>
 
@@ -852,7 +863,7 @@
     </div>
 
     <!------------------------------------ Estado ------------------------------------>
-    <div id="configuracion" hidden>
+    <div id="configuracion" hidden aria-hidden="true">
       <div class="title-help-container">
         <h3>Estado de WIMUMO</h3>
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('stateHelp')"
@@ -864,7 +875,7 @@
           Cuando un <strong>dispositivo WIMUMO</strong> esté conectado, esta sección mostrará su información.
         </p>
       </div>
-      <br><br>
+      <br aria-hidden="true"><br aria-hidden="true">
 
       <div class="title-help-container">
         <h3>Redirección de señales</h3>
@@ -887,9 +898,9 @@
     </div>
 
     <!------------------------------------ Options ------------------------------------>
-    <div id="opciones" hidden>
+    <div id="opciones" hidden aria-hidden="true">
       <h3>Opciones</h3>
-      <br>
+      <br aria-hidden="true">
 
       <h4> Cambiar modo visual</h4>
 
@@ -898,7 +909,7 @@
         <button id="dark-mode-btn" class="options_theme_buttons options_theme_buttons_dark">Modo Oscuro</button>
       </div>
 
-      <br>
+      <br aria-hidden="true">
 
       <h4> Cambiar tamaño de letra</h4>
 
@@ -913,7 +924,7 @@
     </div>
 
     <!------------------------------------ Graph ------------------------------------>
-    <div id="graficador" hidden>
+    <div id="graficador" hidden aria-hidden="true">
       <div class="title-help-container">
         <h3>Señales</h3>
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('graficadorHelp')"
@@ -999,7 +1010,7 @@
       <div>
         <div class="container_relative">
 
-          <br>
+          <br aria-hidden="true">
           <label for="cant_direcciones">Cantidad de direcciones objetivo:</label>
           <input type="number" id="cant_direcciones" name="cant_d" value="1" min="1" max="10" onchange="updateFields()">
           <span id="cant_direcciones_error" class="inputError">Minimo 1, máximo 5.</span>
@@ -1019,16 +1030,18 @@
 
             <em>Dirección objetivo 1</em>
 
-            <br><br>
+            <br aria-hidden="true"><br aria-hidden="true">
 
             <label for="filter_1" class="inputLabel">Filtro:</label>
             <select id="filter_1" name="filter" class="select">
             </select>
-            <span id="filter_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br><br>
+            <span id="filter_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br
+              aria-hidden="true"><br aria-hidden="true">
 
             <label for="reroute_ip_1" class="inputLabel">IP:</label>
             <input type="text" id="reroute_ip_1" name="ip" placeholder="Ingresar dirección IP">
-            <span id="ip_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br><br>
+            <span id="ip_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span><br
+              aria-hidden="true"><br aria-hidden="true">
 
             <label for="reroute_port_1" class="inputLabel">Port:</label>
             <input type="text" id="reroute_port_1" name="port" placeholder="Ingresar numero de puerto">
