@@ -375,6 +375,7 @@ function addGraph() {
   let div = document.createElement('div');
   div.id = "graph" + n;
   div.classList.add('graph');
+  div.setAttribute("aria-label", "Grafico de señales del WIMUMO numero" + n); // screen readers
 
   // Create Select // Not a title...
   let title = document.createElement('select');
@@ -401,12 +402,14 @@ function addGraph() {
   buttonZOut.id = "zOutButton" + n;
   buttonZOut.classList.add('zoomButton');
   buttonZOut.classList.add('zoomOut');
+  buttonZOut.setAttribute("aria-label", "Disminuir Zoom"); // screen readers
   div.appendChild(buttonZOut);
 
   let buttonZIn = document.createElement('button');
   buttonZIn.id = "zInButton" + n;
   buttonZIn.classList.add('zoomButton');
   buttonZIn.classList.add('zoomIn');
+  buttonZIn.setAttribute("aria-label", "Aumentar Zoom"); // screen readers
   div.appendChild(buttonZIn);
 
   // Canvas

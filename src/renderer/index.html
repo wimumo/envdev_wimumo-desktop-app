@@ -875,7 +875,7 @@
 
       </div>
 
-      <div id="guideBackButtons" hidden>
+      <div id="guideBackButtons" role="region" hidden>
         <br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true">
 
         <p>
@@ -889,19 +889,17 @@
         </p>
       </div>
 
-      <div id="guideFooter">
-        <footer>
-          <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
-          <br aria-hidden="true">Grupo de Instrumentación Biomédica, Industrial y Científica.
-          <br aria-hidden="true">Instituto LEICI (UNLP-CONICET-CIC).
-        </footer>
-      </div>
+      <footer id="guideFooter">
+        <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
+        <br aria-hidden="true">Grupo de Instrumentación Biomédica, Industrial y Científica.
+        <br aria-hidden="true">Instituto LEICI (UNLP-CONICET-CIC).
+      </footer>
 
 
     </div>
 
     <!------------------------------------ Estado ------------------------------------>
-    <div id="configuracion" hidden aria-hidden="true">
+    <div id="configuracion" role="region" hidden>
       <div class="title-help-container">
         <h3>Estado de WIMUMO</h3>
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('stateHelp')"
@@ -936,7 +934,7 @@
     </div>
 
     <!------------------------------------ Options ------------------------------------>
-    <div id="opciones" hidden aria-hidden="true">
+    <div id="opciones" role="region" hidden>
       <h3>Opciones</h3>
       <br aria-hidden="true">
 
@@ -952,9 +950,9 @@
       <h4> Cambiar tamaño de letra</h4>
 
       <div class="options_button_container">
-        <button id="font-change-1" class="options_button options_smaller_button">Pequeña</button>
-        <button id="font-change-2" class="options_button options_normal_button">Normal</button>
-        <button id="font-change-3" class="options_button options_bigger_button">Grande</button>
+        <button id="font-change-1" class="options_button options_smaller_button" aria-label="Tamaño de letra pequeña">Pequeña</button>
+        <button id="font-change-2" class="options_button options_normal_button" aria-label="Tamaño de letra normal">Normal</button>
+        <button id="font-change-3" class="options_button options_bigger_button" aria-label="Tamaño de letra grande">Grande</button>
       </div>
 
 
@@ -962,7 +960,7 @@
     </div>
 
     <!------------------------------------ Graph ------------------------------------>
-    <div id="graficador" hidden aria-hidden="true">
+    <div id="graficador" role="region" hidden>
       <div class="title-help-container">
         <h3>Señales</h3>
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('graficadorHelp')"
@@ -982,8 +980,8 @@
       </div>
 
       <div id="graphButtonsDiv">
-        <button onclick="addGraph()">Agregar</button>
-        <button onclick="removeGraph()">Eliminar</button>
+        <button onclick="addGraph()">Agregar gráfico</button>
+        <button onclick="removeGraph()">Eliminar gráfico</button>
       </div>
       <div id="graphRec" hidden>
         <button id="rec" onclick="button_toggleRecord()">Grabar</button>
@@ -992,7 +990,7 @@
     </div>
 
     <!------------------------------------ Audio ------------------------------------>
-    <div id="musica" hidden>
+    <div id="musica" role="region" hidden>
       <div class="title-help-container">
         <h3>Música</h3>
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('musicaHelp')"
@@ -1031,7 +1029,7 @@
     </div>
 
     <!------------------------------------ Rerouter ------------------------------------>
-    <div id="rerouter" hidden>
+    <div id="rerouter" role="region" hidden>
       <div class="title-help-container">
         <h3>Redirección de señales OSC</h3><!----Re-ruteo de paquetes OSC---->
         <input type="button" class="input-paragraph-button" value="Ayuda" onclick="verAyuda('rerouterHelp')"
