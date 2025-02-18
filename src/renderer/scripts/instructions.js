@@ -170,8 +170,8 @@ function setUpGuide(totalStp, stpIds, btnIds, chkboxIds) {
     // Agrega la funcionalidad a cada checkbox
     checkboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
-            this.setAttribute("aria-checked", !this.checked ? "true" : "false"); // Screen reader lee las checkbox al reves, esto lo soluciona
-            onChange(this.checked, index + 1);
+            onChange(this, index + 1);
+            
         });
     });
 
@@ -248,8 +248,9 @@ function onUncheckCheckbox(step) {
     }
 }
 
-function onChange(checked, checkboxId) {
-    if (checked) {
+function onChange(checkbox, checkboxId) {
+    checkbox.setAttribute("aria-checked", !checkbox.checked ? "true" : "false"); // Screen reader lee las checkbox al reves, esto lo soluciona
+    if (checkbox.checked) {
         onCheckCheckbox(checkboxId);
     } else {
         onUncheckCheckbox(checkboxId);
