@@ -13,7 +13,7 @@ function menu_close() {
 /* Codigo del container principal */
 
 // Codigo para que los screen reader lean la zona aria-live cuando aparece
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   const liveRegion = document.getElementById("HomePage");
   const text = liveRegion.innerHTML;
 
@@ -36,8 +36,6 @@ function body_exchange(category_selected) {
   document.getElementById(category_selected).removeAttribute('hidden');
 
   category_active = category_selected;
-
-
 
   // Para que las guias de uso siempre empiecen desde la seleccion de guias
   if (category_selected === categories[6]) { homeGuia() }
@@ -159,16 +157,19 @@ function updateConnectionIndicator(bool) {
     // Indicador de conexion del menu
     indicator.className = "connection_indicator_ON";
     statusText.textContent = 'WIMUMO Conectado';
-    statusText.className = "connection_indicator_text_ON";
+    statusText.classList.remove('conectar_dispositivo_text');
+    statusText.classList.add('dispositivo_conectado_text');
 
     // Actualizar home page
     homePageDisconnectedDiv.setAttribute('hidden', '');
     homePageConnectedDiv.removeAttribute('hidden');
+
   } else {
     // Indicador de conexion del menu
     indicator.className = "connection_indicator_OFF";
     statusText.textContent = 'WIMUMO Desconectado';
-    statusText.className = "connection_indicator_text_OFF";
+    statusText.classList.remove('dispositivo_conectado_text');
+    statusText.classList.add('conectar_dispositivo_text');
 
     // Actualizar home page
     homePageDisconnectedDiv.removeAttribute('hidden');

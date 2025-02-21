@@ -174,9 +174,8 @@ function updateFields() {
 
             indexIpPortContainer.appendChild(label);
             indexIpPortContainer.appendChild(select);
-            indexIpPortContainer.appendChild(filterError);
-
             indexIpPortContainer.appendChild(document.createElement('br'));
+            indexIpPortContainer.appendChild(filterError);
             indexIpPortContainer.appendChild(document.createElement('br'));
 
             // IP label add
@@ -197,9 +196,8 @@ function updateFields() {
             ipError.id = `ip_error_${i}`//ip_error_1
             ipError.className = 'inputError';
             ipError.innerText = ' ' + findText('ipError');
-            indexIpPortContainer.appendChild(ipError);
-
             indexIpPortContainer.appendChild(document.createElement('br'));
+            indexIpPortContainer.appendChild(ipError);
             indexIpPortContainer.appendChild(document.createElement('br'));
 
             // Port label add
@@ -219,7 +217,8 @@ function updateFields() {
             const portError = document.createElement('span');
             portError.id = `port_error_${i}` //port_error_1
             portError.className = 'inputError';
-            portError.innerText = ' ' + findText('portError');;
+            portError.innerText = ' ' + findText('portError');
+            indexIpPortContainer.appendChild(document.createElement('br'));
             indexIpPortContainer.appendChild(portError);
 
             // Reroute button add
@@ -277,12 +276,12 @@ function isValidFilter(filter) {
 
 // Botones
 function disableButton(reroute_button) {
-    reroute_button.style.backgroundColor = "red";
+    reroute_button.classList.add('undo-button');
     reroute_button.innerText = findText("rerouteButtonOFF");
 }
 
 function enableButton(reroute_button) {
-    reroute_button.style.backgroundColor = ""; //original
+    reroute_button.classList.remove('undo-button');
     reroute_button.innerText = findText("rerouteButtonON");
 }
 

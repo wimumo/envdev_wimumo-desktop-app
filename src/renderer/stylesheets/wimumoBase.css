@@ -554,7 +554,7 @@ footer {
   text-decoration: underline;
 }
 .input-paragraph-button:focus {
-  color: var(--mark-color-bold);
+  color: var(--help-div-color);
   outline: 1px solid var(--text-color);
   border-radius: 3rem;
 }
@@ -562,13 +562,17 @@ footer {
   color: var(--text-color);
 }
 .input-paragraph-button:hover {
-  color: var(--mark-color-bold);
+  color: var(--help-div-color);
+}
+
+.undo-button {
+  background-color: var(--undo-btn-color);
 }
 
 /* input p de ayuda */
 
 .helpDiv{
-  color: var(--mark-color-bold);
+  color: var(--help-div-color);
 }
 
 .title-help-container {
@@ -597,11 +601,17 @@ footer {
 }
 
 .conectar_dispositivo_text {
-  color: var(--disconnected-color);
+  padding: 4px;
+  text-decoration: underline;
+  text-decoration-color: var(--disconnected-color);
+  font-weight: bold;
 }
 
 .dispositivo_conectado_text {
-  color: var(--connected-color);
+  padding: 4px;
+  text-decoration: underline;
+  text-decoration-color: var(--connected-color);
+  font-weight: bold;
 }
 
 
@@ -771,15 +781,7 @@ footer {
   transform: translateX(-50%); /* Adjust it to the exact center */
 }
 
-.connection_indicator_text_OFF {
-  color: var(--color-red);;
-  position: relative;
-  top: -1px; /* Slightly move the text up */
-  font-size: 16px; /* Adjust font size if needed */
-}
-
-.connection_indicator_text_ON {
-  color: var(--color-blue);;
+.connection_indicator_text {
   position: relative;
   top: -1px; /* Slightly move the text up */
   font-size: 16px; /* Adjust font size if needed */

@@ -84,8 +84,8 @@ class Graph {
     this.ready = false;
 
     // Diseño
-    this.lineColor = 'darkOrchid';
-    this.cursorColor = 'red';
+    this.lineColor = '#4B0082'; //'darkOrchid';
+    this.cursorColor = '#FF033E'; // 'red';
 
     this.setCanvas();
 

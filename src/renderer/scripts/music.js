@@ -92,13 +92,13 @@ function habilitarAudio() {
     if (audioEnabled == false) {
         audioEnabled = true;
         content = [];
-        document.getElementById("audioEN").style.backgroundColor = "red";
+        document.getElementById("audioEN").classList.add('undo-button');
         document.getElementById("audioEN").innerText = "Detenter";
     }
     else if (audioEnabled == true) {
         audioEnabled = false;
         volumeMaster.disconnect();
-        document.getElementById("audioEN").style.backgroundColor = "";//"darkred"; // Ahora vuelve a su color original
+        document.getElementById("audioEN").classList.remove('undo-button');//"darkred"; // Ahora vuelve a su color original
         document.getElementById("audioEN").innerText = "Habilitar audio";
         return;
     }

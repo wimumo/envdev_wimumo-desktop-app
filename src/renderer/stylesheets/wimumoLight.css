@@ -51,17 +51,19 @@
 
   /* text */
   --msg-info-color: var(--color-light-blue);
-  --msg-error-color: var(--color-light-red);
+  --msg-error-color: #A70000; /* var(--color-light-red);*/
 
-  --error-color: var(--color-red);
+  --error-color: #A70000; /* var(--color-red);*/
   
-  --hidden-p-color: var(--color-blue);
+  --hidden-p-color: #0E40CD; /* var(--color-blue);*/
 
   --mark-color: var(--color-light-blue);
 
   --guide-link-color: var(--color-deep-blue);
 
   --inactive-step-color: var(--hover-color-grey);
+
+  --help-div-color: #0E40CD; /* #0050EF; */
 
   /* buttons */
   --button-background-color: var(color-lighter-grey); /*#f0f0f0;*/
@@ -83,6 +85,8 @@
   --checkbox-color-accent: var(--color-blue);
   --checkbox-color-hover: var(--color-black);
   --checkbox-color-outline: var(--color-deep-blue);
+
+  --undo-btn-color: #FF5E5E; /*var(--color-red);*/
 
   /* graph */
   --graph-background-color1: var(--color-grey);
@@ -110,6 +114,6 @@
   --input-placeholder-color: #999;
 
   /* Connected and disconnected colors */
-  --connected-color: var(--color-blue);
-  --disconnected-color: var(--color-red);
+  --connected-color: #007FFF; /* #009900; /* #006CD7;/* var(--color-blue);*/
+  --disconnected-color:  var(--color-red);
 }
