@@ -775,11 +775,15 @@ footer {
 .status-container {
   display: flex;
   align-items: center; /* Align items vertically */
-  position: absolute;
-  bottom: 10px; /* Position 10px from the bottom */
-  left: 50%; /* Position the container at the horizontal center */
-  transform: translateX(-50%); /* Adjust it to the exact center */
+  position: relative;
+  /*bottom: 10px;  Position 10px from the bottom */
+  /*left: 50%; /* Position the container at the horizontal center */
+  /*transform: translateX(-50%); /* Adjust it to the exact center */
+  margin-top: 20%;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
+
 
 .connection_indicator_text {
   position: relative;
