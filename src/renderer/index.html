@@ -413,31 +413,38 @@
 
       <!--                  COMPU GUIA                         -->
       <div id="compConfigGuideDiv" role="region" hidden>
-        <h4>Configuración del dispositivo WIMUMO</h4>
+        <h4>Configuración del dispositivo WIMUMO - 7 pasos</h4>
         <br aria-hidden="true">
 
         <div id="stepContainer" role="main" aria-label="Pasos a seguir, paso 0 a paso 7">
 
           <!--Paso 0 -->
-          <section class="step" id="stepC_0" role="article" class="container_relative" aria-hidden="true">
-            <h5 id="paso0" aria-hidden="true"> <strong>Paso 0</strong> - Material necesario</h5>
-            <h5 id="paso0" class="sr-only"> Paso 0 - Material necesario</h5>
+          <section class="step" id="stepC_0" aria-hidden="true">
+            <div role="article" class="container_relative">
+              <h5 id="paso0" aria-hidden="true"> <strong>Paso 0</strong> - Material necesario</h5>
+              <h5 id="paso0" class="sr-only"> Paso 0 - Material necesario</h5>
 
-            <!--Texto -->
-            <p id="text-step0">Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>,
-              una <strong>red Wi-Fi</strong>, y <strong>esta máquina</strong>.
-            </p>
+              <!--Texto -->
+              <p id="text-step0">Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>,
+                una <strong>red Wi-Fi</strong>, y <strong>esta máquina</strong>.
+              </p>
 
-            <!--Botones -->
-            <!--<input type="button" id="verMasC0" class="input-paragraph-button" value="¿Qué es un dispositivo WIMUMO?"
+              <!--Botones -->
+              <!--<input type="button" id="verMasC0" class="input-paragraph-button" value="¿Qué es un dispositivo WIMUMO?"
               onclick="WIMUMOInfo()" /> <!-- Esto no es necesario porque ya se ofrecio que es a menos de que demos una imagen-->
 
-            <label for="confCheckCo0" class="checkbox_right">
-              <input type="checkbox" id="confCheckCo0" name="Step 0 checkbox" class="checkbox_right"
-                aria-label="Marcar como completado paso 0">
-            </label>
+              <label for="confCheckCo0" class="checkbox_right">
+                <input type="checkbox" id="confCheckCo0" name="Step 0 checkbox" class="checkbox_right"
+                  aria-label="Marcar como completado paso 0">
+              </label>
 
+            </div>
+            <!--Extra-->
             <hr class="separator" aria-hidden="true">
+
+            <div id="btn-container-C0" class="container_relative">
+              <button id="nextButtonComp0" onclick="nextButtonOnClick()">Comenzar</button>
+            </div>
 
           </section>
 
@@ -484,6 +491,11 @@
                 terminal, e ingresar el
                 comando "ifconfig". Encontrará su dirección IP local al lado de "inet", tendrá la forma "x.x.x.x" (por
                 ejemplo: 127.0.0.1).</p>
+            </div>
+
+            <div id="btn-container-C1" class="container_relative">
+              <button id="prevButtonComp1" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp1" onclick="nextButtonOnClick()">Siguiente</button>
             </div>
           </section>
 
@@ -533,6 +545,10 @@
                 en la imagen</p>
             </div>
 
+            <div id="btn-container-C2" class="container_relative">
+              <button id="prevButtonComp2" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp2" onclick="nextButtonOnClick()">Siguiente</button>
+            </div>
           </section>
 
           <!--Paso 3 -->
@@ -570,6 +586,11 @@
               <p id="verMasC3_p3" hidden>2. Ingresar a opciones de la red WIMUMOxxx y seleccionar que la máquina se
                 conecte automáticamente.</p>
             </div>
+
+            <div id="btn-container-C3" class="container_relative">
+              <button id="prevButtonComp3" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp3" onclick="nextButtonOnClick()">Siguiente</button>
+            </div>
           </section>
 
           <!--Paso 4 -->
@@ -606,6 +627,10 @@
                 correctamente. Puede seguir con el siguiente paso.</p>
             </div>
 
+            <div id="btn-container-C4" class="container_relative">
+              <button id="prevButtonComp4" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp4" onclick="nextButtonOnClick()">Siguiente</button>
+            </div>
 
           </section>
 
@@ -648,6 +673,12 @@
                 utilizan para recibir mensajes.
               </p>
             </div>
+
+            <div id="btn-container-C5" class="container_relative">
+              <button id="prevButtonComp5" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp5" onclick="nextButtonOnClick()">Siguiente</button>
+            </div>
+
           </section>
 
           <!--Paso 6 -->
@@ -671,6 +702,11 @@
 
             <!--Extra -->
             <hr class="separator">
+
+            <div id="btn-container-C6" class="container_relative">
+              <button id="prevButtonComp6" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonComp6" onclick="nextButtonOnClick()">Siguiente</button>
+            </div>
 
           </section>
 
@@ -732,11 +768,12 @@
                 permitir mensajes dirigidos al <mark>puerto 4560</mark>.
               </p>
             </div>
+
           </section>
 
         </div>
 
-        <div class="container_relative">
+        <div id="btn-container-C7" class="container_relative">
           <button id="prevButtonComp" class="button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
           <button id="nextButtonComp" class="button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
         </div>

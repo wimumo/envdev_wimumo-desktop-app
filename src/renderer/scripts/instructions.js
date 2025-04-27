@@ -69,7 +69,7 @@ function guiaConfigPhone() {
 
     showElement([phoneConfigGuideDiv, guideBackButtons, confCompuBtn, guideFooter]);
 
-    setUpGuide(totalStepsPhone, stepIdsPhone, buttonIdsPhone, checkboxIdsPhone);    // Preparar la guia dinamica
+    setUpGuide(totalStepsPhone, stepIdsPhone, buttonIdsPhone, checkboxIdsPhone, buttonContainerIdsPhone);    // Preparar la guia dinamica
 }
 function guiaConfigComp() {
     /* Guia de configuracion usando la misma maquina */
@@ -78,7 +78,7 @@ function guiaConfigComp() {
     showElement([compConfigGuideDiv, guideBackButtons, confPhoneBtn, guideFooter]);
 
     // Preparar la guia dinamica
-    setUpGuide(totalStepsComp, stepIdsComp, buttonIdsComp, checkboxIdsComp);        // Preparar la guia dinamica
+    setUpGuide(totalStepsComp, stepIdsComp, buttonIdsComp, checkboxIdsComp, buttonContainerIdsComp);        // Preparar la guia dinamica
 }
 
 function WIMUMOInfo() {
@@ -126,12 +126,14 @@ const totalStepsPhone = 7;
 const stepIdsPhone = ['stepP0', 'stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5', 'stepP6'];
 const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh'];
 const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5', 'confCheckPh6'];
+const buttonContainerIdsPhone = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
 // constantes de la guia con la maquina
 const totalStepsComp = 8;
 const stepIdsComp = ['stepC_0', 'stepC_1', 'stepC_2', 'stepC_3', 'stepC_4', 'stepC_5', 'stepC_6', 'stepC_7'];
 const buttonIdsComp = ['nextButtonComp', 'prevButtonComp'];
 const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6', 'confCheckCo7'];
+const buttonContainerIdsComp = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
 // variables dinamicas
 let currentStep = 1;
@@ -143,9 +145,10 @@ const steps = [];
 let nextButton;
 let prevButton;
 const checkboxes = [];
+const buttonContainers = [];
 
 
-function setUpGuide(totalStp, stpIds, btnIds, chkboxIds) {
+function setUpGuide(totalStp, stpIds, btnIds, chkboxIds, btnContainerIds) {
     /* Esta funcion existe para reiniciar e inicilizar todas las variables de una guia dinamica cuando se abre. */
 
     // Pasos de la guia
@@ -175,6 +178,12 @@ function setUpGuide(totalStp, stpIds, btnIds, chkboxIds) {
             
         });
     });
+
+    buttonContainers.length = 0;
+    btnContainerIds.forEach((id) => {
+        buttonContainers.push(document.getElementById(id));
+    });
+
 
     // Inicializa la guia en el primer paso
     showStep(currentStep);
@@ -212,10 +221,17 @@ function showStep(step) {
     /* Se encarga de mostrar el paso activo en un guia, toma como parametro un String que determina la guia*/
 
     document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));    // Esconder todos los pasos
+    
 
     const currentStepElement = steps[step - 1];
     currentStepElement.classList.add('active');             // Muestra el paso actual
     currentStepElement.setAttribute("aria-hidden", "false");
+
+    currentStepElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' // or 'start', 'end', or 'nearest' 
+    });
+    
 
     togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
 
@@ -224,6 +240,21 @@ function showStep(step) {
     })
 
     currentStep = step;
+
+    hideAllBtnContainers();
+    showBtnContainer(step - 1);
+}
+
+// button handlers
+function hideAllBtnContainers() {
+    buttonContainers.forEach((btnC) => {
+        btnC.setAttribute('hidden', '');
+    });
+}
+
+function showBtnContainer(index){
+    buttonContainers[index].removeAttribute('hidden');
+    if (index+1 === totalSteps) toggleTerminarBtn(true);
 }
 
 // Checkbox handlers
@@ -263,9 +294,12 @@ function onChange(checkbox, checkboxId) {
 function nextButtonOnClick() {
     if (botonTerminarActivo) { body_exchange('HomePage') };                // Si es el ultimo paso entonces vuelve al inicio
     if (currentStep <= totalSteps) {
+
+
         checkboxes[(currentStep - 1)].checked = true;
         onCheckCheckbox(currentStep);
     }
+
 }
 
 function prevButtonOnClick() {
