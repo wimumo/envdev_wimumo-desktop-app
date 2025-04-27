@@ -1,3 +1,4 @@
+
 // Conseguir IP Local
 window.api.send('get-iplocal');
 
@@ -128,9 +129,9 @@ const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confC
 
 // constantes de la guia con la maquina
 const totalStepsComp = 8;
-const stepIdsComp = ['stepC0', 'stepC1', 'stepC1.5', 'stepC2', 'stepC3', 'stepC4', 'stepC5', 'stepC6'];
+const stepIdsComp = ['stepC_0', 'stepC_1', 'stepC_2', 'stepC_3', 'stepC_4', 'stepC_5', 'stepC_6', 'stepC_7'];
 const buttonIdsComp = ['nextButtonComp', 'prevButtonComp'];
-const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo1.5', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6'];
+const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6', 'confCheckCo7'];
 
 // variables dinamicas
 let currentStep = 1;
