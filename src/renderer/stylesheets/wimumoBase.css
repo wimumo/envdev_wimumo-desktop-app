@@ -564,6 +564,10 @@ footer {
 .input-paragraph-button:hover {
   color: var(--help-div-color);
 }
+.input-paragraph-button.active {
+  color: var(--help-div-color);
+}
+
 
 .undo-button {
   background-color: var(--undo-btn-color);

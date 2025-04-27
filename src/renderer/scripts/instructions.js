@@ -287,3 +287,8 @@ function verMas(id) {
         element.hidden = !element.hidden;
     });
 }
+
+//Fuerza al boton a amantenerse azul mientras esta abierta la ayuda
+function toggleActive(button) {
+    button.classList.toggle('active');
+  }
