@@ -33,7 +33,7 @@
     <div class="status-container" role="alert" aria-label="Indicador de conexion con WIMUMO">
       <div id="connection-indicator" class="connection_indicator_OFF" role="status" aria-labelledby="connectionStatus">
       </div>
-      <p id="status-text" class="connection_indicator_text conectar_dispositivo_text" id="connectionStatus">WIMUMO
+      <p id="status-text" class="connection_indicator_text conectar_dispositivo_text">WIMUMO
         Desconectado</p>
     </div>
   </nav>
@@ -457,12 +457,12 @@
               <h5 class="sr-only">Paso 1 - Conectar a la red Wi-Fi local</h5>
 
               <!--Texto -->
-              <p>Asegúrese de que la máquina está conectada a su red Wi-Fi local.</p>
-              <p>Busque su dirección IP local. Puede hacerlo manualmente o automáticamente.</p>
-              <p>IP local detectada automaticamente: <mark><span id="instrucciones_iplocal"> </mark></p>
-              <!--<p>Más adelante necesitará ingresar el nombre de su red Wi-Fi local, su contraseña y esta dirección IP.</p>-->
+              <p>Primero asegúrese de que la máquina está conectada a su red Wi-Fi local.</p>
+              <p>Busque su dirección IP local.</p>
 
               <!--Botones -->
+              <button id="IPButtonComp" class="small_button" onclick="detectarIpLocal()">Detectar IP local</button>
+
               <input type="button" id="verMasC1_first" class="input-paragraph-button"
                 value="¿Cómo busco mi IP local manualmente?" onclick="toggleActive(this); verMas('verMasC1')"
                 tabindex="0" />
@@ -474,6 +474,7 @@
 
             <!--Extra -->
             <hr class="separator">
+            <p id="IPparagraph1" hidden><strong>-> IP local detectada: <mark><span id="instrucciones_iplocal1"> </mark> </strong></p>
             <div class="helpDiv" role="complementary">
               <p id="verMasC1-ip_p1" hidden>
                 -> <strong>Windows 11</strong>: Entré a “Configuración” y luego a la sección de “Red & Internet”. Si se
@@ -648,6 +649,7 @@
               <p>Ahora haga clic en "Configurar OSC".</p>
               <p>Ingrese la <mark> IP local </mark> que busco o detectó en el paso 1 y el puerto <mark> “4560” </mark>.
               </p>
+              <p id="IPparagraph2" hidden><strong>-> IP local detectada: <mark> <span id="instrucciones_iplocal2"></mark> </strong></p>
 
               <!--Botones -->
               <input type="button" id="verMasC5" class="input-paragraph-button" value="¿Qué es OSC?"
@@ -727,11 +729,19 @@
               <p>Si WIMUMO logró conectarse a la red Wi-Fi local, entonces verá el LED titilar lentamente con un único
                 color.
               </p>
-              <p>Si WIMUMO logró conectarse a esta aplicación, el indicador de estado al final del menú lateral debería
-                decir “WIMUMO Conectado”. Puede confirmarlo entrando a “Estado” en el menú lateral.
-              </p>
-              <p> INDICADOR DE CONEXION</p>
+              <p>Si WIMUMO logró conectarse a esta aplicación, el siguiente indicador lo confirmara:</p>
 
+              <p id="status-text-guide" class="connection_indicator_text conectar_dispositivo_text">
+                -> WIMUMO Desconectado</p>
+            <!--
+              <div class="status-container-guide" role="alert" aria-label="Indicador de conexion con WIMUMO">
+                <div id="connection-indicator-guide" class="connection_indicator_OFF" role="status" aria-labelledby="connectionStatus"></div>
+                <p id="status-text-guide" class="connection_indicator_text conectar_dispositivo_text">
+                  No se detecta ningun WIMUMO conectado</p>
+              </div>-->
+              
+              <!--<p>Puede confirmar el estado del WIMUMO en la seccion "Estado" del menu lateral.</p>-->
+              <br>
 
               <!--Botones -->
               <input type="button" id="verMasC7_first" class="input-paragraph-button"

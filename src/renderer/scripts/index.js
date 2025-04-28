@@ -146,7 +146,9 @@ window.api.receive('osc', (data) => {
 
 // Actualizar indicador
 const indicator = document.getElementById('connection-indicator')
+//const indicatorGuide = document.getElementById('connection-indicator-guide')
 const statusText = document.getElementById('status-text');
+const statusTextGuide = document.getElementById('status-text-guide');
 
 // Actualizar Home page
 const homePageDisconnectedDiv = document.getElementById('homePageDisconnectedDiv');
@@ -164,6 +166,12 @@ function updateConnectionIndicator(bool) {
     homePageDisconnectedDiv.setAttribute('hidden', '');
     homePageConnectedDiv.removeAttribute('hidden');
 
+    // Actualizar guia de configuracion
+    //indicatorGuide.className = "connection_indicator_ON";
+    statusTextGuide.textContent = '-> WIMUMO Conectado';
+    statusTextGuide.classList.remove('conectar_dispositivo_text');
+    statusTextGuide.classList.add('dispositivo_conectado_text');
+
   } else {
     // Indicador de conexion del menu
     indicator.className = "connection_indicator_OFF";
@@ -174,5 +182,11 @@ function updateConnectionIndicator(bool) {
     // Actualizar home page
     homePageDisconnectedDiv.removeAttribute('hidden');
     homePageConnectedDiv.setAttribute('hidden', '');
+
+    // Actualizar guia de configuracion
+    //indicatorGuide.className = "connection_indicator_OFF";
+    statusTextGuide.textContent = '-> WIMUMO Desconectado';
+    statusTextGuide.classList.remove('dispositivo_conectado_text');
+    statusTextGuide.classList.add('conectar_dispositivo_text');
   }
 }

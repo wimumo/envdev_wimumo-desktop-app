@@ -1,19 +1,24 @@
 
 // Conseguir IP Local
-window.api.send('get-iplocal');
+/*window.api.send('get-iplocal');*/
 
 let ipLocal = "";
 
+function getIpLocal() {
+    return ipLocal;
+}
+
+function detectarIpLocal() {
+    window.api.send('get-iplocal');
+}
+
 window.api.receive('iplocal', (data) => {
     ipLocal = data[0];
-    //"(si la autodetección funciona puede ser: <mark>" + data[0] + "</mark>)";
-    document.getElementById('instrucciones_iplocal').innerHTML = ipLocal;
+    document.getElementById('instrucciones_iplocal1').innerHTML = ipLocal;
     document.getElementById('instrucciones_iplocal2').innerHTML = ipLocal;
-});
-
-function getIpLocal() {
-    return ipLocal
-}
+    document.getElementById('IPparagraph1').removeAttribute('hidden')
+    document.getElementById('IPparagraph2').removeAttribute('hidden')
+})
 
 /*
 *   Funciones para ver guias. Usadas por el indice
@@ -124,14 +129,14 @@ function showElement(ArrayOfElements) {
 // constantes de la guia con telefono
 const totalStepsPhone = 7;
 const stepIdsPhone = ['stepP0', 'stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5', 'stepP6'];
-const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh'];
+const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh', 'IPButtonComp'];
 const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5', 'confCheckPh6'];
 const buttonContainerIdsPhone = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
 // constantes de la guia con la maquina
 const totalStepsComp = 8;
 const stepIdsComp = ['stepC_0', 'stepC_1', 'stepC_2', 'stepC_3', 'stepC_4', 'stepC_5', 'stepC_6', 'stepC_7'];
-const buttonIdsComp = ['nextButtonComp', 'prevButtonComp'];
+const buttonIdsComp = ['nextButtonComp', 'prevButtonComp', 'IPButtonComp'];
 const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6', 'confCheckCo7'];
 const buttonContainerIdsComp = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
@@ -144,6 +149,7 @@ let botonTerminarActivo = false;
 const steps = [];
 let nextButton;
 let prevButton;
+let ipButton;
 const checkboxes = [];
 const buttonContainers = [];
 
@@ -163,6 +169,7 @@ function setUpGuide(totalStp, stpIds, btnIds, chkboxIds, btnContainerIds) {
     // Referencias a botones de la guia
     nextButton = document.getElementById(btnIds[0]);
     prevButton = document.getElementById(btnIds[1]);
+    ipButton = document.getElementById(btnIds[2]);
     toggleTerminarBtn(false);
 
     uncheckAllCheckboxes();
@@ -202,12 +209,16 @@ function toggleTerminarBtn(bool) {
     }
 }
 
-function togglePreviousBtn(bool) {
+/*function togglePreviousBtn(bool) {
     if (bool) {
         prevButton.setAttribute('hidden', '');
     } else {
         prevButton.removeAttribute('hidden');
     }
+}*/
+
+function toggleDetectarIPBtn(bool) {
+    ipButton.classList.toggle('inactive', !bool);
 }
 
 function uncheckAllCheckboxes() {
@@ -233,7 +244,7 @@ function showStep(step) {
     });
     
 
-    togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
+    //togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
 
     checkboxes.forEach((checkbox, index) => {
         if ((index + 1) < step) checkbox.checked = true;    // Checkea las checkboxes previas por si hubo un salto
@@ -241,8 +252,12 @@ function showStep(step) {
 
     currentStep = step;
 
-    hideAllBtnContainers();
+    toggleDetectarIPBtn(step === 2);                        // Deja el boton gris o no
+
+    hideAllBtnContainers();                                 // Mueve los botones prev y siguiente
     showBtnContainer(step - 1);
+
+    
 }
 
 // button handlers
