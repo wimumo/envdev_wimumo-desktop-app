@@ -35,8 +35,8 @@ const guideBackButtons = document.getElementById('guideBackButtons');       // B
 const guideFooter = document.getElementById('guideFooter');                 // footer
 
 // buttons
-const confCompuBtn = document.getElementById('confCompuBtn'); 
-const confPhoneBtn = document.getElementById('confPhoneBtn'); 
+const confCompuBtn = document.getElementById('confCompuBtn');
+const confPhoneBtn = document.getElementById('confPhoneBtn');
 const confBtn = document.getElementById('confBtn');
 
 
@@ -131,14 +131,14 @@ const totalStepsPhone = 7;
 const stepIdsPhone = ['stepP0', 'stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5', 'stepP6'];
 const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh', 'IPButtonComp'];
 const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5', 'confCheckPh6'];
-const buttonContainerIdsPhone = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
+const buttonContainerIdsPhone = ['btn-container-P0', 'btn-container-P1', 'btn-container-P2', 'btn-container-P3', 'btn-container-P4', 'btn-container-P5', 'btn-container-P6'];
 
 // constantes de la guia con la maquina
 const totalStepsComp = 8;
 const stepIdsComp = ['stepC_0', 'stepC_1', 'stepC_2', 'stepC_3', 'stepC_4', 'stepC_5', 'stepC_6', 'stepC_7'];
 const buttonIdsComp = ['nextButtonComp', 'prevButtonComp', 'IPButtonComp'];
 const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6', 'confCheckCo7'];
-const buttonContainerIdsComp = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2' ,'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
+const buttonContainerIdsComp = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2', 'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
 // variables dinamicas
 let currentStep = 1;
@@ -182,7 +182,7 @@ function setUpGuide(totalStp, stpIds, btnIds, chkboxIds, btnContainerIds) {
     checkboxes.forEach((checkbox, index) => {
         checkbox.addEventListener('change', function () {
             onChange(this, index + 1);
-            
+
         });
     });
 
@@ -232,17 +232,17 @@ function showStep(step) {
     /* Se encarga de mostrar el paso activo en un guia, toma como parametro un String que determina la guia*/
 
     document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));    // Esconder todos los pasos
-    
+
 
     const currentStepElement = steps[step - 1];
     currentStepElement.classList.add('active');             // Muestra el paso actual
     currentStepElement.setAttribute("aria-hidden", "false");
 
-    currentStepElement.scrollIntoView({ 
-        behavior: 'smooth', 
+    currentStepElement.scrollIntoView({
+        behavior: 'smooth',
         block: 'center' // or 'start', 'end', or 'nearest' 
     });
-    
+
 
     //togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
 
@@ -257,7 +257,7 @@ function showStep(step) {
     hideAllBtnContainers();                                 // Mueve los botones prev y siguiente
     showBtnContainer(step - 1);
 
-    
+
 }
 
 // button handlers
@@ -267,9 +267,9 @@ function hideAllBtnContainers() {
     });
 }
 
-function showBtnContainer(index){
+function showBtnContainer(index) {
     buttonContainers[index].removeAttribute('hidden');
-    if (index+1 === totalSteps) toggleTerminarBtn(true);
+    if (index + 1 === totalSteps) toggleTerminarBtn(true);
 }
 
 // Checkbox handlers
@@ -340,4 +340,4 @@ function verMas(id) {
 //Fuerza al boton a amantenerse azul mientras esta abierta la ayuda
 function toggleActive(button) {
     button.classList.toggle('active');
-  }
+}
