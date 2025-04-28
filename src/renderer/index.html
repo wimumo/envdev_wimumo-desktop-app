@@ -802,6 +802,8 @@
         <br aria-hidden="true">
 
         <div id="stepContainer" role="main" aria-label="Pasos a seguir, paso 0 a paso 7">
+
+          <!--Paso 0 -->
           <section class="step" id="stepP0" aria-hidden="true">
             <div role="article" class="container_relative">
 
@@ -823,17 +825,26 @@
             <!--Extra -->
             <hr class="separator" aria-hidden="true">
 
+            <div id="btn-container-P0" class="container_relative">
+              <button id="nextButtonPhone0" class="small_button" onclick="nextButtonOnClick()">Comenzar</button>
+              <br><br>
+            </div>
+
           </section>
 
+          <!--Paso 1 -->
           <section class="step" id="stepP1" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Paso 1</strong> - Encender WIMUMO en modo de configuración</h5>
               <h5 class="sr-only">Paso 1 - Encender WIMUMO en modo de configuración</h5>
+
+              <!--Texto-->
               <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con
                 colores, esto indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo
                 presionando el pulsador.</p>
 
+              <!--Botones-->
               <input type="button" id="verMasP1-pulsador_first" class="input-paragraph-button"
                 value="¿Dónde está el pulsador?" onclick="toggleActive(this); verMas('verMasP1')" />
 
@@ -842,23 +853,36 @@
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasP1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
                 objeto fino y alargado. Se
                 encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
             </div>
+
+            <div id="btn-container-P1" class="container_relative">
+              <button id="prevButtonPhone1" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonPhone1" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <br><br>
+            </div>
+
           </section>
 
+          <!--Paso 2 -->
           <section class="step" id="stepP2" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Paso 2</strong> - Ingresar a la página de configuración</h5>
               <h5 class="sr-only">Paso 2 - Ingresar a la página de configuración</h5>
 
+              <!--Texto-->
               <p>Haciendo uso del celular busque la red Wi-Fi <mark>WIMUMOxxx</mark> (por ejemplo: WIMUMO023), y
                 conéctese con la contraseña <mark>“wifiwimumo”</mark>. Con un navegador web (por ejemplo: Google Chrome)
                 ingrese a la dirección web <mark>"192.168.0.2"</mark>.</p>
+
+              <!--Botones-->
               <input type="button" id="verMasP2_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="toggleActive(this); verMas('verMasP2')" tabindex="0" />
               <input type="checkbox" id="confCheckPh2" name="Step 2 checkbox" class="checkbox_right"
@@ -866,6 +890,8 @@
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasP2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
@@ -875,19 +901,31 @@
                 1. Poner el dispositivo en modo avión y activar solo el wifi.
                 2. Ingresar a opciones de la red WIMUMOxxx y seleccione que se conecte automáticamente. </p>
             </div>
+
+            <div id="btn-container-P2" class="container_relative">
+              <button id="prevButtonPhone2" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonPhone2" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <br><br>
+            </div>
+
           </section>
 
+          <!--Paso 3 -->
           <section class="step" id="stepP3" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Paso 3</strong> - configurar red Wi-Fi</h5>
               <h5 class="sr-only">Paso 3 - configurar red Wi-Fi</h5>
+
+              <!--Texto-->
               <p>Ingrese a "Configurar WiFi" para ingresar los datos de la red Wi-Fi a donde conectará WIMUMO.
               </p>
               <p>Para conectarse con esta aplicación, necesitará seleccionar la red a la que esta máquina está
                 conectada.
                 También necesita ingresar la contraseña de la misma. </p>
               <p>Los demás campos no son necesarios. Solo necesita apretar “Aplicar”.</p>
+
+              <!--Botones-->
               <input type="button" id="verMasP3_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="toggleActive(this); verMas('verMasP3')" tabindex="0" />
 
@@ -896,6 +934,8 @@
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasP3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
@@ -908,18 +948,29 @@
 
 
             </div>
+
+            <div id="btn-container-P3" class="container_relative">
+              <button id="prevButtonPhone3" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonPhone3" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <br><br>
+            </div>
+
           </section>
 
+          <!--Paso 4 -->
           <section class="step" id="stepP4" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Paso 4</strong> - Configurar dirección</h5>
               <h5 class="sr-only">Paso 4 - Configurar dirección</h5>
 
+              <!--Texto-->
               <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandará las señales el WIMUMO.
                 Para conectar con esta aplicación debe ingresar su dirección IP local <mark> <span
                     id="instrucciones_iplocal2"> </mark> y el puerto <mark> 4560
                 </mark>.</p>
+
+              <!--Botones-->
               <input type="button" id="verMasP4-ip" class="input-paragraph-button" value="¿Cómo busco mi IP local?"
                 onclick="toggleActive(this); verMas('verMasP4-ip')" tabindex="0" />
               <input type="button" id="verMasP4-osc" class="input-paragraph-button" value="¿Qué es OSC?"
@@ -930,6 +981,8 @@
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasP4-ip_p1" hidden>
@@ -956,39 +1009,61 @@
                 en donde el dispositivo constantemente envía datos por medio de este protocolo.</p>
 
             </div>
+
+            <div      id="btn-container-P4" class="container_relative">
+              <button id="prevButtonPhone4" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonPhone4" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <br><br>
+            </div>
+
           </section>
 
+          <!--Paso 5 -->
           <section class="step" id="stepP5" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Paso 5</strong> - Cambiar a modo de uso normal</h5>
               <h5 class="sr-only">Paso 5 - Cambiar a modo de uso normal</h5>
 
+              <!--Texto-->
               <p>Presione botón “Modo OSC” en la aplicación de configuración, o el pulsador en el WIMUMO para
                 cambiar al modo de uso normal. En este modo el WIMUMO mandará las señales que lea a la dirección
                 indicada.
               </p>
+
+              <!--Botones-->
               <input type="checkbox" id="confCheckPh5" name="Step 5 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 5">
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
+
+            <div      id="btn-container-P5" class="container_relative">
+              <button id="prevButtonPhone5" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
+              <button id="nextButtonPhone5" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <br><br>
+            </div>
 
           </section>
 
+          <!--Paso 6 -->
           <section class="step" id="stepP6" aria-hidden="true">
             <div role="article" class="container_relative">
 
               <h5 aria-hidden="true"><strong>Último paso</strong> - Confirmar conexión</h5>
               <h5 class="sr-only">Último paso - Confirmar conexión</h5>
 
+              <!--Texto-->
               <p>Si WIMUMO logró conectarse a la red Wi-Fi configurada verá el LED titilar lentamente con un único
                 color.
               </p>
               <p>Si se configuró correctamente la dirección IP de esta máquina, y el puerto de esta aplicación, entonces
                 se debería haber conectado a esta aplicación. Puede confirmarlo entrando a “Estado” </p>
 
+              <!--Botones-->
               <input type="button" id="verMasP6_first" class="input-paragraph-button" value="Problemas comunes..."
                 onclick="toggleActive(this); verMas('verMasP6')" tabindex="0" />
 
@@ -998,6 +1073,8 @@
 
 
             </div>
+
+            <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasP6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
@@ -1025,12 +1102,14 @@
 
         </div>
 
-        <div class="container_relative">
-          <button id="prevButtonPh" class="button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
-          <button id="nextButtonPh" class="button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
+        <div id="btn-container-P6" class="container_relative">
+          <button id="prevButtonPh" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
+          <button id="nextButtonPh" class="small_button button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
         </div>
 
       </div>
+
+      <!--                 PHONE GUIDE END                      -->
 
       <div id="guideBackButtons" role="region" hidden>
         <br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true">
