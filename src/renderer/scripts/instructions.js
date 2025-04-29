@@ -16,8 +16,10 @@ window.api.receive('iplocal', (data) => {
     ipLocal = data[0];
     document.getElementById('instrucciones_iplocal1').innerHTML = ipLocal;
     document.getElementById('instrucciones_iplocal2').innerHTML = ipLocal;
-    document.getElementById('IPparagraph1').removeAttribute('hidden')
-    document.getElementById('IPparagraph2').removeAttribute('hidden')
+    document.getElementById('instrucciones_iplocal3').innerHTML = ipLocal;
+    document.getElementById('IPparagraph1').removeAttribute('hidden');
+    document.getElementById('IPparagraph2').removeAttribute('hidden');
+    document.getElementById('IPparagraph3').removeAttribute('hidden');
 })
 
 /*
@@ -129,14 +131,14 @@ function showElement(ArrayOfElements) {
 // constantes de la guia con telefono
 const totalStepsPhone = 7;
 const stepIdsPhone = ['stepP0', 'stepP1', 'stepP2', 'stepP3', 'stepP4', 'stepP5', 'stepP6'];
-const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh', 'IPButtonComp'];
+const buttonIdsPhone = ['nextButtonPh', 'prevButtonPh', 'IPButtonPhone-activeStep4'];
 const checkboxIdsPhone = ['confCheckPh0', 'confCheckPh1', 'confCheckPh2', 'confCheckPh3', 'confCheckPh4', 'confCheckPh5', 'confCheckPh6'];
 const buttonContainerIdsPhone = ['btn-container-P0', 'btn-container-P1', 'btn-container-P2', 'btn-container-P3', 'btn-container-P4', 'btn-container-P5', 'btn-container-P6'];
 
 // constantes de la guia con la maquina
 const totalStepsComp = 8;
 const stepIdsComp = ['stepC_0', 'stepC_1', 'stepC_2', 'stepC_3', 'stepC_4', 'stepC_5', 'stepC_6', 'stepC_7'];
-const buttonIdsComp = ['nextButtonComp', 'prevButtonComp', 'IPButtonComp'];
+const buttonIdsComp = ['nextButtonComp', 'prevButtonComp', 'IPButtonComp-activeStep1'];
 const checkboxIdsComp = ['confCheckCo0', 'confCheckCo1', 'confCheckCo2', 'confCheckCo3', 'confCheckCo4', 'confCheckCo5', 'confCheckCo6', 'confCheckCo7'];
 const buttonContainerIdsComp = ['btn-container-C0', 'btn-container-C1', 'btn-container-C2', 'btn-container-C3', 'btn-container-C4', 'btn-container-C5', 'btn-container-C6', 'btn-container-C7'];
 
@@ -217,8 +219,12 @@ function toggleTerminarBtn(bool) {
     }
 }*/
 
-function toggleDetectarIPBtn(bool) {
-    ipButton.classList.toggle('inactive', !bool);
+function toggleDetectarIPBtn(index) {
+    let idBtn = ipButton.id;
+    let lastChar = idBtn.charAt(idBtn.length - 1);
+
+    ipButton.classList.toggle('inactive', (index-1) != lastChar);
+    //ipButton.textContent = lastChar;
 }
 
 function uncheckAllCheckboxes() {
@@ -250,13 +256,12 @@ function showStep(step) {
         if ((index + 1) < step) checkbox.checked = true;    // Checkea las checkboxes previas por si hubo un salto
     })
 
-    currentStep = step;
-
-    toggleDetectarIPBtn(step === 2);                        // Deja el boton gris o no
+    toggleDetectarIPBtn(step);                        // Deja el boton gris o no
 
     hideAllBtnContainers();                                 // Mueve los botones prev y siguiente
     showBtnContainer(step - 1);
 
+    currentStep = step;
 
 }
 

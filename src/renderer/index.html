@@ -461,11 +461,12 @@
               <p>Busque su dirección IP local.</p>
 
               <!--Botones -->
-              <button id="IPButtonComp" class="small_button" onclick="detectarIpLocal()">Detectar IP local</button>
+              <button id="IPButtonComp-activeStep1" class="small_button" onclick="detectarIpLocal()">Detectar IP
+                local</button>
 
               <input type="button" id="verMasC1_first" class="input-paragraph-button"
-                value="¿Cómo busco mi IP local manualmente?" onclick="toggleActive(this); verMas('verMasC1')"
-                tabindex="0" />
+                value="¿Cómo busco mi IP local manualmente?" onclick="toggleActive(this); 
+                verMas('verMasC1')" tabindex="0" />
 
               <input type="checkbox" id="confCheckCo1" name="Step 1 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 1">
@@ -474,7 +475,8 @@
 
             <!--Extra -->
             <hr class="separator">
-            <p id="IPparagraph1" hidden><strong>-> IP local detectada: <mark><span id="instrucciones_iplocal1"> </mark> </strong></p>
+            <p id="IPparagraph1" hidden><strong>-> IP local detectada: <mark><span id="instrucciones_iplocal1"> </mark>
+              </strong></p>
             <div class="helpDiv" role="complementary">
               <p id="verMasC1-ip_p1" hidden>
                 -> <strong>Windows 11</strong>: Entré a “Configuración” y luego a la sección de “Red & Internet”. Si se
@@ -522,9 +524,10 @@
               /
               <input type="button" id="verMasC2-LED_2" class="input-paragraph-button" value="El LED no prende"
                 onclick="toggleActive(this); verMas('verMasC2-2')" />
-              /
-              <input type="button" id="verMasC2-WIM_3" class="input-paragraph-button" value="¿Como enciendo el wimumo?"
-                onclick="toggleActive(this); verMas('verMasC2-3')" />
+              <!--/
+              <input type="button" id="verMasC2-WIM_3" class="input-paragraph-button" 
+              value="¿Como enciendo el wimumo?"
+                onclick="toggleActive(this); verMas('verMasC2-3')" />-->
 
               <input type="checkbox" id="confCheckCo2" name="Step 2 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 2">
@@ -534,7 +537,8 @@
             <hr class="separator">
             <div class="helpDiv" role="complementary">
               <p id="verMasC2-1" hidden> -> <strong>LED titla lentamente con un color</strong>: Esto indica que está en
-                modo “OSC” o modo de uso normal. Si WIMUMO no entró en modo de configuración, entonces lo puede cambiar
+                modo “OSC” o modo de uso normal. Si WIMUMO no entró en modo de configuración automáticamente, entonces
+                lo puede cambiar
                 presionando el pulsador. El pulsador se encuentra en un agujero circular del dispositivo WIMUMO, para
                 presionarlo necesitará un objeto largo y fino (por ejemplo: una aguja).
               </p>
@@ -563,8 +567,9 @@
               <h5 class="sr-only">Paso 3 - Ingresar a la página de configuración</h5>
 
               <!--Texto -->
-              <p>Ahora en esta máquina busque la red Wi-Fi WIMUMOxxx (por ejemplo: WIMUMO023), y conéctese con la
-                contraseña “wifiwimumo”.</p>
+              <p>Ahora en esta máquina busque la red Wi-Fi <mark>WIMUMOxxx</mark> (por ejemplo: WIMUMO023), y conéctese
+                con la
+                contraseña <mark>“wifiwimumo”</mark>.</p>
               <p id="text-step3">Con un navegador web (por ejemplo: Google Chrome) ingrese a la dirección
                 "<a class="internetA" href="http://192.168.0.2" target="_blank">
                   192.168.0.2
@@ -649,7 +654,8 @@
               <p>Ahora haga clic en "Configurar OSC".</p>
               <p>Ingrese la <mark> IP local </mark> que busco o detectó en el paso 1 y el puerto <mark> “4560” </mark>.
               </p>
-              <p id="IPparagraph2" hidden><strong>-> IP local detectada: <mark> <span id="instrucciones_iplocal2"></mark> </strong></p>
+              <p id="IPparagraph2" hidden><strong>-> IP local detectada: <mark> <span
+                      id="instrucciones_iplocal2"></mark> </strong></p>
 
               <!--Botones -->
               <input type="button" id="verMasC5" class="input-paragraph-button" value="¿Qué es OSC?"
@@ -731,15 +737,16 @@
               </p>
               <p>Si WIMUMO logró conectarse a esta aplicación, el siguiente indicador lo confirmara:</p>
 
-              <p id="status-text-guide" class="connection_indicator_text conectar_dispositivo_text">
+              <p id="status-text-guide-c" class="connection_indicator_text conectar_dispositivo_text">
                 -> WIMUMO Desconectado</p>
-            <!--
+
+              <!--
               <div class="status-container-guide" role="alert" aria-label="Indicador de conexion con WIMUMO">
                 <div id="connection-indicator-guide" class="connection_indicator_OFF" role="status" aria-labelledby="connectionStatus"></div>
                 <p id="status-text-guide" class="connection_indicator_text conectar_dispositivo_text">
                   No se detecta ningun WIMUMO conectado</p>
               </div>-->
-              
+
               <!--<p>Puede confirmar el estado del WIMUMO en la seccion "Estado" del menu lateral.</p>-->
               <br>
 
@@ -747,6 +754,9 @@
               <input type="button" id="verMasC7_first" class="input-paragraph-button"
                 value="El LED se mantiene apagado cuando prendo el WIMUMO"
                 onclick="toggleActive(this); verMas('verMasC7-1')" tabindex="0" />
+              /
+              <input type="button" id="verMasC7_fourth" class="input-paragraph-button" value="Problemas con la IP"
+                onclick="toggleActive(this); verMas('verMasC7-4')" tabindex="0" />
               /
               <input type="button" id="verMasC7_second" class="input-paragraph-button"
                 value="El LED titila de un color, pero no se conectó a esta aplicación"
@@ -756,18 +766,19 @@
                 onclick="toggleActive(this); verMas('verMasC7-3')" tabindex="0" />
 
 
+
               <input type="checkbox" id="confCheckCo7" name="Step 7 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 7">
             </div>
             <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
-              <p id="verMasC7-1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
+              <p id="verMasC7-1" hidden> -> <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
                 Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
                 escrito mal la contraseña de la red Wi-Fi, o la dirección ip. Para solucionar el problema debería apagar
                 la red Wi-Fi o alejar el WIMUMO del área de la red y reiniciar el mismo. Si logro que el LED titile de
                 un color o varios colores entonces puede prender la red Wi-Fi y volver a configurar el dispositivo.</p>
-              <p id="verMasC7-2" hidden> - <strong>El LED titila de un color, pero no se conectó a esta
+              <p id="verMasC7-2" hidden> -> <strong>El LED titila de un color, pero no se conectó a esta
                   aplicación</strong>:
                 Espere un tiempo y confirme entrando a “Estado” que no se conectó el dispositivo. Asegúrese de que la
                 máquina esté conectada a su red Wi-Fi local.
@@ -779,9 +790,13 @@
 
                 Asegúrese de que ingresó correctamente la Ip local de esta máquina y el puerto 4560.
               </p>
-              <p id="verMasC7-3" hidden> - <strong>Problemas con la Firewall</strong>:
+              <p id="verMasC7-3" hidden> -> <strong>Problemas con la Firewall</strong>:
                 Es posible que la Firewall de esta máquina esté deteniendo los mensajes del WIMUMO, asegúrese de
                 permitir mensajes dirigidos al <mark>puerto 4560</mark>.
+              </p>
+              <p id="verMasC7-4" hidden> -> <strong>Problemas con la IP</strong>:
+                Es posible que la IP local de la computadora cambie al desconectarse y reconectarse a su red Wi-Fi
+                local. En este caso lo mejor es hacer la configuración con la ayuda de un celular.
               </p>
             </div>
 
@@ -790,8 +805,10 @@
         </div>
 
         <div id="btn-container-C7" class="container_relative">
-          <button id="prevButtonComp" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
-          <button id="nextButtonComp" class="small_button button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
+          <button id="prevButtonComp" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo
+          </button>
+          <button id="nextButtonComp" class="small_button button_guide_right"
+            onclick="nextButtonOnClick()">Siguiente</button>
         </div>
 
       </div>
@@ -811,9 +828,10 @@
               <h5 class="sr-only">Paso 0 - Material necesario</h5>
 
               <!--Texto-->
-              <p>Para seguir estas instrucciones necesitará : un <strong>dispositivo WIMUMO</strong>, un
-                <strong>celular</strong> (o dispositivo similar) con conexión Wi-Fi, una <strong>red Wi-Fi</strong>, y
-                <strong>esta máquina</strong> conectada a esta red.
+              <p>Para seguir estas instrucciones necesitará: un <strong>dispositivo WIMUMO</strong>, un
+                <strong>celular</strong> (u otro dispositivo con conexión Wi-Fi), una <strong>red Wi-Fi local</strong>,
+                y
+                <strong>esta máquina</strong> conectada a la red Wi-Fi local.
               </p>
 
               <!--Botones-->
@@ -840,13 +858,21 @@
               <h5 class="sr-only">Paso 1 - Encender WIMUMO en modo de configuración</h5>
 
               <!--Texto-->
-              <p>Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente con
-                colores, esto indica que está en "modo configuración". Si WIMUMO no está en este modo, puede cambiarlo
-                presionando el pulsador.</p>
+              <p>Encienda el dispositivo WIMUMO.</p>
+              <p>Si es la primera vez que configura el dispositivo, este debería entrar en modo de configuración,
+                indicado
+                por el LED titilando rápidamente con varios colores.</p>
 
               <!--Botones-->
               <input type="button" id="verMasP1-pulsador_first" class="input-paragraph-button"
-                value="¿Dónde está el pulsador?" onclick="toggleActive(this); verMas('verMasP1')" />
+                value="El LED titila lentamente con un color" onclick="toggleActive(this); verMas('verMasP1-1')" />
+              /
+              <input type="button" id="verMasP1-pulsador_second" class="input-paragraph-button" value="El LED no prende"
+                onclick="toggleActive(this); verMas('verMasP1-2')" />
+              <!--/
+              <input type="button" id="verMasP1-pulsador_third" class="input-paragraph-button"
+                value="¿Como enciendo el wimumo?" 
+                onclick="toggleActive(this); verMas('verMasP1-3')" -->
 
               <input type="checkbox" id="confCheckPh1" name="Step 1 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 1">
@@ -857,9 +883,21 @@
             <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
-              <p id="verMasP1-pulsador_p1" hidden> - <strong>Pulsador</strong>: Para apretar el pulsador necesita un
-                objeto fino y alargado. Se
-                encuentra escondido en un agujero circular cerca del LED en el dispositivo WIMUMO.</p>
+              <p id="verMasP1-1" hidden> -> <strong>LED titla lentamente con un color</strong>:
+                Esto indica que está en
+                modo “OSC” o modo de uso normal. Si WIMUMO no entró en modo de configuración automáticamente, entonces
+                lo puede cambiar
+                presionando el pulsador. El pulsador se encuentra en un agujero circular del dispositivo WIMUMO, para
+                presionarlo necesitará un objeto largo y fino (por ejemplo: una aguja).
+              </p>
+              <p id="verMasP1-2" hidden> -> <strong>LED no prende</strong>: Asegúrese de que el dispositivo WIMUMO tiene
+                batería antes de prenderlo. - Si no es la primera vez que estás configurando el dispositivo es posible
+                que esté mal configurado. Para evitar el problema puede alejar el dispositivo de la red Wi-Fi mal
+                configurada o apagar la red Wi-fi y reiniciarlo. Si logra que el LED se prenda entonces puede volver a
+                prender la red Wi-Fi y retomar con la configuración del dispositivo.
+              </p>
+              <p id="verMasP1-3" hidden> -> <strong>Encender WIMUMO</strong>: Presione el botón de encendido, como se ve
+                en la imagen</p>
             </div>
 
             <div id="btn-container-P1" class="container_relative">
@@ -878,13 +916,18 @@
               <h5 class="sr-only">Paso 2 - Ingresar a la página de configuración</h5>
 
               <!--Texto-->
-              <p>Haciendo uso del celular busque la red Wi-Fi <mark>WIMUMOxxx</mark> (por ejemplo: WIMUMO023), y
-                conéctese con la contraseña <mark>“wifiwimumo”</mark>. Con un navegador web (por ejemplo: Google Chrome)
-                ingrese a la dirección web <mark>"192.168.0.2"</mark>.</p>
+              <p>Ahora haciendo uso del celular busque la red Wi-Fi <mark>WIMUMOxxx</mark> (por ejemplo: WIMUMO023), y
+                conéctese con la contraseña <mark>“wifiwimumo”</mark>.
+              </p>
+              <p>Y usando un navegador web (por ejemplo: Google Chrome) ingrese a la dirección web
+                "<a class="internetA" href="http://192.168.0.2" target="_blank">
+                  192.168.0.2
+                </a>" en el celular. Esta es la página de configuración.</p>
 
               <!--Botones-->
-              <input type="button" id="verMasP2_first" class="input-paragraph-button" value="Problemas comunes..."
+              <input type="button" id="verMasP2_first" class="input-paragraph-button" value="La red se deconecta..."
                 onclick="toggleActive(this); verMas('verMasP2')" tabindex="0" />
+
               <input type="checkbox" id="confCheckPh2" name="Step 2 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 2">
 
@@ -894,12 +937,13 @@
             <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
-              <p id="verMasP2_p1" hidden> - <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
-                configurar
-                el WIMUMO, y no
-                tiene conexión a internet, por lo que muchos dispositivos la ignoran. Para evitar que pase eso puede:
-                1. Poner el dispositivo en modo avión y activar solo el wifi.
-                2. Ingresar a opciones de la red WIMUMOxxx y seleccione que se conecte automáticamente. </p>
+              <p id="verMasP2_p1" hidden> -> <strong>La red se desconecta</strong>: La red WIMUMOxxx se usa para
+                configurar el WIMUMO, y no tiene conexión a internet, por lo que muchos dispositivos la ignoran. Para
+                evitar que esto ocurra puede:
+              </p>
+              <p id="verMasP2_p2" hidden>1. Poner el dispositivo en modo avión y activar solo el wifi.</p>
+              <p id="verMasP2_p3" hidden>2. Ingresar a opciones de la red WIMUMOxxx y seleccionar que la máquina se
+                conecte automáticamente.</p>
             </div>
 
             <div id="btn-container-P2" class="container_relative">
@@ -918,16 +962,17 @@
               <h5 class="sr-only">Paso 3 - configurar red Wi-Fi</h5>
 
               <!--Texto-->
-              <p>Ingrese a "Configurar WiFi" para ingresar los datos de la red Wi-Fi a donde conectará WIMUMO.
-              </p>
-              <p>Para conectarse con esta aplicación, necesitará seleccionar la red a la que esta máquina está
-                conectada.
-                También necesita ingresar la contraseña de la misma. </p>
-              <p>Los demás campos no son necesarios. Solo necesita apretar “Aplicar”.</p>
+              <p>Dentro de la página de configuración, en el celular, ingrese a "Configurar WiFi".</p>
+              <p>Seleccione su red Wi-Fi local entre las opciones e ingrese su contraseña. Asegúrese de ingresar bien la
+                contraseña.</p>
+              <p>Los demás campos no son necesarios. Solo necesita hacer clic en “Aplicar”.</p>
 
               <!--Botones-->
-              <input type="button" id="verMasP3_first" class="input-paragraph-button" value="Problemas comunes..."
-                onclick="toggleActive(this); verMas('verMasP3')" tabindex="0" />
+              <input type="button" id="verMasP3_first" class="input-paragraph-button"
+                value="No aparece ninguna red Wi-Fi" onclick="toggleActive(this); verMas('verMasP3-1')" tabindex="0" />
+              /
+              <input type="button" id="verMasP3_second" class="input-paragraph-button"
+                value="¿Se guardó la configuración?" onclick="toggleActive(this); verMas('verMasP3-2')" tabindex="0" />
 
               <input type="checkbox" id="confCheckPh3" name="Step 3 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 3">
@@ -938,12 +983,12 @@
             <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
-              <p id="verMasP3_p1" hidden> - <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
-                “Refrescar”. Asegúrese
-                de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
-              <p id="verMasP3_p2" hidden> - <strong>Después de apretar aplicar no indica que se guardó la
-                  configuración</strong>: Eso es
-                normal, la configuración debería haberse guardado, puede seguir con el siguiente paso.</p>
+              <p id="verMasP3-1" hidden> -> <strong>No aparece ninguna red Wi-Fi</strong>: Necesita esperar y apretar
+                “Refrescar”. Asegúrese de re conectar la red WIMUMOxxx si se desconecta en el proceso.</p>
+
+              <p id="verMasP3-2" hidden> -> <strong>¿Se guardó la configuración?</strong>: Después de apretar "aplicar"
+                la página solo responderá “configuración enviada”. No se preocupe, la configuración se guardó
+                correctamente. Puede seguir con el siguiente paso.</p>
 
 
 
@@ -965,16 +1010,33 @@
               <h5 class="sr-only">Paso 4 - Configurar dirección</h5>
 
               <!--Texto-->
-              <p>Ingrese a "Configurar OSC" para ingresar el destino al que mandará las señales el WIMUMO.
-                Para conectar con esta aplicación debe ingresar su dirección IP local <mark> <span
-                    id="instrucciones_iplocal2"> </mark> y el puerto <mark> 4560
-                </mark>.</p>
+              <p>Usando el celular entre en "Configurar OSC".</p>
+
+              <p>Ahora debe buscar la IP local de esta computadora o detectarla automaticamente.</p>
+
+              <button id="IPButtonPhone-activeStep4" class="small_button" onclick="detectarIpLocal()">Detectar IP
+                local</button>
+
+              <p id="IPparagraph3" hidden><strong>-> IP local detectada: <mark><span id="instrucciones_iplocal3">
+                  </mark>
+                </strong></p>
+
+              <p>Cuando la tenga, Ingrese la <mark> IP local </mark> y el puerto <mark>“4560”</mark> en el celular.
+              </p>
+
 
               <!--Botones-->
-              <input type="button" id="verMasP4-ip" class="input-paragraph-button" value="¿Cómo busco mi IP local?"
-                onclick="toggleActive(this); verMas('verMasP4-ip')" tabindex="0" />
+
+              <input type="button" id="verMasP4-ip" class="input-paragraph-button"
+                value="¿Cómo busco mi IP local manualmente?" onclick="toggleActive(this); verMas('verMasP4-ip')"
+                tabindex="0" />
+              /
               <input type="button" id="verMasP4-osc" class="input-paragraph-button" value="¿Qué es OSC?"
                 onclick="toggleActive(this); verMas('verMasP4-osc')" tabindex="0" />
+              /
+              <input type="button" id="verMasP4-wimumo" class="input-paragraph-button"
+                value="¿Como conectar WIMUMO a otras aplicaciones?"
+                onclick="toggleActive(this); verMas('verMasP4-wimumo')" tabindex="0" />
 
               <input type="checkbox" id="confCheckPh4" name="Step 4 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 4">
@@ -984,33 +1046,44 @@
 
             <!--Extra -->
             <hr class="separator">
+
             <div class="helpDiv" role="complementary">
               <p id="verMasP4-ip_p1" hidden>
-                - <strong>Windows</strong>: Deberá entrar a las "propiedades" de la red Wi-Fi a la que esta conectada.
-                Entre las propiedades encontrará su dirección IP local al lado de "dirección IPv4", tendrá la forma
-                "x.x.x.x" (por ejemplo: 127.0.0.1). Para más detalles puede entrar a:
-                <a id="verMasP4-ip_a" class="internetA"
+                -> <strong>Windows 11</strong>: Entré a “Configuración” y luego a la sección de “Red & Internet”. Si se
+                conecta a la red por Wi-Fi entre a la sección de Wi-Fi, si es por cable entre a “Ethernet”. Por último
+                entre a las propiedades de su red local. Entre las propiedades encontrará su dirección IP local al lado
+                de "dirección IPv4", tendrá la forma "x.x.x.x" (por ejemplo: 127.0.0.1). Para más detalles puede entrar
+                a:
+                <a id="verMasC1-ip_a" class="internetA"
                   href="https://support.microsoft.com/es-es/windows/busque-su-dirección-ip-en-windows-f21a9bbc-c582-55cd-35e0-73431160a1b9#Category=Windows_11"
                   target="_blank" hidden>
                   Página oficial de Microsoft Windows
                 </a>
               </p>
 
-              <p id="verMasP4-ip_p2" hidden> - <strong>Linux</strong>: Para encontrar su IP local puede abrir una
+              <p id="verMasP4-ip_p2" hidden> -> <strong>Linux</strong>: Para encontrar su IP local puede abrir una
                 terminal, e ingresar el
-                comando "ifconfig". encontrará su dirección IP local al lado de "inet", tendrá la forma "x.x.x.x" (por
+                comando "ifconfig". Encontrará su dirección IP local al lado de "inet", tendrá la forma "x.x.x.x" (por
                 ejemplo: 127.0.0.1).</p>
 
-              <p id="verMasP4-osc_p1" hidden> - <strong>OSC (Open Sound Control)</strong> es un protocolo de envío de
-                datos. Normalmente es
-                usado para conectar en red sintetizadores, ordenadores y otros dispositivos multimedia. También es el
-                protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
-                modo
-                en donde el dispositivo constantemente envía datos por medio de este protocolo.</p>
 
+              <p id="verMasP4-osc_p1" hidden>-> <strong>OSC (Open Sound Control)</strong> es un protocolo de envío de
+                datos. Normalmente es usado para conectar en red sintetizadores, ordenadores y otros dispositivos
+                multimedia. También es el
+                protocolo que WIMUMO utiliza para enviar información. El "Modo OSC" del WIMUMO o "Modo normal", es el
+                modo en donde el dispositivo constantemente envía datos por medio de este protocolo. 4560 es el puerto
+                en el que esta aplicacion recive los datos.</p>
+
+              <p id="verMasP4-wimumo_p1" hidden> -> <strong>Como conectar WIMUMO a otras aplicaciones</strong>:
+                Utilizando el
+                mismo
+                proceso que usamos para conectar el dispositivo a esta aplicación es posible conectarlo a otras
+                aplicaciones. Solo es necesario cambiar el número de puerto “4560”, por el puerto que otras aplicaciones
+                utilizan para recibir mensajes.
+              </p>
             </div>
 
-            <div      id="btn-container-P4" class="container_relative">
+            <div id="btn-container-P4" class="container_relative">
               <button id="prevButtonPhone4" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
               <button id="nextButtonPhone4" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
               <br><br>
@@ -1026,9 +1099,10 @@
               <h5 class="sr-only">Paso 5 - Cambiar a modo de uso normal</h5>
 
               <!--Texto-->
-              <p>Presione botón “Modo OSC” en la aplicación de configuración, o el pulsador en el WIMUMO para
-                cambiar al modo de uso normal. En este modo el WIMUMO mandará las señales que lea a la dirección
-                indicada.
+              <p>Presione el botón “Modo OSC” en la aplicación de configuración, o el pulsador en el dispositivo para
+                cambiar al modo de uso normal.
+              </p>
+              <p>Ya puede desconectar su celular de la red WIMUMOxxx.
               </p>
 
               <!--Botones-->
@@ -1041,7 +1115,7 @@
             <!--Extra -->
             <hr class="separator">
 
-            <div      id="btn-container-P5" class="container_relative">
+            <div id="btn-container-P5" class="container_relative">
               <button id="prevButtonPhone5" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
               <button id="nextButtonPhone5" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
               <br><br>
@@ -1057,16 +1131,25 @@
               <h5 class="sr-only">Último paso - Confirmar conexión</h5>
 
               <!--Texto-->
-              <p>Si WIMUMO logró conectarse a la red Wi-Fi configurada verá el LED titilar lentamente con un único
+              <p>Si WIMUMO logró conectarse a la red Wi-Fi local, entonces verá el LED titilar lentamente con un único
                 color.
               </p>
-              <p>Si se configuró correctamente la dirección IP de esta máquina, y el puerto de esta aplicación, entonces
-                se debería haber conectado a esta aplicación. Puede confirmarlo entrando a “Estado” </p>
+              <p>Si WIMUMO logró conectarse a esta aplicación, el siguiente indicador lo confirmara:</p>
+
+              <p id="status-text-guide-p" class="connection_indicator_text conectar_dispositivo_text">
+                -> WIMUMO Desconectado</p>
 
               <!--Botones-->
-              <input type="button" id="verMasP6_first" class="input-paragraph-button" value="Problemas comunes..."
-                onclick="toggleActive(this); verMas('verMasP6')" tabindex="0" />
-
+              <input type="button" id="verMasP6_first" class="input-paragraph-button"
+                value="El LED se mantiene apagado cuando prendo el WIMUMO"
+                onclick="toggleActive(this); verMas('verMasP6-1')" tabindex="0" />
+              /
+              <input type="button" id="verMasP6_second" class="input-paragraph-button"
+                value="El LED titila de un color, pero no se conectó a esta aplicación"
+                onclick="toggleActive(this); verMas('verMasP6-2')" tabindex="0" />
+              /
+              <input type="button" id="verMasP6_third" class="input-paragraph-button" value="Problemas con la Firewall"
+                onclick="toggleActive(this); verMas('verMasP6-3')" tabindex="0" />
 
               <input type="checkbox" id="confCheckPh6" name="Step 6 checkbox" class="checkbox_right"
                 aria-label="Marcar como completado paso 6">
@@ -1077,34 +1160,37 @@
             <!--Extra -->
             <hr class="separator">
             <div class="helpDiv" role="complementary">
-              <p id="verMasP6_p1" hidden> - <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
+              <p id="verMasP6-1" hidden> -> <strong>El LED se mantiene apagado cuando prendo el WIMUMO</strong>:
                 Si sigue esperando y el WIMUMO no reacciona, en ninguno de los 2 modos, entonces es posible que se haya
-                conectado a la red Wi-Fi, pero esté intentando mandar mensajes a una <mark>dirección errónea</mark>.
-                Para
-                solucionar el
-                problema debería apagar la red Wi-Fi y reiniciar el WIMUMO, o alejar el WIMUMO del área de la red. Luego
-                de hacer esto debería volver a configurar el dispositivo correctamente.</p>
-              <p id="verMasP6_p2" hidden> - <strong>El LED titila de un color, pero no se conectó a esta
+                escrito mal la contraseña de la red Wi-Fi, o la dirección ip. Para solucionar el problema debería apagar
+                la red Wi-Fi o alejar el WIMUMO del área de la red y reiniciar el mismo. Si logro que el LED titile de
+                un color o varios colores entonces puede prender la red Wi-Fi y volver a configurar el dispositivo.</p>
+              <p id="verMasP6-2" hidden> -> <strong>El LED titila de un color, pero no se conectó a esta
                   aplicación</strong>:
-                Alguno de los datos ingresados en el
-                paso 4 debieron de estar errados. Intente apretar el pulsador, volver a la sección de “Configurar OSC”
-                en
-                la aplicación de configuración e ingresar los datos de nuevo. Asegúrese de que ingresó correctamente la
-                Ip
-                local de esta máquina. </p>
-              <p id="verMasP6_p3" hidden> - <strong>Problemas con la Firewall</strong>:
-                Es posible que la Firewall de esta
-                máquina esté deteniendo los mensajes del WIMUMO, asegúrese de permitir mensajes dirigidos a la
-                <mark>dirección
-                  4560</mark>.
+                Espere un tiempo y confirme entrando a “Estado” que no se conectó el dispositivo. Asegúrese de que la
+                máquina esté conectada a su red Wi-Fi local.
+
+                Si siguió todos los pasos correctamente, es posible que la dirección IP o el puerto ingresados en el
+                <strong>paso 4</strong> fueran incorrectos. Presione el pulsador para devolver el dispositivo al modo de
+                configuración y vuelva al <strong>paso 4</strong>. El pulsador se encuentra en un agujero circular del
+                dispositivo WIMUMO, para presionarlo necesitará un objeto largo y fino (por ejemplo: una aguja).
+
+                Asegúrese de que ingresó correctamente la Ip local de esta máquina y el puerto 4560.
+              </p>
+              <p id="verMasP6-3" hidden> -> <strong>Problemas con la Firewall</strong>:
+                Es posible que la Firewall de esta máquina esté deteniendo los mensajes del WIMUMO, asegúrese de
+                permitir mensajes dirigidos al <mark>puerto 4560</mark>.
+              </p>
             </div>
           </section>
 
         </div>
 
         <div id="btn-container-P6" class="container_relative">
-          <button id="prevButtonPh" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo </button>
-          <button id="nextButtonPh" class="small_button button_guide_right" onclick="nextButtonOnClick()">Siguiente</button>
+          <button id="prevButtonPh" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo
+          </button>
+          <button id="nextButtonPh" class="small_button button_guide_right"
+            onclick="nextButtonOnClick()">Siguiente</button>
         </div>
 
       </div>

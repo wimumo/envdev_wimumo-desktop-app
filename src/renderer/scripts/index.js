@@ -148,7 +148,8 @@ window.api.receive('osc', (data) => {
 const indicator = document.getElementById('connection-indicator')
 //const indicatorGuide = document.getElementById('connection-indicator-guide')
 const statusText = document.getElementById('status-text');
-const statusTextGuide = document.getElementById('status-text-guide');
+const statusTextGuide = document.getElementById('status-text-guide-c');
+const statusTextGuide2 = document.getElementById('status-text-guide-p');
 
 // Actualizar Home page
 const homePageDisconnectedDiv = document.getElementById('homePageDisconnectedDiv');
@@ -172,6 +173,10 @@ function updateConnectionIndicator(bool) {
     statusTextGuide.classList.remove('conectar_dispositivo_text');
     statusTextGuide.classList.add('dispositivo_conectado_text');
 
+    statusTextGuide2.textContent = '-> WIMUMO Conectado';
+    statusTextGuide2.classList.remove('conectar_dispositivo_text');
+    statusTextGuide2.classList.add('dispositivo_conectado_text');
+
   } else {
     // Indicador de conexion del menu
     indicator.className = "connection_indicator_OFF";
@@ -188,5 +193,9 @@ function updateConnectionIndicator(bool) {
     statusTextGuide.textContent = '-> WIMUMO Desconectado';
     statusTextGuide.classList.remove('dispositivo_conectado_text');
     statusTextGuide.classList.add('conectar_dispositivo_text');
+
+    statusTextGuide2.textContent = '-> WIMUMO Desconectado';
+    statusTextGuide2.classList.remove('dispositivo_conectado_text');
+    statusTextGuide2.classList.add('conectar_dispositivo_text');
   }
 }
