@@ -65,7 +65,9 @@ const textosDinamicos = [
 
     // Botones
     { value: 'rerouteButtonON', text: 'Iniciar redirección' },
-    { value: 'rerouteButtonOFF', text: 'Detener redirección' }
+    { value: 'rerouteButtonOFF', text: 'Detener redirección' }, 
+    { value: 'rerouteButtonLoad', text: 'Comprobando IP...' },
+    
 ];
 
 function findText(value) {
@@ -203,7 +205,7 @@ function updateFields() {
             // Port label add
             const portLabel = document.createElement('label');
             portLabel.setAttribute('for', `reroute_port_${i}`);
-            portLabel.innerText = 'Port: ';
+            portLabel.innerText = 'Puerto: ';
             portLabel.className = "inputLabel";
             indexIpPortContainer.appendChild(portLabel);
 
@@ -283,6 +285,10 @@ function disableButton(reroute_button) {
 function enableButton(reroute_button) {
     reroute_button.classList.remove('undo-button');
     reroute_button.innerText = findText("rerouteButtonON");
+}
+
+function loadingButton(reroute_button) {
+    reroute_button.innerText = findText("rerouteButtonLoad");
 }
 
 // Inputs
@@ -382,12 +388,14 @@ function updateStateMessage() {
 }*/
 
 
-function ipcSend_pingIP(ip, posicion) {
+function ipcSend_pingIP(ip, posicion, rerouteBtn) {
     /* Envia la señal a main para que haga un ping a la ip especificada. Despues de hacer el ping la funcion sigue en 'ping-result' */
     const data = {
         ip: ip,
         posicion: posicion
     };
+
+    loadingButton(rerouteBtn);
 
     window.api.send('ping-ip', data);
 }
@@ -396,6 +404,8 @@ function ipcSend_pingIP(ip, posicion) {
 window.api.receive('ping-result', (data) => {
     /* Recive la señal del main y activa la redirección si la ip que se ingreso esta habilitada. */
 
+    const rerouteButton = document.getElementById(`reroute_button_${data.posicion}`)
+
     if (data.resultado.alive) {
         // Si el ping fue exitoso
         //document.getElementById("rerouter_dialog_p").textContent = "LES GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
@@ -403,7 +413,7 @@ window.api.receive('ping-result', (data) => {
         const ipInput = document.getElementById(`reroute_ip_${data.posicion}`);
         const portInput = document.getElementById(`reroute_port_${data.posicion}`);
         const filterInput = document.getElementById(`filter_${data.posicion}`);
-        const rerouteButton = document.getElementById(`reroute_button_${data.posicion}`)
+        
 
 
         // Actualizar variable y enviar mensaje a main para activar el reruteo
@@ -418,11 +428,15 @@ window.api.receive('ping-result', (data) => {
         // Actualizar Estado de configuracion
         updateStateMessage();
 
+        alert('Redirección iniciada correctamente');
+
     } else {
         // Si el ping fallo
         const ipError = document.getElementById(`ip_error_${data.posicion}`);
 
         showInputError(ipError, findText('pingError'));
+
+        enableButton(rerouteButton)
 
         //document.getElementById("rerouter_dialog_p").textContent = "PING FAILEDDDDDDDDDDDDDDDD";
 
@@ -575,7 +589,7 @@ function habilitarReruteoPorPosicion(posicion) {
     if (valid) {
 
        // Si el resto de las validaciones son correctas, entonces hace un Ping a la ip objetivo para asegurarse de que esta disponible
-        ipcSend_pingIP(ipInput.value, posicion);
+        ipcSend_pingIP(ipInput.value, posicion, rerouteButton);
 
     }
 

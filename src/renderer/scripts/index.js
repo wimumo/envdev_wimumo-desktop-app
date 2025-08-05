@@ -1,11 +1,24 @@
 /* Menu principal */
+var is_menu_open = false;
+
+function menu_toogle() {
+  if (is_menu_open) {
+    menu_close();
+  } else {
+    menu_open();
+  }
+}
 
 function menu_open() {
+  is_menu_open = true;
+  document.getElementById('expand_menu_button').getAttribute('aria-expanded') === 'true';
   document.getElementById('menu').setAttribute('shown', '');
   document.getElementById("overlay").setAttribute('shown', '');
 }
 
 function menu_close() {
+  is_menu_open = false;
+  document.getElementById('expand_menu_button').getAttribute('aria-expanded') === 'false';
   document.getElementById('menu').removeAttribute('shown');
   document.getElementById('overlay').removeAttribute('shown');
 }
@@ -169,13 +182,15 @@ function updateConnectionIndicator(bool) {
 
     // Actualizar guia de configuracion
     //indicatorGuide.className = "connection_indicator_ON";
-    statusTextGuide.textContent = '-> WIMUMO Conectado';
+    statusTextGuide.textContent = '-> WIMUMO Conectado exitosamente';
     statusTextGuide.classList.remove('conectar_dispositivo_text');
     statusTextGuide.classList.add('dispositivo_conectado_text');
 
-    statusTextGuide2.textContent = '-> WIMUMO Conectado';
+    statusTextGuide2.textContent = '-> WIMUMO Conectado exitosamente';
     statusTextGuide2.classList.remove('conectar_dispositivo_text');
     statusTextGuide2.classList.add('dispositivo_conectado_text');
+
+    alert('WIMUMO Conectado exitosamente');
 
   } else {
     // Indicador de conexion del menu

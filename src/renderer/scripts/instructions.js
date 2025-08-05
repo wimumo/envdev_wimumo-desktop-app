@@ -28,6 +28,8 @@ window.api.receive('iplocal', (data) => {
 
 // divs
 const guiasMainDiv = document.getElementById('guiasMainDiv');               // Pagina principal de guias
+const guiasDeUsoDesc = document.getElementById('guiasDeUsoDesc');
+
 const configGuideDiv = document.getElementById('configGuideDiv');           // primera pantalla de congif wimumo
 const phoneConfigGuideDiv = document.getElementById('phoneConfigGuideDiv'); // guia con celular
 const compConfigGuideDiv = document.getElementById('compConfigGuideDiv');   // guia con misma maquina
@@ -45,6 +47,7 @@ const confBtn = document.getElementById('confBtn');
 function hideAllGuides() {
     /* Antes de mostrar una guia siempre se necesita esconder el resto */
     guiasMainDiv.setAttribute('hidden', '');
+    guiasDeUsoDesc.setAttribute('hidden', '');
     configGuideDiv.setAttribute('hidden', '');
     phoneConfigGuideDiv.setAttribute('hidden', '');
     compConfigGuideDiv.setAttribute('hidden', '');
@@ -61,7 +64,7 @@ function homeGuia() {
     /* Muestra todas las guias */
     hideAllGuides();
 
-    showElement([guiasMainDiv, guideFooter]);
+    showElement([guiasMainDiv, guiasDeUsoDesc, guideFooter]);
 }
 
 function guiaConfig() {
@@ -244,19 +247,19 @@ function showStep(step) {
     currentStepElement.classList.add('active');             // Muestra el paso actual
     currentStepElement.setAttribute("aria-hidden", "false");
 
-    currentStepElement.scrollIntoView({
+    currentStepElement.scrollIntoView({                     // Mueve la camara
         behavior: 'smooth',
         block: 'center' // or 'start', 'end', or 'nearest' 
     });
 
 
-    //togglePreviousBtn(step === 1);                          // Esconde el boton "previo" en el primer paso
+    //togglePreviousBtn(step === 1);                        // Esconde el boton "previo" en el primer paso
 
     checkboxes.forEach((checkbox, index) => {
         if ((index + 1) < step) checkbox.checked = true;    // Checkea las checkboxes previas por si hubo un salto
     })
 
-    toggleDetectarIPBtn(step);                        // Deja el boton gris o no
+    toggleDetectarIPBtn(step);                              // Deja el boton gris o no
 
     hideAllBtnContainers();                                 // Mueve los botones prev y siguiente
     showBtnContainer(step - 1);

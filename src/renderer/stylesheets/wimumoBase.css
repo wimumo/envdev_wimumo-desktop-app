@@ -13,16 +13,16 @@
   --font-size-allways-big: x-large;
 
   /* Allways themed */
-  --button-background-color-allways-dark: #333; 
-  --button-color-allways-dark: #f0f0f0; 
-  --button-color-border-allways-dark:#555; 
+  --button-background-color-allways-dark: #333;
+  --button-color-allways-dark: #f0f0f0;
+  --button-color-border-allways-dark: #555;
   --button-color-border-focus-allways-dark: #888;
   --button-shadow-color-focus-allways-dark: #999;
   --button-color-hover-allways-dark: #444;
   --button-color-active-allways-dark: var(--color-dark-grey);
 
-  --button-background-color-allways-ligth: #fafafa; 
-  --button-color-allways-ligth: #333; 
+  --button-background-color-allways-ligth: #fafafa;
+  --button-color-allways-ligth: #333;
   --button-color-border-allways-ligth: #ccc;
   --button-color-border-focus-allways-ligth: #777;
   --button-shadow-color-focus-allways-ligth: #888;
@@ -34,21 +34,25 @@
 html {
   display: flex;
   box-sizing: border-box;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   min-height: 100%;
-  -ms-text-size-adjust:100%;
-  -webkit-text-size-adjust:100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   background-color: var(--background-color2);
 }
-* , *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
+
 body {
   display: flex;
   flex: 1;
   flex-direction: column;
   font-family: "Raleway", sans-serif;
-  font-size: var(--font-size-body); 
+  font-size: var(--font-size-body);
   line-height: 1.5;
   max-width: 1600px;
   margin: 0 auto 0 auto;
@@ -62,42 +66,49 @@ title {
   font-weight: 400;
   margin: 10px 0;
 }
+
 h1 {
   font-size: var(--font-size-h1);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
-h2 { 
+
+h2 {
   font-size: var(--font-size-h2);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
-  margin: 10px 0; 
+  margin: 10px 0;
 }
+
 h3 {
   font-size: var(--font-size-h3);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
+
 h4 {
   font-size: var(--font-size-h4);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
+
 h5 {
   font-size: var(--font-size-h5);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
+
 h6 {
   font-size: var(--font-size-h6);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin: 10px 0;
 }
+
 hr {
   border: 0px;
   border-top: 1px solid;
@@ -105,74 +116,104 @@ hr {
   opacity: 0.60;
   overflow: visible;
 }
-b, strong {
+
+b,
+strong {
   font-weight: bolder;
 }
+
 mark {
   background-color: var(--mark-color);
   border-radius: 10px;
   color: inherit;
 }
+
 a {
   color: inherit;
   background-color: transparent;
 }
-a:active, a:hover {
+
+a:active,
+a:hover {
   outline-width: 0
 }
 
 /* input types*/
-input[type="radio"]{
+input[type="radio"] {
   accent-color: var(--radio-color-accent);
 }
+
 input[type="checkbox"] {
   width: 2em;
   height: 2rem;
   accent-color: var(--checkbox-color-accent);
 }
+
 input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
+
 input[type="checkbox"]:hover {
   color: var(--color-black);
 }
+
 input[type="checkbox"]:focus {
   color: var(--checkbox-color-accent);
-  box-shadow: 0 0 5px var(--checkbox-color-accent); /* Optional: Add a subtle glow */
+  box-shadow: 0 0 5px var(--checkbox-color-accent);
+  /* Optional: Add a subtle glow */
   outline: 2px solid var(--checkbox-color-outline);
 }
+
 .checkboxLabel {
-  font-size: var(--font-size-checkbox); /* Match the font size to the checkbox height */
+  font-size: var(--font-size-checkbox);
+  /* Match the font size to the checkbox height */
 }
 
+input {
+  /* Técnica  C42*/
+  min-height: 24px;
+  min-width: 24px;
+}
 /* Style for text, number inputs, and select elements */
 input[type="text"],
 input[type="number"],
 select {
-  font-family: 'Arial', sans-serif; /* Customize font */
-  font-size: var(--font-size-body); /*16px; /* Set font size */
-  color: var(--input-text-color); /* Text color */
-  padding: 5px; /* Add padding for better appearance */
-  border: 1px solid var(--input-border-color); /* Add a border */
-  border-radius: 10px; /* Round the corners */
+  font-family: 'Arial', sans-serif;
+  /* Customize font */
+  font-size: var(--font-size-body);
+  /*16px; /* Set font size */
+  color: var(--input-text-color);
+  /* Text color */
+  padding: 5px;
+  /* Add padding for better appearance */
+  border: 1px solid var(--input-border-color);
+  /* Add a border */
+  border-radius: 10px;
+  /* Round the corners */
   /*width: 150px; /* Optional: Adjust width */
   background-color: var(--input-background-color);
-  
+
 }
+
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
-  border: 1px solid var(--mark-color-bold); /* #007bff; /* Change border color on focus */
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 5px var(--input-focus-shadow-color); /* Optional: Add a subtle glow */
+  border: 1px solid var(--mark-color-bold);
+  outline: none;
+  box-shadow: 0 0 5px var(--input-focus-shadow-color);
 }
+
 /* Placeholder text style */
 input[type="text"]::placeholder,
 input[type="number"]::placeholder {
-  color: var(--input-placeholder-color); /* Change this color to whatever you prefer */
-  font-style: italic; /* Optional: Add italics for placeholder */
-  opacity: 1; /* Adjust opacity if needed, 1 = fully opaque */
+  color: var(--input-placeholder-color);
+  /* Change this color to whatever you prefer */
+  font-style: italic;
+  /* Optional: Add italics for placeholder */
+  opacity: 1;
+  /* Adjust opacity if needed, 1 = fully opaque */
 }
+
 /* Specific width for number inputs */
 input[type="number"] {
   width: 100px;
@@ -182,41 +223,50 @@ input[type="number"] {
 
 button {
   font: inherit;
-  background-color: var(--button-background-color); 
-  color: var(--button-color); 
-  border: 2px solid var(--button-color-border); 
-  padding: 10px 20px; 
+  background-color: var(--button-background-color);
+  color: var(--button-color);
+  border: 2px solid var(--button-color-border);
+  padding: 10px 20px;
   border-radius: 10px;
   cursor: pointer;
+
+  /* Técnica  C42*/
+  min-height: 44px;
+  min-width: 44px;
 }
+
 button:hover {
-  background-color: var(--button-color-hover); /* Dark Mode hover effect */
+  background-color: var(--button-color-hover);
+  /* Dark Mode hover effect */
 }
-button:active { 
+
+button:active {
   background-color: var(--button-color-active);
   border: 2px solid var(--button-color-border);
 }
+
 button:focus {
-  border: 2px solid var(--button-color-border-focus); /* #007bff; /* Change border color on focus */
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 5px var(--button-shadow-color-focus); /* Optional: Add a subtle glow */
+  border: 2px solid var(--button-color-border-focus);
+  outline: none;
+  box-shadow: 0 0 5px var(--button-shadow-color-focus);
 }
 
 .small_button {
   font: inherit;
-  background-color: var(--button-background-color); 
-  color: var(--button-color); 
-  border: 2px solid var(--button-color-border); 
-  padding: 5px 15px; 
+  background-color: var(--button-background-color);
+  color: var(--button-color);
+  border: 2px solid var(--button-color-border);
+  padding: 5px 15px;
   border-radius: 10px;
   cursor: pointer;
 }
+
 .small_button.inactive {
   font: inherit;
-  background-color: var(--button-background-color); 
-  color: var(--inactive-step-color); 
-  border: 2px solid var(--button-color-border); 
-  padding: 5px 15px; 
+  background-color: var(--button-background-color);
+  color: var(--inactive-step-color);
+  border: 2px solid var(--button-color-border);
+  padding: 5px 15px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -228,18 +278,18 @@ div {
   display: block;
 }
 
-:focus-visible{
+:focus-visible {
   outline: none;
 }
 
 /* Diseño dinámico */
 [hidden] {
-  display: none!important;
+  display: none !important;
 }
 
 /* Menu de la izquierda - START ------------------ */
 .menu {
-  height: 100%; 
+  height: 100%;
   width: 300px;
   z-index: 3;
   position: fixed;
@@ -251,8 +301,26 @@ div {
   background-color: var(--background-menu-color);
   animation: animateleft 0.4s;
 }
-@media (max-width:992px){.menu{display: none;}.menu[shown]{display: block;}}
-@media (min-width:993px){.menu{display: block;}.menu[shown]{display: block;}}
+
+@media (max-width:992px) {
+  .menu {
+    display: none;
+  }
+
+  .menu[shown] {
+    display: block;
+  }
+}
+
+@media (min-width:993px) {
+  .menu {
+    display: block;
+  }
+
+  .menu[shown] {
+    display: block;
+  }
+}
 
 
 .menu-title {
@@ -262,17 +330,21 @@ div {
   font-weight: bold;
   text-decoration: none;
 }
+
 .menu-title:focus {
   /*box-shadow: 0 0 0 2px var(--menu-button-active-boxshadow);*/
   text-decoration: underline;
   color: var(--text-color)
 }
+
 .menu-title:active {
   /*box-shadow: 0 0 0 2px var(--menu-button-active-boxshadow);*/
   color: var(--button-color-hover)
 }
+
 .menu-title-text {
-  text-decoration: none; /* Removes the underline */
+  text-decoration: none;
+  /* Removes the underline */
   color: inherit;
 }
 
@@ -292,21 +364,28 @@ div {
   user-select: none;
   white-space: normal;
   margin-bottom: 2px;
-  
-  border-top: 2px solid var(--background-menu-color); /* Border only on top */
-  border-bottom: 2px solid var(--background-menu-color); /* Border only on bottom */
-  border-left: none; /* Remove left border */
-  border-right: none; /* Remove right border */
+
+  border-top: 2px solid var(--background-menu-color);
+  /* Border only on top */
+  border-bottom: 2px solid var(--background-menu-color);
+  /* Border only on bottom */
+  border-left: none;
+  /* Remove left border */
+  border-right: none;
+  /* Remove right border */
   outline: none;
 }
+
 .menu-button:hover {
   color: var(--menu-button-hover-color);
   background-color: var(--menu-button-hover-background-color);
 }
+
 .menu-button:focus {
   border-top: 2px solid var(--menu-button-active-boxshadow);
   border-bottom: 2px solid var(--menu-button-active-boxshadow);
 }
+
 .menu-button:active {
   background-color: var(--menu-button-active-background-color);
 }
@@ -318,8 +397,18 @@ div {
   margin-right: 16px;
   font-size: var(--font-size-h3);
 }
-@media (max-width:992px){.menu-close-button{display: block;}}
-@media (min-width:993px){.menu-close-button{display: none;}}
+
+@media (max-width:992px) {
+  .menu-close-button {
+    display: block;
+  }
+}
+
+@media (min-width:993px) {
+  .menu-close-button {
+    display: none;
+  }
+}
 
 .menu-top-bar {
   width: 100%;
@@ -328,11 +417,21 @@ div {
   top: 0;
   padding: 16px;
   font-size: var(--font-size-h3);
-  color : var(--text-menu-color);
+  color: var(--text-menu-color);
   background-color: var(--background-menu-color);
 }
-@media (max-width:992px){.menu-top-bar{display: block;}}
-@media (min-width:993px){.menu-top-bar{display: none;}}
+
+@media (max-width:992px) {
+  .menu-top-bar {
+    display: block;
+  }
+}
+
+@media (min-width:993px) {
+  .menu-top-bar {
+    display: none;
+  }
+}
 
 .menu-top-title {
   float: left;
@@ -357,8 +456,26 @@ div {
   cursor: pointer;
   animation: opac 0.8s;
 }
-@media (max-width:992px){.menu-overlay{display: none;}.menu-overlay[shown]{display: block;}}
-@media (min-width:993px){.menu-overlay{display: none;}.menu-overlay[shown]{display: none;}}
+
+@media (max-width:992px) {
+  .menu-overlay {
+    display: none;
+  }
+
+  .menu-overlay[shown] {
+    display: block;
+  }
+}
+
+@media (min-width:993px) {
+  .menu-overlay {
+    display: none;
+  }
+
+  .menu-overlay[shown] {
+    display: none;
+  }
+}
 
 /* Menu de la izquierda - END ------------------ */
 
@@ -367,10 +484,22 @@ div {
 .main {
   transition: margin-left .4s;
 }
-@media (max-width:992px){.main{margin-left: 0; margin-right: 0; margin-top: 83px;}}
-@media (min-width:993px){.main{margin-left: 300px;}}
 
-.main > div {
+@media (max-width:992px) {
+  .main {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 83px;
+  }
+}
+
+@media (min-width:993px) {
+  .main {
+    margin-left: 300px;
+  }
+}
+
+.main>div {
   min-height: 100%;
   padding: 32px;
 }
@@ -396,12 +525,14 @@ div {
   margin: 8px 16px 8px 0px;
   background-color: var(--graph-background-color1);
 }
+
 .graph select {
   min-width: 200px;
   padding: 8px;
   font: inherit;
   background-color: var(--input-background-color2);
 }
+
 .graph canvas {
   display: block;
   background-color: var(--graph-background-color2);
@@ -418,21 +549,25 @@ div {
 
   padding: 0px 0px;
 }
+
 .zoomButton:hover {
   background-color: var(--graph-button-hover);
 }
+
 .zoomButton:focus {
   box-shadow: 0 0 0 1px var(--graph-box-shadow);
 }
 
-button.zoomIn{
+button.zoomIn {
   background-image: url('../assets/images/zoomin.png');
   margin-right: 8px;
 }
-button.zoomOut{
+
+button.zoomOut {
   background-image: url('../assets/images/zoomout.png');
 }
-.graph > p {
+
+.graph>p {
   margin: 0px;
 }
 
@@ -445,9 +580,11 @@ button.zoomOut{
 .msg {
   padding: 16px;
 }
+
 .msg.error {
   background-color: var(--msg-error-color);
 }
+
 .msg.info {
   background-color: var(--msg-info-color);
 }
@@ -466,32 +603,41 @@ footer {
 .inputError {
   color: var(--error-color);
   font-size: var(--font-size-input-error);
-  display: none; /* Hide by default */
+  display: none;
+  /* Hide by default */
 }
 
 .inputLabel {
-  padding-left: 20px; /* Adjust this value as needed for desired indentation */
+  padding-left: 20px;
+  /* Adjust this value as needed for desired indentation */
 }
 
 .separator {
-  border: 1px solid  var(--separator-color);
+  border: 1px solid var(--separator-color);
   margin: 10px 0;
 }
 
 .right-button {
   position: absolute;
-  /*
-  left: 90%;
-  top: 5%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);*/
   right: 10px;
   bottom: 0px;
 }
 
+@media (max-width: 700px) {
+  .right-button {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    margin-top: 1rem;
+  }
+}
+
 .container_relative {
   position: relative;
+  width: 100%;
 }
+
 
 .select:focus {
   box-shadow: 0 0 0 1px var(--button-color-border);
@@ -500,8 +646,10 @@ footer {
 .href-focus:hover {
   background-color: var(--href-hover-color);
   color: var(--text-color);
-  outline: none; /* Removes the default outline */
+  outline: none;
+  /* Removes the default outline */
 }
+
 .href-focus:focus {
   background-color: var(--href-background-color);
   color: var(--text-color);
@@ -511,10 +659,15 @@ footer {
 
 .slider {
   cursor: pointer;
+  margin-bottom: 1em;
+  /* Técnica  C42*/
+  min-width: 44px;
+  height: 44px;
 }
+
 .slider:focus {
   color: var(--slider-color);
-  box-shadow: 0 0 0 2px var(--slider-border); 
+  box-shadow: 0 0 0 2px var(--slider-border);
 }
 
 .hidden_p {
@@ -527,9 +680,28 @@ footer {
 /* Home Page */
 
 .homeContainer {
-  padding: 20px;
+  /*padding: 20px;*/
+  padding-top: 20px;
   flex: 1;
   font-size: var(--font-size-home-container);
+  /*width: 320px;*/
+}
+
+/* The parent container */
+.parent-centered {
+  display: flex;
+  /* Enables flexbox layout */
+  justify-content: center;
+  /* Centers content horizontally */
+  /* Optional: to see the effect more clearly */
+}
+
+.child-centered {
+  /*padding: 20px;*/
+  padding-top: 20px;
+  /* Adds padding inside the container */
+  text-align: center;
+  /* Centers text within the container */
 }
 
 .ip-info {
@@ -540,25 +712,31 @@ footer {
   text-decoration: underline;
   cursor: pointer;
 }
+
 .guide-link:focus {
   color: var(--guide-link-color);
   outline: 1px solid var(--text-color);
 }
+
 .guide-link:active {
   color: var(--text-color);
 }
+
 .guide-link:hover {
   color: var(--guide-link-color);
 }
 
-.internetA{
+.internetA {
   color: inherit;
+
 }
-.internetA:focus{
+
+.internetA:focus {
   color: var(--mark-color-bold);
   outline: 1px solid var(--text-color);
 }
-.internetA:hover{
+
+.internetA:hover {
   color: var(--mark-color-bold);
 }
 
@@ -571,18 +749,32 @@ footer {
   padding: 0;
   cursor: pointer;
   text-decoration: underline;
+
+  /* Caracteristicas para que no restringa el ancho minimo de la pagina*/
+  white-space: normal;
+  /* permite refluir */
+  word-break: break-word;
+  /* rompe palabras largas */
+  overflow-wrap: anywhere;
+  /* agresivamente rompe URLs/textos */
+  display: inline;
+  /* Ensure it behaves like text, not a block or inline-block */
 }
+
 .input-paragraph-button:focus {
   color: var(--help-div-color);
   outline: 1px solid var(--text-color);
   border-radius: 3rem;
 }
+
 .input-paragraph-button:active {
   color: var(--text-color);
 }
+
 .input-paragraph-button:hover {
   color: var(--help-div-color);
 }
+
 .input-paragraph-button.active {
   color: var(--help-div-color);
 }
@@ -594,37 +786,39 @@ footer {
 
 /* input p de ayuda */
 
-.helpDiv{
+.helpDiv {
   color: var(--help-div-color);
 }
 
 .title-help-container {
   display: flex;
-  align-items: center; /* Aligns items vertically centered */
-  gap: 16px;/*8px; /* Adjust spacing between the elements */
+  align-items: center;
+  /* Aligns items vertically centered */
+  gap: 16px;
+  /*8px; /* Adjust spacing between the elements */
 }
 
-/* The parent container */
-.parent-centered {
-  display: flex; /* Enables flexbox layout */
-  justify-content: center; /* Centers content horizontally */
-  height: 100vh; /* Optional: to see the effect more clearly */
+@media (max-width: 700px) {
+  .title-help-container {
+    flex-direction: column;
+    align-items: flex-start;
+    /* optional: align items to the left */
+    gap: 16px;
+  }
 }
 
-.child-centered {
-  padding: 20px; /* Adds padding inside the container */
-  text-align: center; /* Centers text within the container */
-}
+
 
 /* dispositivo desconectado aviso */
 .conectar_dispositivo_div {
   display: flex;
   justify-content: center;
-  align-items: center; /* Align items vertically */
+  align-items: center;
+  /* Align items vertically */
 }
 
 .conectar_dispositivo_text {
-  padding: 4px;
+  /*padding: 4px;*/
   text-decoration: underline;
   text-decoration-color: var(--disconnected-color);
   font-weight: bold;
@@ -645,18 +839,28 @@ footer {
 #stepContainer {
   /*max-width: 90%; /* 600px */
   margin: 0 auto;
+  /*width: 320px;*/
 }
 
 .step {
   position: relative;
   max-width: 95%;
-  margin: 0 auto; /* Centers the step inside the container */
+  margin: 0 auto;
   display: block;
   color: var(--inactive-step-color);
 }
 
+/*.step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--inactive-step-color);
+}*/
+
 .step p {
-  max-width: 90%;  /* Adjust this width if needed */
+  max-width: 90%;
+  /* Adjust this width if needed */
 }
 
 .step.active {
@@ -664,11 +868,14 @@ footer {
   color: var(--text-color)
 }
 
-.checkbox_right { 
+.checkbox_right {
   position: absolute;
-  right: 0px;            /* Position 30px from the right */
-  top: 50%;               /* Position the top at 50% of the container's height */
-  transform: translateY(-50%);  /* Shift the element up by 50% of its height to center it */
+  right: 0px;
+  /* Position 30px from the right */
+  top: 50%;
+  /* Position the top at 50% of the container's height */
+  transform: translateY(-50%);
+  /* Shift the element up by 50% of its height to center it */
   /*margin: 20px auto;*/
   padding: 10px 20px;
 }
@@ -682,6 +889,7 @@ footer {
   padding: 10px 20px;*/
 
 }
+
 .button_guide_left {
   position: absolute;
   left: 30px;
@@ -709,7 +917,8 @@ footer {
 
 .options_button {
   display: inline-block;
-  vertical-align: bottom; /* Ensures buttons are aligned at the bottom */
+  vertical-align: bottom;
+  /* Ensures buttons are aligned at the bottom */
   margin-right: 10px;
 }
 
@@ -737,7 +946,8 @@ footer {
 
 .options_theme_buttons {
   display: inline-block;
-  vertical-align: bottom; /* Ensures buttons are aligned at the bottom */
+  vertical-align: bottom;
+  /* Ensures buttons are aligned at the bottom */
   margin-right: 10px;
 
   padding: 30px 30px;
@@ -745,62 +955,79 @@ footer {
 }
 
 .options_theme_buttons_dark {
-  background-color: var(--button-background-color-allways-dark); 
-  color: var(--button-color-allways-dark); 
-  border: 2px solid var(--button-color-border-allways-dark); 
+  background-color: var(--button-background-color-allways-dark);
+  color: var(--button-color-allways-dark);
+  border: 2px solid var(--button-color-border-allways-dark);
 }
+
 .options_theme_buttons_dark:hover {
   background-color: var(--button-color-hover-allways-dark);
 }
-.options_theme_buttons_dark:active { 
+
+.options_theme_buttons_dark:active {
   border: 2px solid var(--button-color-border-allways-dark);
   background-color: var(--button-color-active-allways-dark);
 }
+
 .options_theme_buttons_dark:focus {
-  border: 2px solid var(--button-color-border-focus-allways-dark); /* #007bff; /* Change border color on focus */
-  box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-dark); /* Optional: Add a subtle glow */
+  border: 2px solid var(--button-color-border-focus-allways-dark);
+  /* #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-dark);
+  /* Optional: Add a subtle glow */
 }
 
 .options_theme_buttons_ligth {
-  background-color: var(--button-background-color-allways-ligth); 
-  color: var(--button-color-allways-ligth); 
-  border: 2px solid var(--button-color-border-allways-ligth); 
+  background-color: var(--button-background-color-allways-ligth);
+  color: var(--button-color-allways-ligth);
+  border: 2px solid var(--button-color-border-allways-ligth);
 }
+
 .options_theme_buttons_ligth:hover {
   background-color: var(--button-color-hover-allways-ligth);
 }
-.options_theme_buttons_ligth:active { 
+
+.options_theme_buttons_ligth:active {
   border: 2px solid var(--button-color-border-allways-ligth);
   background-color: var(--button-color-active-allways-ligth);
 }
+
 .options_theme_buttons_ligth:focus {
-  border: 2px solid var(--button-color-border-focus-allways-ligth); /* #007bff; /* Change border color on focus */
-  box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-ligth); /* Optional: Add a subtle glow */
+  border: 2px solid var(--button-color-border-focus-allways-ligth);
+  /* #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px var(--button-shadow-color-focus-allways-ligth);
+  /* Optional: Add a subtle glow */
 }
 
 /* Indicador del menu de la conexion */
 .connection_indicator_OFF {
   width: 20px;
   height: 20px;
-  background-color: var(--disconnected-color); /* default to disconnected */
+  background-color: var(--disconnected-color);
+  /* default to disconnected */
   border-radius: 50%;
-  margin-right: 15px; /* Add space between indicator and text */
-  flex-shrink: 0; /* NEW: Prevent shrinking in flex containers */
+  margin-right: 15px;
+  /* Add space between indicator and text */
+  flex-shrink: 0;
+  /* NEW: Prevent shrinking in flex containers */
 
 }
 
 .connection_indicator_ON {
   width: 20px;
   height: 20px;
-  background-color: var(--connected-color); /* default to disconnected */
+  background-color: var(--connected-color);
+  /* default to disconnected */
   border-radius: 50%;
-  margin-right: 15px; /* Add space between indicator and text */
-  flex-shrink: 0; /* NEW: Prevent shrinking in flex containers */
+  margin-right: 15px;
+  /* Add space between indicator and text */
+  flex-shrink: 0;
+  /* NEW: Prevent shrinking in flex containers */
 }
 
 .status-container {
   display: flex;
-  align-items: center; /* Align items vertically */
+  align-items: center;
+  /* Align items vertically */
   position: relative;
   /*bottom: 10px;  Position 10px from the bottom */
   /*left: 50%; /* Position the container at the horizontal center */
@@ -812,15 +1039,18 @@ footer {
 
 .status-container-guide {
   display: flex;
-  align-items: center; /* Align items vertically */
+  align-items: center;
+  /* Align items vertically */
   position: relative;
 }
 
 
 .connection_indicator_text {
   position: relative;
-  top: -1px; /* Slightly move the text up */
-  font-size: 16px; /* Adjust font size if needed */
+  top: -1px;
+  /* Slightly move the text up */
+  font-size: 16px;
+  /* Adjust font size if needed */
 }
 
 /* Screen readers*/
@@ -837,50 +1067,141 @@ footer {
 }
 
 
+/* Redireccion */
+
+.redireccion_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
 /*
   MUSIC
 */
 
-.vumetro{
+.vumetro {
   font: inherit;
-  background-color: var(--button-color-hover); 
-  color: var(--button-color); 
-  border: 2px solid var(--button-color-border); 
-  padding: 10px 20px; 
+  background-color: var(--button-color-hover);
+  color: var(--button-color);
+  border: 2px solid var(--button-color-border);
+  padding: 10px 20px;
   border-radius: 10px;
   cursor: default;
   margin-right: 20px;
+
+  display: inline-block;
+  margin-bottom: 1em;
+  /* or whatever spacing you want */
 }
 
+.buttonGroup {
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+
+/*html,
+body {
+  overflow-x: auto;
+  overflow-y: auto;
+}*/
+
+/*section {
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+  background: #eee;
+  border-right: 2px solid #ccc;
+}*/
 
 
 /* Google Fonts: 'Raleway'*/
 /* https://fonts.googleapis.com/css?family=Raleway */
 
 /* cyrillic-ext */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-/* vietnamese */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EF9,U+20AB;
-}
-/* latin-ext */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-/* latin */
-@font-face {font-family:'Raleway';font-style:normal;font-weight:400;
-  src:url(../assets/fonts/font-raleway.woff2)format('woff2');
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/font-raleway.woff2)format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
+/* cyrillic */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/font-raleway.woff2)format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/font-raleway.woff2)format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/font-raleway.woff2)format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/font-raleway.woff2)format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+
+
+
+@media (max-width:320px) {
+  html {
+    overflow-x: auto;
+  }
+}
+
+@media (min-width:321px) {
+  html {
+    overflow-x: auto;
+  }
+}
+
+@media (max-height:256px) {
+  html {
+    overflow-y: auto;
+  }
+}
+
+@media (min-height:257px) {
+  html {
+    overflow-y: auto;
+  }
+}

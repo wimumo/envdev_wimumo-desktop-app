@@ -20,3 +20,15 @@
   --font-size-big-button: large;
 
 }
+
+/* SPACING */
+body, p, label, input, textarea, button, span, div {
+  line-height: 1.5em;       /* 1.5x font size */
+  letter-spacing: 0.12em; /* 0.12x font size */
+  word-spacing: 0.16em;   /* 0.16x font size */
+}
+
+/* For spacing between paragraphs */
+p + p {
+  margin-top: 2em;        /* 2x font size */
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="Spanish">
+<html lang="es">
 
 <head>
   <meta name="description" content="WIMUMO">
@@ -14,7 +14,7 @@
   <link id="theme-font-size" rel="stylesheet" href="stylesheets/wimumoFontSize2.css">
 </head>
 
-<body role="application">
+<body>
 
   <!-- Menu -->
   <nav class="menu" id="menu" aria-label="Menu de navegación"><br aria-hidden="true">
@@ -41,11 +41,16 @@
   <!-- Barra de navegación [pantalla pequeña] -->
   <header class="menu-top-bar">
     <span class="menu-top-title">WIMUMO</span>
-    <a class="menu-button menu-top-button" onclick="menu_open()" aria-expanded="false" aria-controls="menu">☰</a>
+    <button id="expand_menu_button" class="menu-button menu-top-button" onclick="menu_toogle()" aria-expanded="false"
+      aria-controls="menu" aria-label="Abrir menú de navegación">
+      ☰
+    </button>
   </header>
 
-  <!-- Efecto overlay [pantalla pequeña] -->
-  <div class="menu-overlay" onclick="menu_close()" id="overlay" aria-expanded="true" aria-controls="menu"></div>
+  <!-- Efecto overlay [pantalla pequeña]-->
+  <button class="menu-overlay" onclick="menu_close()" id="overlay" aria-controls="menu" aria-expanded="true"
+    aria-label="Cerrar menú" aria-hidden="true">
+  </button>
 
   <!-- Paneles -->
   <div class="main" id="liveRegion" aria-live="assertive">
@@ -54,7 +59,7 @@
     <div id="HomePage" hidden>
       <div class="homeContainer parent-centered">
         <div class="child-centered">
-          <h1>Bienvenido/a a la plataforma WIMUMO</h1>
+          <h1>Bienvenido /a a la plataforma WIMUMO</h1>
           <br aria-hidden="true">
 
           <p>Esta aplicación existe para configurar, monitorear y utilizar un dispositivo WIMUMO</p>
@@ -67,8 +72,10 @@
 
             <br aria-hidden="true">
 
-            <button id="infoWIMUMO" onclick="shortcut('WIMUMOInfo')" class="big_button">¿Qué es WIMUMO?</button>
-            <button id="configGuide" onclick="shortcut('configGuide')" class="big_button">Conectar dispositivo</button>
+            <button id="infoWIMUMO" onclick="shortcut('WIMUMOInfo')" class="big_button buttonGroup">¿Qué es
+              WIMUMO?</button>
+            <button id="configGuide" onclick="shortcut('configGuide')" class="big_button buttonGroup">Conectar
+              dispositivo</button>
           </div>
 
           <div id="homePageConnectedDiv" hidden>
@@ -80,231 +87,42 @@
 
               <h4>Ahora puede explorar formas de usar el dispositivo:</h4>
 
-              <p>
-                <button id="infoGraph" onclick="body_exchange('graficador')">Graficar
-                  señales</button>
-                <button id="infoAudio" onclick="body_exchange('musica')">Hacer música</button>
-                <button id="infoReroute" onclick="body_exchange('rerouter')">Conectar a otras
-                  aplicaciones</button>
-              </p>
+              <button id="infoGraph" class="buttonGroup" onclick="body_exchange('graficador')">Graficar
+                señales</button>
+              <button id="infoAudio" class="buttonGroup" onclick="body_exchange('musica')">Hacer música</button>
+              <button id="infoReroute" class="buttonGroup" onclick="body_exchange('rerouter')">Conectar a otras
+                aplicaciones</button>
             </div>
           </div>
-
-          <!---
-          <p>Para utilizar las funciones de esta aplicación conecte un dispositivo WIMUMO.</p>
-          <p><span class="ip-info">IP local: </span><span id="instrucciones_iplocal"> Leer IP de la máquina</span></p>
-          <p><span class="ip-info">Puerto:</span> 4560</p>
-          <br aria-hidden="true">
-
-          <p>Si es la primera vez que va a conectar el dispositivo, entre a
-            <a href="#guiasDeUso" onclick="shortcut('configGuide')" class="guide-link">Guía de configuración…</a>
-          </p>--->
         </div>
       </div>
     </div>
 
-    <!------------------------------------ Instrucciones deprecadas ------------------------------------>
-    <!---<div id="instrucciones" hidden>
-      <h3>Instrucciones</h3>
-
-      <p>
-        Aquí se explica cómo configurar WIMUMO y su uso básico.
-        Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo"
-          target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
-      </p>
-
-      <hr>
-
-      <h4>Instrucciones rápidas</h4>
-
-      <ol>
-        <li>
-          Encienda WIMUMO. Tras unos segundos, verá que la luz indicadora parpadea rápidamente
-          con colores, esto indica que está en "modo configuración". Si WIMUMO no está en este modo,
-          puede cambiarlo presionando el pulsador.
-        </li>
-        <li>
-          Busque la red WiFi WIMUMOxxx, conéctese y navegue a la dirección <mark> 192.168.0.2 </mark>
-        </li>
-        <li>
-          Ingrese a "Configurar Red" para ingresar los datos de la red WiFi a donde conectará WIMUMO.
-        </li>
-        <li>
-          Ingrese a "Configurar OSC" para ingresar el destino de los paquetes OSC. Para usar esta
-          aplicación debe ingresar <mark> su IP local </mark> y el puerto <mark> 4560 </mark>.
-        </li>
-        <li>
-          Presione el pulsador para cambiar al modo de uso normal. Si WIMUMO logró conectarse a
-          la red verá el led titilar lentamente.
-        </li>
-      </ol>
-
-      <h4>Instrucciones paso a paso explicadas</h4>
-
-      <p>
-        WIMUMO tiene una tecla de encendido, un botón de configuración y una luz
-        indicadora.
-      </p>
-      <p>
-        La primera vez que use WIMUMO, deberá conectarlo a la red WiFi.
-        El procedimiento es muy similar a conectar su celular o computadora al WiFi,
-        pero como WIMUMO no tiene pantalla ni teclado, involucra algunos pasos
-        adicionales. La red WiFi debe ser la misma a donde está conectado el dispositivo
-        que recibirá los datos de WIMUMO (por ejemplo, donde ve esta aplicación).
-      </p>
-      <p>
-        Todos los dispositivos que se conectan a la red tienen una identificación
-        que se llama <em>dirección IP</em>. La computadora, el celular, y WIMUMO,
-        cada uno tiene su IP.
-        WIMUMO funciona enviando datos a un dispositivo de la red, y por lo tanto
-        necesita su IP para saber a dónde enviar los datos.
-      </p>
-      <ol>
-        <li>
-          Asegúrese de tomar nota de los datos de su red WiFi (nombre y contraseña).
-          No sólo deberá dárselas a WIMUMO, sino que al finalizar el procedimiento debe
-          volver a conectarse a su red. Encienda WIMUMO.
-          Tras unos segundos, verá que la luz indicadora parpadea rápidamente
-          con colores.
-        </li>
-        <li>
-          Conéctese a WIMUMO para configurarlo.
-          Puede hacerlo desde una notebook, celular, o Tablet,
-          aunque es más fácil hacerlo desde una notebook
-          (en ese caso puede saltear el próximo paso).
-        </li>
-        <li>
-          Para configurar WIMUMO desde un celular:
-          <ol>
-            <li>Ponga a su celular en “modo avión”</li>
-            <li>Active el WiFi (sólo el WiFi, no desactive el modo avión)</li>
-          </ol>
-        <li>
-          Busque la red WiFi WIMUMOxxx y conéctese
-          (xxx es un código numérico particular de cada WIMUMO, por ejemplo WIMUMO023).
-          Puede tardar algunos segundos, observe que la conexión se completa y si
-          no es así, inténtelo de nuevo.
-        </li>
-        <li>
-          Abra su navegador web (Google Chrome, o lo que use habitualmente
-          para acceder a internet o buscar en google) e ingrese en la barra
-          de direcciones: <mark> 192.168.0.2 </mark>
-        </li>
-        <li>
-          Debe aparecer una página dándole la bienvenida a la configuración de WIMUMO.
-          Si no aparece, espere unos segundos, inténtelo de nuevo, y eventualmente
-          chequee si se conectó correctamente al WiFi de WIMUMO.
-        </li>
-        <li>
-          Ingrese a “Configurar Red” donde verá los casilleros donde ingresar nobre
-          de red y contraseña. Hágalo y presione “Aplicar”.
-        </li>
-        <ol>
-          <li>
-            Avanzado: Si necesita configurar un IP fijo, puede hacerlo, si no,
-            puede dejar todo vacío.
-          </li>
-        </ol>
-        <li>
-          Ingrese a "Configurar OSC" e ingrese la IP de la computadora donde desea
-          enviar las señales OSC y el puerto, luego presione "Enviar Datos". Si desea
-          usar WIMUMO desde esta aplicación, la dirección IP deberá ser la de esta
-          computadora <span id="instrucciones_iplocal"> </span> y en "puerto" debe
-          ingresar <mark> 4560 </mark>.
-        </li>
-        <li>
-          ¡Listo! El proceso de configuración terminó. Presione el pulsador de “modo” de WIMUMO. El sistema se
-          reiniciará y
-          si todo salió bien, verá la luz parpadear lentamente.
-          ¡Su WIMUMO ya está configurado! Si en cambio vuelve a parpadear rápidamente,
-          significa que algo salió mal y continúa en “modo configuración”. Pruebe
-          conectarse nuevamente y reingresar los datos de la red.
-        </li>
-        <li>
-          Recuerde volver a conectar su computadora a la red.
-          Si realizó la configuración con un celular, recuerde desactivar
-          el modo avión para que su celular vuelva a funcionar normalmente.
-        </li>
-      </ol>
-      <p>
-        Si lleva su WIMUMO a un lugar nuevo con una red que no está cargada en WIMUMO,
-        al encenderse se prenderá en el modo de configuración automáticamente
-        y puede comenzar en el paso 1. Si su WIMUMO está conectado a una red,
-        pero necesita cambiar la configuración, presione el pulsador de “modo” y WIMUMO
-        se reiniciará en el modo de configuración.
-      </p>
-
-      <h4>Uso de WIMUMO</h4>
-
-      <p>
-        WIMUMO tiene electrodos que miden señales eléctricas del cuerpo. Si los coloca
-        sobre su cuerpo (con los contactos metálicos apoyados sobre la piel en una zona
-        libre de pelo) podrá visualizar la actividad eléctrica de los músculos que se
-        encuentren en ese lugar, cuando se contraigan. Si los apoya en su pecho incluso
-        puede visualizar los latidos del corazón.
-      </p>
-      <p>
-        WIMUMO envía los datos de las señales que mide usando el protocolo OSC. Este protocolo
-        es muy utilizado en programas de generación de multimedia. Con esta aplicación
-        podrá ver las señales y controlar tonos musicales, pero sacará mayor provecho a WIMUMO
-        creando lo que desee con aplicaciones tales como puredata y la muy conocida
-        <a href="https://processing.org/" target="_blank" class="href-focus">Processing (https://processing.org/)</a>.
-        En la <a href="https://gibic.ing.unlp.edu.ar/wimumo" target="_blank" class="href-focus">página del proyecto</a>
-        encontrará algunos
-        ejemplos de Processing para comenzar a usar WIMUMO.
-      </p>
-      <p>
-        WIMUMO funciona con baterías de litio recargables tipo 14500 de 3.7 V. Si bien tienen
-        el mismo tamaño, <mark> son distintas de las pilas AA comunes </mark>, y no funcionará si se
-        intentan utilizar. Cuando la batería está baja, la luz indicadora titilará en rojo y
-        debe retirarse la batería del quipo y recargarla.
-      </p>
-      <footer>
-        <a href="http://gibic.ar/" target="_blank" class="href-focus">GIBIC</a>, 2022.
-        <br aria-hidden="true">Grupo de Instrumentación Biomédica, Industrial y Científica.
-        <br aria-hidden="true">Instituto LEICI (UNLP-CONICET-CIC).
-      </footer>
-    </div>---->
-
     <!------------------------------------ Guías de uso ------------------------------------>
     <div id="guiasDeUso" role="region" hidden> <!--- role="alert" aria-live="assertive">------>
-      <h3>Guías de uso</h3>
-      <p>Aquí se explica que es el dispositivo WIMUMO, como configurarlo y su uso básico. </p>
+      <div class="title-help-container">
+        <h3>Guías de uso</h3>
+        <!---<input type="button" class="input-paragraph-button" value="volver" onclick="homeGuia()"
+          tabindex="0" />--->
+      </div>
+
+      <p id="guiasDeUsoDesc">Aquí se explica que es el dispositivo WIMUMO, como configurarlo y su uso básico. </p>
 
       <hr>
 
       <div id="guiasMainDiv"> <!---role="alert" aria-live="assertive"--->
 
         <h4>¿Qué es WIMUMO?</h4>
-        <p>
-          <button id="infoWIMUMO" onclick="WIMUMOInfo()" class="big_button">Dispositivo WIMUMO</button>
-          <button id="WIMUMOPageButton1" class="big_button">Pagina Web del proyecto</button>
-        </p>
+        <button id="infoWIMUMO" onclick="WIMUMOInfo()" class="big_button buttonGroup">Dispositivo WIMUMO</button>
+        <button id="WIMUMOPageButton1" class="big_button buttonGroup">Página Web del proyecto</button>
+
 
         <hr>
 
         <h4>Configurar el dispositivo</h4>
-        <p>
-          <button onclick="guiaConfig()" class="big_button">Guía de configuracion</button>
-          <button id="configManualBtn" class="big_button">Manual de uso</button>
-        </p>
+        <button onclick="guiaConfig()" class="big_button buttonGroup">Guía de configuracion</button>
+        <button id="configManualBtn" class="big_button buttonGroup">Manual de uso</button>
         <hr>
-        <!--
-        <h4>Funciones de esta aplicación</h4>
-
-        <p>
-          <button id="infoGraph" class="big_button" onclick="body_exchange('graficador')">Graficar señales</button>
-          <button id="infoAudio" class="big_button" onclick="body_exchange('musica')">Hacer música</button>
-          <button id="infoReroute" class="big_button" onclick="body_exchange('rerouter')">Conectar a otras
-            aplicaciones</button>
-        </p>
-        <hr>
-      
-        
-        <p>
-          Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo"
-            target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
-        </p>-->
 
       </div>
 
@@ -377,7 +195,6 @@
           <a href="#" target="_blank" class="href-focus" onclick="body_exchange('rerouter'); return false;"> sección de
             redirección.</a>
         </p>
-        </p>
         <p>
           WIMUMO funciona con baterías de litio recargables tipo 14500 de 3.7 V. Si bien tienen el mismo tamaño,
           <mark>son distintas de las pilas AA comunes</mark> , y no funcionará si se intentan utilizar. Cuando la
@@ -387,7 +204,7 @@
         <hr>
         <p>
           Para más información puede consultar la página del proyecto en <a href="https://gibic.ing.unlp.edu.ar/wimumo"
-            target="_blank" class="href-focus">https://gibic.ing.unlp.edu.ar/wimumo</a>
+            target="_blank" class="href-focus">gibic.ing.unlp.edu.ar/wimumo</a>
         </p>
 
       </div>
@@ -396,17 +213,13 @@
         <h4>Configuración del dispositivo WIMUMO - elegir guiá</h4><br aria-hidden="true">
 
         <p>
-          El <mark>dispositivo WIMUMO</mark> se conectará a esta máquina por medio de una <mark> red Wi-Fi </mark>.
-        </p>
-
-        <p>
+          El <mark>dispositivo WIMUMO</mark> se conectará a esta máquina por medio de una <mark> red Wi-Fi </mark>. <br>
           Para poder conectarlo, primero hay que configurar el dispositivo correctamente.
         </p>
         <br aria-hidden="true">
 
-        <button class="big_button" onclick="guiaConfigComp()">Configurar usando esta máquina</button><br
-          aria-hidden="true"><br aria-hidden="true">
-        <button class="big_button" onclick="guiaConfigPhone()">Configurar usando un celular</button>
+        <button class="big_button buttonGroup" onclick="guiaConfigComp()">Configurar usando esta máquina</button>
+        <button class="big_button buttonGroup" onclick="guiaConfigPhone()">Configurar usando un celular</button>
 
 
       </div>
@@ -443,7 +256,8 @@
             <hr class="separator" aria-hidden="true">
 
             <div id="btn-container-C0" class="container_relative">
-              <button id="nextButtonComp0" class="small_button" onclick="nextButtonOnClick()">Comenzar</button>
+              <button id="nextButtonComp0" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 1">Comenzar</button>
               <br><br>
             </div>
 
@@ -498,8 +312,10 @@
             </div>
 
             <div id="btn-container-C1" class="container_relative">
-              <button id="prevButtonComp1" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp1" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp1" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 0"> Previo </button>
+              <button id="nextButtonComp1" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 2">Siguiente</button>
               <br><br>
             </div>
           </section>
@@ -553,8 +369,10 @@
             </div>
 
             <div id="btn-container-C2" class="container_relative">
-              <button id="prevButtonComp2" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp2" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp2" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 1"> Previo </button>
+              <button id="nextButtonComp2" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 3">Siguiente</button>
               <br><br>
             </div>
           </section>
@@ -596,8 +414,10 @@
             </div>
 
             <div id="btn-container-C3" class="container_relative">
-              <button id="prevButtonComp3" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp3" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp3" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 2"> Previo </button>
+              <button id="nextButtonComp3" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 4">Siguiente</button>
               <br><br>
             </div>
           </section>
@@ -637,8 +457,10 @@
             </div>
 
             <div id="btn-container-C4" class="container_relative">
-              <button id="prevButtonComp4" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp4" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp4" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 3"> Previo </button>
+              <button id="nextButtonComp4" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 5">Siguiente</button>
               <br><br>
             </div>
 
@@ -687,8 +509,10 @@
             </div>
 
             <div id="btn-container-C5" class="container_relative">
-              <button id="prevButtonComp5" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp5" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp5" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 4"> Previo </button>
+              <button id="nextButtonComp5" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 6">Siguiente</button>
               <br><br>
             </div>
 
@@ -717,8 +541,10 @@
             <hr class="separator">
 
             <div id="btn-container-C6" class="container_relative">
-              <button id="prevButtonComp6" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonComp6" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonComp6" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 5"> Previo </button>
+              <button id="nextButtonComp6" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 7">Siguiente</button>
               <br><br>
             </div>
 
@@ -805,10 +631,11 @@
         </div>
 
         <div id="btn-container-C7" class="container_relative">
-          <button id="prevButtonComp" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo
+          <button id="prevButtonComp" class="small_button button_guide_left" onclick="prevButtonOnClick()"
+            aria-label="Volver a paso 6"> Previo
           </button>
-          <button id="nextButtonComp" class="small_button button_guide_right"
-            onclick="nextButtonOnClick()">Siguiente</button>
+          <button id="nextButtonComp" class="small_button button_guide_right" onclick="nextButtonOnClick()"
+            aria-label="Volver a home page">Terminar</button>
         </div>
 
       </div>
@@ -844,7 +671,8 @@
             <hr class="separator" aria-hidden="true">
 
             <div id="btn-container-P0" class="container_relative">
-              <button id="nextButtonPhone0" class="small_button" onclick="nextButtonOnClick()">Comenzar</button>
+              <button id="nextButtonPhone0" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 1">Comenzar</button>
               <br><br>
             </div>
 
@@ -901,8 +729,10 @@
             </div>
 
             <div id="btn-container-P1" class="container_relative">
-              <button id="prevButtonPhone1" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonPhone1" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonPhone1" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 0"> Previo </button>
+              <button id="nextButtonPhone1" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 2">Siguiente</button>
               <br><br>
             </div>
 
@@ -947,8 +777,10 @@
             </div>
 
             <div id="btn-container-P2" class="container_relative">
-              <button id="prevButtonPhone2" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonPhone2" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonPhone2" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 1"> Previo </button>
+              <button id="nextButtonPhone2" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 3">Siguiente</button>
               <br><br>
             </div>
 
@@ -995,8 +827,10 @@
             </div>
 
             <div id="btn-container-P3" class="container_relative">
-              <button id="prevButtonPhone3" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonPhone3" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonPhone3" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 2"> Previo </button>
+              <button id="nextButtonPhone3" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 4">Siguiente</button>
               <br><br>
             </div>
 
@@ -1084,8 +918,10 @@
             </div>
 
             <div id="btn-container-P4" class="container_relative">
-              <button id="prevButtonPhone4" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonPhone4" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonPhone4" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 3"> Previo </button>
+              <button id="nextButtonPhone4" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 5">Siguiente</button>
               <br><br>
             </div>
 
@@ -1116,8 +952,10 @@
             <hr class="separator">
 
             <div id="btn-container-P5" class="container_relative">
-              <button id="prevButtonPhone5" class="small_button" onclick="prevButtonOnClick()"> Previo </button>
-              <button id="nextButtonPhone5" class="small_button" onclick="nextButtonOnClick()">Siguiente</button>
+              <button id="prevButtonPhone5" class="small_button" onclick="prevButtonOnClick()"
+                aria-label="Volver a paso 4"> Previo </button>
+              <button id="nextButtonPhone5" class="small_button" onclick="nextButtonOnClick()"
+                aria-label="Continuar a paso 6">Siguiente</button>
               <br><br>
             </div>
 
@@ -1187,10 +1025,11 @@
         </div>
 
         <div id="btn-container-P6" class="container_relative">
-          <button id="prevButtonPh" class="small_button button_guide_left" onclick="prevButtonOnClick()"> Previo
+          <button id="prevButtonPh" class="small_button button_guide_left" onclick="prevButtonOnClick()"
+            aria-label="Volver a paso 5"> Previo
           </button>
-          <button id="nextButtonPh" class="small_button button_guide_right"
-            onclick="nextButtonOnClick()">Siguiente</button>
+          <button id="nextButtonPh" class="small_button button_guide_right" onclick="nextButtonOnClick()"
+            aria-label="Volver a home page">Terminar</button>
         </div>
 
       </div>
@@ -1200,15 +1039,16 @@
       <div id="guideBackButtons" role="region" hidden>
         <br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true"><br aria-hidden="true">
 
-        <p>
-          <button id="homeGuide" onclick="homeGuia()">Volver a todas las guías</button>
-          <button id="confBtn" onclick="guiaConfig()" hidden><strong>Conectar dispositivo</strong></button>
+        <nav>
+          <button id="homeGuide" onclick="homeGuia()" class="buttonGroup">Volver a todas las guías</button>
+          <button id="confBtn" onclick="guiaConfig()" class="buttonGroup" hidden><strong>Conectar
+              dispositivo</strong></button>
           <button id="confCompuBtn" onclick="guiaConfigComp()" hidden><strong>Configurar usando esta
               máquina</strong></button>
-          <button id="confPhoneBtn" onclick="guiaConfigPhone()" hidden><strong>Configurar usando un
+          <button id="confPhoneBtn" onclick="guiaConfigPhone()" class="buttonGroup" hidden><strong>Configurar usando un
               celular</strong></button>
-          <button id="WIMUMOPageButton">Ir a página del proyecto WIMUMO</button>
-        </p>
+          <button id="WIMUMOPageButton" class="buttonGroup">Ir a página del proyecto WIMUMO</button>
+        </nav>
       </div>
 
       <footer id="guideFooter">
@@ -1295,9 +1135,8 @@
         <p>
           Esta sección permite visualizar las señales leídas por el dispositivo WIMUMO.
           Haga click en los botones <strong>Agregar</strong> y <strong>Eliminar</strong> para aumentar
-          la cantidad de señales que se pueden ver al mismo tiempo.
-        </p>
-        <p>
+          la cantidad de señales que se pueden ver al mismo tiempo. <br>
+
           La <strong>selección de canales</strong> permite visualizar las señales de cada electrodo, con distintos
           filtros.
         </p>
@@ -1305,8 +1144,8 @@
       </div>
 
       <div id="graphButtonsDiv">
-        <button onclick="addGraph()">Agregar gráfico</button>
-        <button onclick="removeGraph()">Eliminar gráfico</button>
+        <button class="buttonGroup" onclick="addGraph()">Agregar gráfico</button>
+        <button class="buttonGroup" onclick="removeGraph()">Eliminar gráfico</button>
       </div>
       <div id="graphRec" hidden>
         <button id="rec" onclick="button_toggleRecord()">Grabar</button>
@@ -1335,18 +1174,12 @@
         <hr class="separator">
       </div>
 
-      <p>
-        <label class="vumetro" id="ch1">Canal 1</label>
-        <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch1">
-      </p>
-      <p>
-        <label class="vumetro" id="ch2" disabled>Canal 2</label>
-        <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch2">
-      </p>
+      <label for="sch1" class="vumetro" id="ch1">Canal 1</label>
+      <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch1"><br>
 
-      <p>
-        <button id="audioEN" onclick="habilitarAudio()">Habilitar audio</button>
-      </p>
+      <label for="sch2" class="vumetro" id="ch2">Canal 2</label>
+      <input type="range" list="tickmarks" min="0" max="1000" value="250" class="slider" id="sch2"><br>
+      <button id="audioEN" onclick="habilitarAudio()">Habilitar audio</button>
 
       <datalist id="tickmarks">
         <option value="0"></option>
@@ -1389,30 +1222,36 @@
           <div id="ip_port_container_1" class="container_relative">
             <hr class="separator">
 
-            <em>Dirección objetivo 1</em>
 
-            <br aria-hidden="true"><br aria-hidden="true">
 
-            <label for="filter_1" class="inputLabel">Filtro:</label>
-            <select id="filter_1" name="filter" class="select"></select>
-            <br aria-hidden="true">
-            <span id="filter_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span>
-            <br aria-hidden="true">
+            <div class="form-container">
+              <em>Dirección objetivo 1</em>
 
-            <label for="reroute_ip_1" class="inputLabel">IP:</label>
-            <input type="text" id="reroute_ip_1" name="ip" placeholder="Ingresar dirección IP">
-            <br aria-hidden="true">
-            <span id="ip_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span>
-            <br aria-hidden="true">
+              <div class="form-group">
+                <label for="filter_1" class="inputLabel">Filtro:</label>
+                <select id="filter_1" name="filter" class="select" aria-label="Filtro dirección objetivo 1"></select>
+                <span id="filter_error_1" class="inputError">ERROR -reemplazar por un error mas especifico con
+                  js-</span>
+              </div>
 
-            <label for="reroute_port_1" class="inputLabel">Port:</label>
-            <input type="text" id="reroute_port_1" name="port" placeholder="Ingresar numero de puerto">
-            <br aria-hidden="true">
-            <span id="port_error_1" class="inputError">ERROR -reemplazar por un error mas especifico-</span>
-            <br aria-hidden="true">
+              <div class="form-group">
+                <label for="reroute_ip_1" class="inputLabel">IP:</label>
+                <input type="text" id="reroute_ip_1" name="ip" placeholder="Ingresar dirección IP"
+                  aria-label="IP dirección objetivo 1" label>
+                <span id="ip_error_1" class="inputError">ERROR -reemplazar por un error mas especifico con js-</span>
+              </div>
 
-            <button id="reroute_button_1" class="right-button">Iniciar redirección</button>
+              <div class="form-group">
+                <label for="reroute_port_1" class="inputLabel">Puerto:</label>
+                <input type="text" id="reroute_port_1" name="port" aria-label="Puerto dirección objetivo 1"
+                  placeholder="Ingresar numero de puerto">
+                <span id="port_error_1" class="inputError">ERROR -reemplazar por un error mas especifico con js-</span>
+              </div>
 
+              <button id="reroute_button_1" class="right-button" aria-label="Iniciar redirección a objetivo 1">Iniciar
+                redirección</button>
+
+            </div>
 
           </div>
 
@@ -1429,9 +1268,6 @@
             <p>
               Los <strong>filtros</strong> permiten solo enviar los datos de uno de los electrodos,
               y filtrar las señales originales o envolventes.
-            </p>
-            <p>
-
             </p>
           </div>
 

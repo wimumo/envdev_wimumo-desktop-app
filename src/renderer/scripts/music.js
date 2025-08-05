@@ -93,7 +93,7 @@ function habilitarAudio() {
         audioEnabled = true;
         content = [];
         document.getElementById("audioEN").classList.add('undo-button');
-        document.getElementById("audioEN").innerText = "Detenter";
+        document.getElementById("audioEN").innerText = "Detenter audio";
     }
     else if (audioEnabled == true) {
         audioEnabled = false;

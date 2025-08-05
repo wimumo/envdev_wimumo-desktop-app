@@ -169,9 +169,9 @@ class Graph {
 
     try {
       let afterZoomText = this.info.innerHTML.split(" z")[1].trim();
-      this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1) + " / z" + afterZoomText;
+      this.info.innerHTML = "Información: y = " + String( ((y - this.offset) * this.scale * -1).toFixed(2) ) + " / z" + afterZoomText;
     } catch {
-      this.info.innerHTML = "Información: y = " + String((y - this.offset) * this.scale * -1);
+      this.info.innerHTML = "Información: y = " + String( ((y - this.offset) * this.scale * -1).toFixed(2) );
     }
     
     this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
@@ -402,14 +402,14 @@ function addGraph() {
   buttonZOut.id = "zOutButton" + n;
   buttonZOut.classList.add('zoomButton');
   buttonZOut.classList.add('zoomOut');
-  buttonZOut.setAttribute("aria-label", "Disminuir Zoom"); // screen readers
+  buttonZOut.setAttribute("aria-label", "Disminuir zoom"); // screen readers
   div.appendChild(buttonZOut);
 
   let buttonZIn = document.createElement('button');
   buttonZIn.id = "zInButton" + n;
   buttonZIn.classList.add('zoomButton');
   buttonZIn.classList.add('zoomIn');
-  buttonZIn.setAttribute("aria-label", "Aumentar Zoom"); // screen readers
+  buttonZIn.setAttribute("aria-label", "Aumentar zoom"); // screen readers
   div.appendChild(buttonZIn);
 
   // Canvas
