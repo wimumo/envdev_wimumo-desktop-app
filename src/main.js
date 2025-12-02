@@ -5,6 +5,12 @@ const WebSocketServer = require('websocket').server;
 const osc = require('node-osc');
 const path = require('path');
 
+// WIMUMO SIMULATOR
+
+const listeningPort = 4560;
+const simulatorON_OFF = false;
+const { simulateWIMUMO, closeClientSimulator } = require('./wimumoSimulator');
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
 if (require('electron-squirrel-startup')) {
@@ -41,6 +47,8 @@ app.whenReady().then(() => {
 
   app.on('window-all-closed', () => {
       oscServer.close();
+      closeClientSimulator();
+
       if (process.platform !== 'darwin') {
         app.quit();
       }
@@ -68,8 +76,14 @@ app.whenReady().then(() => {
   */
   var nClients = 0;
 
-  const oscServer = new osc.Server(4560, '0.0.0.0', () => {
+  const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
+
+    //WIMUMO SIMULATOR
+    if (simulatorON_OFF) {
+      simulateWIMUMO(listeningPort);
+    }
+
   });
 
   oscServer.on('bundle', function (bundle) {
