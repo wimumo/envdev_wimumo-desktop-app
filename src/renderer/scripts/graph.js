@@ -455,6 +455,9 @@ function addGraph() {
     indexC = channels_active.findIndex(channel_active => channel_active.channel == this.value);
     if (indexC > -1) channels_active[indexC].n++;
     else channels_active.push({ 'channel': this.value, 'n': 1 });
+
+    /* Clear Line, empty canvas. Limpia los trazos anteriores */
+    graphs[n - 1].clearLine()
   };
 
   enableChannels();
