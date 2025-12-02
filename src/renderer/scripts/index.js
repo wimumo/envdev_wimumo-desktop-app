@@ -10,6 +10,25 @@ function menu_close() {
     document.getElementById('overlay').removeAttribute('shown');
 }
 
+/* WIMUMO SIMULATOR */
+
+function startStopWimumoSimulator(){
+
+  // send message
+  window.api.send('startStopWimumoSimulator');
+
+  // Manage btn
+  const btn = document.getElementById("wimumoSimBtn");
+
+  if (btn.textContent === "Simular dispositivo WIMUMO") {
+    btn.textContent = "Detener simulación";
+  } else {
+    btn.textContent = "Simular dispositivo WIMUMO";
+  }
+
+
+}
+
 /* Pestañas */
 
 categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter'];

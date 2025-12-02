@@ -5,6 +5,9 @@ const x = Math.random();
 
 let client = null;
 
+let messageInterval;
+let bundleInterval;
+
 //const client = new osc.Client('127.0.0.1', 4560); //Es mala idea deberia buscar la constante
 
 /*client.send('/test', 123, () => {
@@ -34,14 +37,14 @@ function simulateWIMUMO(listeningPort, ip = 'IP', targetIP = 'IP-OBJETIVO', targ
   const ch4Signature = '/wimumo020/raw/ch2';
 
   // Mensaje de informacion
-  setInterval(() => {
+  messageInterval = setInterval(() => {
     client.send(infoSignature, ip, sendingBundles, targetIP, targetPort, battery, channels, ch1Signature, ch2Signature, ch3Signature, ch4Signature, () => {
       //console.log('OSC info sent!'); // DEBUG
     });
   }, 2000);
 
   // Bundle
-  setInterval(() => {
+  bundleInterval = setInterval(() => {
     const bundle = new osc.Bundle(
       new osc.Message(ch1Signature, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10),
       new osc.Message(ch2Signature, 100, 200, 300, 400, 500, 600, 0, 0, 0, 0),
@@ -56,6 +59,11 @@ function simulateWIMUMO(listeningPort, ip = 'IP', targetIP = 'IP-OBJETIVO', targ
 
 }
 
+function stopSimulation(){
+  clearInterval(messageInterval);
+  clearInterval(bundleInterval);
+}
+
 function closeClientSimulator() {
   if (client) {
     //client._sock.close(); // No es necesario, con close funciona
@@ -67,3 +75,4 @@ function closeClientSimulator() {
 
 module.exports.simulateWIMUMO = simulateWIMUMO;
 module.exports.closeClientSimulator = closeClientSimulator;
+module.exports.stopSimulation = stopSimulation;

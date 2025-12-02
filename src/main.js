@@ -9,7 +9,7 @@ const path = require('path');
 
 const listeningPort = 4560;
 const simulatorON_OFF = false;
-const { simulateWIMUMO, closeClientSimulator } = require('./wimumoSimulator');
+const { simulateWIMUMO, closeClientSimulator, stopSimulation } = require('./wimumoSimulator');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -46,13 +46,13 @@ app.whenReady().then(() => {
 
 
   app.on('window-all-closed', () => {
-      oscServer.close();
-      closeClientSimulator();
+    oscServer.close();
+    closeClientSimulator();
 
-      if (process.platform !== 'darwin') {
-        app.quit();
-      }
+    if (process.platform !== 'darwin') {
+      app.quit();
     }
+  }
   );
 
   ipcMain.on('get-iplocal', (event, arg) => {
@@ -69,6 +69,21 @@ app.whenReady().then(() => {
       }
     }
     mainWindow.webContents.send('iplocal', results);
+  });
+
+  let simulation = false;
+
+  ipcMain.on('startStopWimumoSimulator', (event, arg) => {
+    /* WIMUMO SIMULATOR */
+
+    if (!simulation) {
+      simulateWIMUMO(listeningPort);
+      simulation = true;
+    } else {
+      stopSimulation();
+      simulation = false;
+    }
+
   });
 
   /*
@@ -145,7 +160,7 @@ app.whenReady().then(() => {
     }
 
     let connection = request.accept(request.requestedProtocols[0], request.origin);
-    
+
     console.log((new Date()) + ' Connection accepted.');
     connection.on('message', function (message) {
       if (message.type === 'utf8') {

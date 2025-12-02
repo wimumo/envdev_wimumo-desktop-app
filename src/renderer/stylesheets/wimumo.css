@@ -276,6 +276,16 @@ button.zoomOut{
   background-color: var(--color-black);
 }
 
+/* WIMUMO SIMULATOR */
+
+.wimumo-sim-btn {
+  position: fixed;
+  bottom: 20px;   /* distance from bottom */
+  right: 20px;    /* distance from right */
+  z-index: 9999;  /* so it stays on top */
+}
+
+/* WIMUMO SIMULATOR */
 
 
 .msg {
