@@ -560,11 +560,16 @@ div {
 
 button.zoomIn {
   background-image: url('../assets/images/zoomin.png');
+  background-repeat: no-repeat;
+  background-position: center;
   margin-right: 8px;
 }
 
 button.zoomOut {
   background-image: url('../assets/images/zoomout.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  
 }
 
 .graph>p {
