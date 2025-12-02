@@ -402,7 +402,7 @@ app.whenReady().then(() => {
   const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
 
-    //WIMUMO Simulator
+    //WIMUMO SIMULATOR
     if (simulatorON_OFF) {
       simulateWIMUMO(listeningPort);
     }
