@@ -13,6 +13,11 @@ const ping = require('ping');
 const osc = require('node-osc');
 const path = require('path');
 
+// WIMUMO SIMULATOR
+
+const simulatorON_OFF = false;
+const { simulateWIMUMO, closeClientSimulator } = require('./wimumoSimulator');
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
 if (require('electron-squirrel-startup')) {
@@ -136,7 +141,7 @@ function checkForStoppedData() {
       mainWindow.webContents.send('osc', 'CONNECTION LOST');
 
     } else {
-      console.log(`Last message received ${timeSinceLastMessage / 1000} seconds ago.`);
+      console.log(`Last message received ${timeSinceLastMessage / 1000} seconds ago.`); //DEBUG
     }
 
   }
@@ -199,6 +204,7 @@ app.whenReady().then(() => {
   app.on('window-all-closed', () => {
     oscServer.close();
     closeOscClients();
+    closeClientSimulator();
 
     // Guardar configuracion de redireccionamiento en disco
     fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig)); 
@@ -395,6 +401,12 @@ app.whenReady().then(() => {
 
   const oscServer = new osc.Server(listeningPort, '0.0.0.0', () => {
     console.log('OSC Server is listening');
+
+    //WIMUMO Simulator
+    if (simulatorON_OFF) {
+      simulateWIMUMO(listeningPort);
+    }
+    
   });
 
   oscServer.on('bundle', function (bundle) {
