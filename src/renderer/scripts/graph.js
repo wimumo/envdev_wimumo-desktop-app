@@ -188,6 +188,8 @@ class Graph {
       this.info.innerHTML = beforeZoomText + " / zoom = " + this.scaleLevel;
 
       this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
+
+      this.clearLine();
     }
 
   }
@@ -201,7 +203,14 @@ class Graph {
       this.info.innerHTML = beforeZoomText + " / zoom = " + this.scaleLevel;
 
       this.info.innerHTML = "<Strong>" + this.info.innerHTML + "</Strong>"
+
+      this.clearLine();
     }
+  }
+  clearLine(){
+    this.x = 0;
+    this.x_prev = 0;
+    this.setCanvas();
   }
 }
 
