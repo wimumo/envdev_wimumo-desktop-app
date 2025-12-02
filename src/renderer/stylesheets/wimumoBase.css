@@ -174,6 +174,7 @@ input {
   min-height: 24px;
   min-width: 24px;
 }
+
 /* Style for text, number inputs, and select elements */
 input[type="text"],
 input[type="number"],
@@ -569,7 +570,7 @@ button.zoomOut {
   background-image: url('../assets/images/zoomout.png');
   background-repeat: no-repeat;
   background-position: center;
-  
+
 }
 
 .graph>p {
@@ -1093,6 +1094,20 @@ footer {
   align-items: center;
   gap: 1rem;
 }
+
+/* WIMUMO SIMULATOR */
+
+.wimumo-sim-btn {
+  position: fixed;
+  bottom: 20px;
+  /* distance from bottom */
+  right: 20px;
+  /* distance from right */
+  z-index: 9999;
+  /* so it stays on top */
+}
+
+/* WIMUMO SIMULATOR */
 
 /*
   MUSIC

@@ -23,19 +23,40 @@ function menu_close() {
   document.getElementById('overlay').removeAttribute('shown');
 }
 
+/* WIMUMO SIMULATOR */
+
+let simulation = false;
+const wimumoSimBtn = document.getElementById("wimumoSimBtn");
+
+function startStopWimumoSimulator() {
+
+  // Manage btn
+  if ( !simulation ) {
+    wimumoSimBtn.textContent = "DEBUG: Detener simulación";
+    simulation = true
+  } else {
+    wimumoSimBtn.textContent = "DEBUG: Simular dispositivo WIMUMO";
+    simulation = false;
+  }
+
+  // send message
+  window.api.send('startStopWimumoSimulator');
+  
+}
+
 /* Codigo del container principal */
 
 // Codigo para que los screen reader lean la zona aria-live cuando aparece
 /*document.addEventListener("DOMContentLoaded", () => {
   const liveRegion = document.getElementById("HomePage");
   const text = liveRegion.innerHTML;
-
+ 
   liveRegion.innerHTML = ""; // Remove content
   setTimeout(() => {
     liveRegion.innerHTML = text; // Reinsert content after a short delay
   }, 100); // Short delay to trigger announcement
 });
-
+ 
 /* Pestañas */
 
 categories = ['instrucciones', 'configuracion', 'graficador', 'musica', 'rerouter', 'HomePage', 'guiasDeUso'];

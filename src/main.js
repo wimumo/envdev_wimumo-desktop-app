@@ -4,7 +4,7 @@ Este proceso se encarga de crear la ventana de Electron y trata con la logica pa
 Tambien se definen en este proceso todos los servidores y clientes OSC que reciven y mandan señales del 
 dispositivo WIMUMO, y se mantiene una comunicacion con la ventana de Electron para poder mostrar y tratar las señales. */
 
-const { app, BrowserWindow, ipcMain, Menu  } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const { networkInterfaces } = require('os');
 const http = require('http');
 const WebSocketServer = require('websocket').server;
@@ -16,7 +16,7 @@ const path = require('path');
 // WIMUMO SIMULATOR
 
 const simulatorON_OFF = false;
-const { simulateWIMUMO, closeClientSimulator } = require('./wimumoSimulator');
+const { simulateWIMUMO, closeClientSimulator, stopSimulation } = require('./wimumoSimulator');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -78,7 +78,7 @@ function readFileAtStartup() {
       console.error('Error parsing JSON:', parseErr);
     }
 
-  } )
+  })
 
   // Leer configuracion de redirección
   fs.readFile(configFilePath, 'utf-8', (err, data) => {
@@ -89,7 +89,7 @@ function readFileAtStartup() {
 
     // Do something with the file data
     console.log('File data:', data);
-    
+
     // JSON file parseado
     try {
       const config = JSON.parse(data);
@@ -150,11 +150,11 @@ function checkForStoppedData() {
 function closeOscClients() {
 
   oscClients.forEach(client => {
-    if( client ) {
+    if (client) {
       client.close();
     }
   })
-  
+
 }
 
 
@@ -207,8 +207,8 @@ app.whenReady().then(() => {
     closeClientSimulator();
 
     // Guardar configuracion de redireccionamiento en disco
-    fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig)); 
-    fs.writeFileSync(optionsFilePath, JSON.stringify(dataOptions)); 
+    fs.writeFileSync(configFilePath, JSON.stringify(dataRedirectConfig));
+    fs.writeFileSync(optionsFilePath, JSON.stringify(dataOptions));
     // --------------------------------------
 
     if (process.platform !== 'darwin') {
@@ -239,20 +239,39 @@ app.whenReady().then(() => {
     mainWindow.webContents.send('iplocal', results);
   });
 
+  // WIMUMO SIMULATOR
+
+  let simulation = false;
+
+  ipcMain.on('startStopWimumoSimulator', (event, arg) => {
+    /* WIMUMO SIMULATOR */
+
+    if (!simulation) {
+      simulateWIMUMO(listeningPort);
+      simulation = true;
+    } else {
+      stopSimulation();
+      simulation = false;
+    }
+
+  });
+
+  // WIMUMO SIMULATOR
+
   // Guardar Configuracion de señales de redirección
-  ipcMain.on('save-config', async(event, data) => {
-    /* Funcion que se encarga de guardar la configuracion del rerouter */ 
+  ipcMain.on('save-config', async (event, data) => {
+    /* Funcion que se encarga de guardar la configuracion del rerouter */
     /* El parametro Data es un array de diccionarios [ {cantidad_dir}, { ip, port, filter }, { ip, port, filter } ... ] */
-    
+
     dataRedirectConfig = data;
     console.log(`Configuracion de redirección guardada.`)
 
   });
 
   // Guardar Opciones
-  ipcMain.on('save-options', async(event, data) => {
-    /* Funcion que se encarga de guardar la configuracion de las opciones */ 
-   
+  ipcMain.on('save-options', async (event, data) => {
+    /* Funcion que se encarga de guardar la configuracion de las opciones */
+
     dataOptions = data;
     console.log(`Configuracion de opciones guardada.`)
 
@@ -406,7 +425,7 @@ app.whenReady().then(() => {
     if (simulatorON_OFF) {
       simulateWIMUMO(listeningPort);
     }
-    
+
   });
 
   oscServer.on('bundle', function (bundle) {

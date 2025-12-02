@@ -12,7 +12,8 @@ contextBridge.exposeInMainWorld(
             let validChannels = [
                 'get-iplocal', 'toggle-reruteo', 'ping-ip', 
                 'Add-RerouteAddress', 'Remove-RerouteAddress', 
-                'save-config', 'save-options' //Estas ultimas dos guardan los datos en disco
+                'save-config', 'save-options', //Estas ultimas dos guardan los datos en disco
+                'startStopWimumoSimulator'
             ];
             if (validChannels.includes(channel)) {
                 ipcRenderer.send(channel, data);
