@@ -96,7 +96,7 @@ app.whenReady().then(() => {
 
     //WIMUMO SIMULATOR
     if (simulatorON_OFF) {
-      simulateWIMUMO(listeningPort);
+      simulateWIMUMO(listeningPort, '127.0.0.1', '127.0.0.1', listeningPort, 100);
     }
 
   });
