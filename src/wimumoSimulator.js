@@ -8,12 +8,6 @@ let client = null;
 let messageInterval;
 let bundleInterval;
 
-//const client = new osc.Client('127.0.0.1', 4560); //Es mala idea deberia buscar la constante
-
-/*client.send('/test', 123, () => {
-  console.log('Message sent!');
-});*/
-
 // /wimumo020/env/ch1
 // /wimumo020/env/ch2
 // /wimumo020/info
@@ -21,7 +15,8 @@ let bundleInterval;
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const random = Array.from({ length: 5 }, () => randomInt(100, 1000));
+const random1 = Array.from({ length: 5 }, () => randomInt(-1000, 1000));
+const random2 = Array.from({ length: 5 }, () => randomInt(-1000, 1000));
 
 
 function simulateWIMUMO(listeningPort, ip = 'IP', targetIP = 'IP-OBJETIVO', targetPort = 'PUERTO-OBJETIVO', battery = 50) {
@@ -48,8 +43,8 @@ function simulateWIMUMO(listeningPort, ip = 'IP', targetIP = 'IP-OBJETIVO', targ
     const bundle = new osc.Bundle(
       new osc.Message(ch1Signature, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10),
       new osc.Message(ch2Signature, 100, 200, 300, 400, 500, 600, 0, 0, 0, 0),
-      new osc.Message(ch3Signature, ...random),
-      new osc.Message(ch4Signature, ...random)
+      new osc.Message(ch3Signature, ...random1),
+      new osc.Message(ch4Signature, ...random2)
     );
 
     client.send(bundle, () => {
