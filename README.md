@@ -11,8 +11,6 @@ Aplicación de escritorio para interacción con WIMUMO
 
 Muestra si se detectó un WIMUMO en la red.
 
-NO IMPLEMENTADO:
-
 Dialoga con WIMUMO para configurar los datos de osc (ip y puerto) de la computadora donde corre la aplicación (se puede hacer desde la página de configuración de WIMUMO, pero esto es más fácil para usuarios sin experiencia).
 
 Notifica si el OSC está activado.
@@ -29,7 +27,7 @@ Copiado de la app web anterior pero no implementado
 
 ### Ayuda para el uso de WIMUMO
 
-No implementado. 
+Guia dinamica para configurar el WIMUMO que puede ayudar a nuevos usuarios
 
 ### Calibración de canales
 
